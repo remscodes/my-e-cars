@@ -5,7 +5,13 @@
   "projects": {
     "my-e-cars": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "standalone": true,
+          "skipImport": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
