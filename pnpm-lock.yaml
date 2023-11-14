@@ -29,6 +29,9 @@ dependencies:
   '@angular/router':
     specifier: ^17.0.0
     version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
+  '@remscodes/renault-api-client':
+    specifier: ^1.0.0
+    version: 1.0.0
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -2245,6 +2248,21 @@ packages:
     dev: true
     optional: true
 
+  /@remscodes/renault-api-client@1.0.0:
+    resolution: {integrity: sha512-fYKwlBqmXftxav8ex9JVPdr7EIzPZ3Eca0rUJMLYBlqm8d+a1X4b0QfBeIArrvvJ4EeKyvfoJZxpKb10PQE7Yw==}
+    engines: {node: '>=18.13.0'}
+    dependencies:
+      '@remscodes/renault-api': 1.2.0
+      dayjs: 1.11.10
+      drino: 1.7.0
+      thror: 1.0.1
+    dev: false
+
+  /@remscodes/renault-api@1.2.0:
+    resolution: {integrity: sha512-kHuS0HEE0txveHjQ1ICdh/7l0G4u6mWgniEhudSVkBAye3bnaSNaFeIQZxhJsQqagFCErq4gGSsiTwidiBZngA==}
+    engines: {node: '>=18.13.0'}
+    dev: false
+
   /@schematics/angular@17.0.0:
     resolution: {integrity: sha512-9jKU5x/WzaBsfSkUowK1X74FqtMXa6+A60XgW4ACO8i6fwKfPeS+tIrAieeYOX80/njBh7I5CvcpHmWA2SbcXQ==}
     engines: {node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -3469,6 +3487,10 @@ packages:
     engines: {node: '>=4.0'}
     dev: true
 
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+    dev: false
+
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
     peerDependencies:
@@ -3630,6 +3652,13 @@ packages:
       domelementtype: 2.3.0
       domhandler: 5.0.3
     dev: true
+
+  /drino@1.7.0:
+    resolution: {integrity: sha512-wF+utu5tsMz8S6cvtCup0oGLNUSAMstydTgQtxFr4MDir0t+AmtfK+mx/eaviO+JrVX5K0y/fGnk4qaAxPCeMA==}
+    engines: {node: '>=18.13.0'}
+    dependencies:
+      thror: 1.0.1
+    dev: false
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -6872,6 +6901,11 @@ packages:
   /text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
+
+  /thror@1.0.1:
+    resolution: {integrity: sha512-9eQflGxhPv2NJr0c7aRjLnYzRmsEQcfMCGFb4SVKg3+CXcRqnD9cAwErlIZZUweNOkBomr4kPZJnZ4dMwMH1Iw==}
+    engines: {node: '>=18.0.0'}
+    dev: false
 
   /thunky@1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
