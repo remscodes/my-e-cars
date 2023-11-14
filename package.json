@@ -1,11 +1,25 @@
 {
   "name": "my-e-cars",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "author": {
+    "name": "Rémy Abitbol",
+    "url": "https://github.com/remscodes"
+  },
   "scripts": {
     "start": "ng serve",
+    "start:host": "ng serve --host 0.0.0.0 --port 3000 --disable-host-check",
     "build": "ng build",
-    "test": "ng test"
+    "types": "tsc --noEmit",
+    "test": "ng test --code-coverage",
+    "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadless"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remscodes/my-e-cars"
+  },
+  "engines": {
+    "node": ">=18.13.0"
   },
   "dependencies": {
     "@angular/animations": "^17.0.0",
