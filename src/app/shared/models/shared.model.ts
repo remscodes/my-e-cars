@@ -22,10 +22,6 @@ export type RequiredBy<T, P extends keyof T> =
   & Omit<T, P>
   & Required<Pick<T, P>>
 
-export type DateType =
-  | Date
-  | string;
-
 export type Day =
   | 'monday'
   | 'tuesday'

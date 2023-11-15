@@ -1,9 +1,9 @@
-import { AuthInfoService } from '@/auth/services/auth-info.service';
-import { Account, Person } from '@/renault/kamereon/models/person.model';
-import { Nullable } from '@/shared/models/shared.model';
-import { Bouncer } from '@/shared/services/bouncer.service';
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AccountInfo, Person } from '@remscodes/renault-api';
+import { Nullable } from '../../../../shared/models/shared.model';
+import { Bouncer } from '../../../../shared/services/bouncer.service';
+import { AuthInfoService } from '../../services/auth-info.service';
 
 @Component({
   templateUrl: './init-select-account.component.html',
@@ -21,7 +21,7 @@ export class InitSelectAccountComponent {
 
   public person: Signal<Nullable<Person>> = this.authInfoService.person;
 
-  public accounts: Account[] = this.authInfoService.person()?.accounts ?? [];
+  public accounts: AccountInfo[] = this.authInfoService.person()?.accounts ?? [];
 
   public accountIdControl: FormControl = new FormControl(this.authInfoService.selectedAccountId(), Validators.required);
 

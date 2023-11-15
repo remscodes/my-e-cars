@@ -1,13 +1,13 @@
-import { Account, Person } from '@/renault/kamereon/models/person.model';
-import { Nullable, Optional } from '@/shared/models/shared.model';
-import { StorageService } from '@/shared/services/storage.service';
 import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { AccountInfo, Person } from '@remscodes/renault-api';
+import { Nullable, Optional } from '../../../shared/models/shared.model';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthInfoService {
 
   public constructor(
-    private storageService: StorageService
+    private storageService: StorageService,
   ) {
     this.onEffect();
   }
@@ -22,10 +22,10 @@ export class AuthInfoService {
 
   public readonly selectedAccountId: WritableSignal<Nullable<string>> = signal(this.storageService.getAccountId());
 
-  public readonly selectedAccount: Signal<Optional<Account>> = computed(() => {
+  public readonly selectedAccount: Signal<Optional<AccountInfo>> = computed(() => {
     return this.person()
       ?.accounts
-      ?.find((account: Account) => account.accountId === this.selectedAccountId());
+      ?.find(account => account.accountId === this.selectedAccountId());
   });
 
   /* ------- */

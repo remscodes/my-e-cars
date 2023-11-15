@@ -1,16 +1,19 @@
-import { environment } from '@/environments/environment';
-import { IMAGE_ORIENTATION_KEY } from '@/renault/kamereon/kamereon.constants';
-import { BatteryStatus } from '@/renault/kamereon/models/battery-status.model';
-import { ChargeMode, Charges } from '@/renault/kamereon/models/charge.model';
-import { Nullable, Optional } from '@/shared/models/shared.model';
-import { StorageService } from '@/shared/services/storage.service';
 import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { Asset, Rendition, Tag, VehicleLink, Vehicles } from './kamereon/models/vehicle.model';
+import { BatteryStatus, ChargeMode, Charges, IMAGE_ORIENTATION_KEY, VehicleLink, Vehicles } from '@remscodes/renault-api';
+import { environment } from '../../../environments/environment';
+import { Nullable, Optional } from '../../shared/models/shared.model';
+import { StorageService } from '../../shared/services/storage.service';
 
 interface VehicleStats {
   batteryStatus: Nullable<BatteryStatus>;
   chargeMode: Nullable<ChargeMode>;
   charges: Nullable<Charges>;
+}
+
+interface Tag {
+  code?: string;
+  label?: string;
+  group?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -46,9 +49,9 @@ export class VehicleInfoService {
     return this.selectedVehicle()
       ?.vehicleDetails
       ?.assets
-      ?.find(({ viewpoint }: Asset) => (viewpoint === IMAGE_ORIENTATION_KEY.iso))
+      ?.find(({ viewpoint }) => (viewpoint === IMAGE_ORIENTATION_KEY.iso))
       ?.renditions
-      ?.find(({ resolutionType }: Rendition) => resolutionType?.endsWith('SMALL'))
+      ?.find(({ resolutionType }) => resolutionType?.endsWith('SMALL'))
       ?.url;
   });
 

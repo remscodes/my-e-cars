@@ -29,12 +29,18 @@ dependencies:
   '@angular/router':
     specifier: ^17.0.0
     version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
+  '@remscodes/renault-api':
+    specifier: ^1.2.0
+    version: 1.2.0
   '@remscodes/renault-api-client':
     specifier: ^1.0.0
     version: 1.0.0
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
+  thror:
+    specifier: ^1.0.1
+    version: 1.0.1
   tslib:
     specifier: ^2.3.0
     version: 2.6.2

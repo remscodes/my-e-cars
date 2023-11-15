@@ -1,11 +1,11 @@
-import { AuthInfoService } from '@/auth/services/auth-info.service';
-import { environment } from '@/environments/environment';
-import { Nullable } from '@/shared/models/shared.model';
-import { StorageService } from '@/shared/services/storage.service';
-import { addHeaderOnCondition, addParamOnCondition } from '@/shared/utils/request-util';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { Nullable } from '../../../shared/models/shared.model';
+import { StorageService } from '../../../shared/services/storage.service';
+import { addHeaderOnCondition, addParamOnCondition } from '../../../shared/utils/request-util';
+import { AuthInfoService } from '../services/auth-info.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

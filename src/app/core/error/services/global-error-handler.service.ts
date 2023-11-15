@@ -1,7 +1,6 @@
-import { __VERSION__ } from "@/environments/version";
-import { WINDOW } from "@/shared/tokens/window.token";
 import { isPlatformBrowser } from '@angular/common';
 import { ErrorHandler, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { WINDOW } from '../../../shared/tokens/window.token';
 
 interface ErrorBundle {
   version: string;
@@ -23,7 +22,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     console.error(`[ErrorHandler] Handled error -> ${(typeof error === 'string') ? error : JSON.stringify(error)}`);
 
     const errorBundle: ErrorBundle = {
-      version: __VERSION__,
+      version: "1",
       isBrowser: isPlatformBrowser(this.platformId),
       url: this.window.location.href,
       userAgent: this.window.navigator.userAgent,

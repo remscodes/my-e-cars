@@ -21,7 +21,12 @@
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
-      "dom"
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/typing"
     ]
   },
   "angularCompilerOptions": {
