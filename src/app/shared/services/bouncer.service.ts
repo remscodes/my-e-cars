@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AuthInfoService } from '../../core/auth/services/auth-info.service';
+import { VehicleInfoService } from '../../core/renault/vehicle-info.service';
 import { StorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })

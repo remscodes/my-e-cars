@@ -1,10 +1,10 @@
-import { Announcer } from '@/shared/services/announcer.service';
-import { BetterRouter } from "@/shared/services/better-router.service";
-import { Bouncer } from '@/shared/services/bouncer.service';
-import { StorageService } from "@/shared/services/storage.service";
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { Announcer } from '../../../shared/services/announcer.service';
+import { BetterRouter } from '../../../shared/services/better-router.service';
+import { Bouncer } from '../../../shared/services/bouncer.service';
+import { StorageService } from '../../../shared/services/storage.service';
 
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {

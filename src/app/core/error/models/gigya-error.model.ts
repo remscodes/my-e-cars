@@ -1,4 +1,4 @@
-import { DateType } from '@/shared/models/shared.model';
+import { DateType } from '@remscodes/renault-api';
 
 export interface GigyaError {
   callId?: string;
