@@ -1,0 +1,21 @@
+.loading-box {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.loading-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.loading-background {
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}

@@ -1,0 +1,16 @@
+.spinner {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  transform: rotate(90deg) scaleX(-1);
+  stroke-dasharray: 51;
+  stroke-dashoffset: 0;
+  animation: fill-stroke 3s linear infinite;
+}
+
+@keyframes fill-stroke {
+  to {
+    stroke-dashoffset: 202;
+    rotate: 1turn;
+  }
+}
