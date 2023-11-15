@@ -1,0 +1,16 @@
+<div *ngIf="displayNavBar" class="p-5">
+
+  <div @fadeToTop class="fx fx-align-start-stretch navbar not-selectable">
+
+    <div *ngFor="let item of items" class="fx fx-flex fx-row fx-align-center-center">
+
+      <div class="fx fx-column fx-align-center-center item"
+           (click)="navigate(item.link)">
+
+        <rems-icon [icon]="item.icon" [width]="30" [height]="30"></rems-icon>
+
+        <span class="item__label">{{item.label}}</span>
+      </div>
+    </div>
+  </div>
+</div>

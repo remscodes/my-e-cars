@@ -1,0 +1,35 @@
+<app-panel>
+
+  <div class="fx fx-align-center-center">
+    <span>CONNEXION</span>
+  </div>
+
+  <form [formGroup]="form" class="fx fx-column fx-gap-8" (ngSubmit)="onSubmit()">
+
+    <input remsInput
+           id="user-text-field"
+           type="email"
+           [formControl]="loginControl"
+           placeholder="Email *">
+
+    <input remsInput
+           id="current-password"
+           type="password"
+           [formControl]="passwordControl"
+           placeholder="Mot de passe *">
+
+    <!--        <span *ngIf="form.get('login')?.touched && !form.get('login')?.valid"-->
+    <!--              style="color: red;">L'identifiant et le mot de passe sont requis</span>-->
+
+    <div class="fx fx-align-center-center">
+
+      <button remsButton type="submit" [disabled]="form.invalid">
+        <span>SE CONNECTER</span>
+      </button>
+
+      <button (click)="enableDemo()">
+        <span>Démo</span>
+      </button>
+    </div>
+  </form>
+</app-panel>

@@ -1,0 +1,41 @@
+<app-panel>
+
+  <div *ngIf="person(); else loading" class="fx fx-column fx-gap-16">
+
+    <div class="fx fx-align-center-center">
+      <span style="font-weight: bold;">Comptes disponibles</span>
+    </div>
+
+    <form [formGroup]="form" class="fx fx-column fx-gap-16" (ngSubmit)="onSubmit()">
+
+      <div class="fx fx-column fx-gap-8">
+
+        <div *ngFor="let account of accounts" class="fx fx-row fx-gap-8">
+
+          <input remsInput
+                 type="radio"
+                 [disabled]="true"
+                 [value]="account.accountId"
+                 [formControl]="accountIdControl">
+
+          <span>{{account.accountType}}</span>
+        </div>
+      </div>
+
+      <div class="fx fx-row fx-align-center-center fx-gap-16">
+
+        <button remsButton type="button" (click)="logout()">
+          <span>RETOUR</span>
+        </button>
+
+        <button remsButton type="submit" [disabled]="form.invalid">
+          <span>CONFIRMER</span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <ng-template #loading>
+    <app-spinner></app-spinner>
+  </ng-template>
+</app-panel>

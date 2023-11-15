@@ -1,0 +1,13 @@
+<main class="flex flex-col justify-stretch">
+
+<!--  <app-vehicle-selector></app-vehicle-selector>-->
+
+  <div [@routeAnimations]="getRouteAnimationData()" class="flex-1 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
+
+  <app-bottom-nav-bar [displayNavBar]="!hideNavBar()"></app-bottom-nav-bar>
+</main>
+
+<!--<app-loading></app-loading>-->
+<!--<rems-dialog-container></rems-dialog-container>-->

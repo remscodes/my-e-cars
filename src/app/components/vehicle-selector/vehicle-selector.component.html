@@ -1,0 +1,14 @@
+<div class="fx fx-column">
+
+  <div class="fx fx-row fx-align-center-center fx-gap-4 p-10 bgc-primary" style="height: 64px;">
+
+    <div *ngIf="imageSrc()" style="position: relative;">
+      <img rigid
+           [src]="imageSrc()!"
+           class="car-img"
+           alt="">
+    </div>
+
+    <span id="vehicle-label">{{tag()?.label}}</span>
+  </div>
+</div>

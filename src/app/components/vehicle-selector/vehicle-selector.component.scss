@@ -1,0 +1,20 @@
+@use 'colors';
+
+.car-img {
+  position: static !important;
+  height: 40px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 0 10px colors.$accent);
+}
+
+#vehicle-label {
+  text-transform: uppercase;
+  color: white;
+  font-size: 14px;
+}
+
+@media screen and (width < 300px) {
+  #vehicle-label {
+    display: none;
+  }
+}
