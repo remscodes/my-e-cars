@@ -9,20 +9,18 @@ export class Bouncer {
   public constructor(
     private storageService: StorageService,
     private authInfoService: AuthInfoService,
-    private vehicleInfoService: VehicleInfoService
+    private vehicleInfoService: VehicleInfoService,
   ) { }
 
-  /* ------- */
-
   public clearSession(): void {
-    this.switchAccount();
+    this.clearAccount();
     this.authInfoService.token.set(null);
     this.authInfoService.personId.set(null);
     this.authInfoService.person.set(null);
     this.storageService.clearAllFromSession();
   }
 
-  public switchAccount(): void {
+  public clearAccount(): void {
     this.authInfoService.selectedAccountId.set(null);
     this.vehicleInfoService.selectedVin.set(null);
   }

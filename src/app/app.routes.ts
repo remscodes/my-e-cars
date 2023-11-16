@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/guards/auth.guard';
+import { ACCOUNT_PROVIDERS } from './pages/account/account.providers';
 import { HOME_PROVIDERS } from './pages/home/home.providers';
 import { LOCATION_PROVIDERS } from './pages/location/location.providers';
 
@@ -21,9 +22,7 @@ export const APP_ROUTES: Routes = [
     data: {
       animation: 'LocationPage',
     },
-    providers: [
-      LOCATION_PROVIDERS,
-    ],
+    providers: [LOCATION_PROVIDERS],
     loadChildren: () => import('./pages/location/location.routes').then(m => m.LOCATION_ROUTES),
   },
   {
@@ -33,7 +32,8 @@ export const APP_ROUTES: Routes = [
     data: {
       animation: 'AccountPage',
     },
-    loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule),
+    providers: [ACCOUNT_PROVIDERS],
+    loadChildren: () => import('./pages/account/account.routes').then(m => m.ACCOUNT_ROUTES),
   },
   {
     path: '',
