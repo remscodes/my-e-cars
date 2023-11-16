@@ -12,7 +12,13 @@
     "build": "ng build",
     "types": "tsc --noEmit",
     "test": "ng test --code-coverage",
-    "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadless"
+    "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadless",
+    "init": "npm run inject-version & npm run create-env-file",
+    "inject-version": "node ./scripts/inject-version.cjs",
+    "create-env-file": "node ./scripts/create-env-js.cjs",
+    "prestart": "npm run init",
+    "prebuild": "npm run init",
+    "pretest": "npm run init"
   },
   "repository": {
     "type": "git",
