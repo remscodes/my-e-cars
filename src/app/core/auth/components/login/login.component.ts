@@ -53,12 +53,7 @@ export class LoginComponent {
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: () => {
-        this.router.navigate(['init-select-account']).then();
-      },
-      error: (err: any) => {
-        console.error(err);
-      },
+      next: () => this.router.navigate(['init-select-account']).then(),
     });
   }
 
@@ -67,9 +62,5 @@ export class LoginComponent {
       && !this.loginControl.valid
       && this.passwordControl
       && !this.passwordControl.valid;
-  }
-
-  public enableDemo(): void {
-    this.connect('1', '1');
   }
 }

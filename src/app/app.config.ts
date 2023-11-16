@@ -4,6 +4,7 @@ import { APP_ROUTES } from './app.routes';
 import { provideCommonRootRouter } from './common/router-features';
 import { AUTH_PROVIDERS } from './core/auth/auth.providers';
 import { ERROR_PROVIDERS } from './core/error/error.providers';
+import { RENAULT_PROVIDERS } from './core/renault/renault.providers';
 import { APP_INITIALIZER_PROVIDERS } from './providers/app-initializers';
 
 export const appConfig: ApplicationConfig = {
@@ -14,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     APP_INITIALIZER_PROVIDERS,
     AUTH_PROVIDERS,
     ERROR_PROVIDERS,
+    RENAULT_PROVIDERS,
   ],
 };
