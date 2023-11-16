@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { VehicleInfoService } from '../../core/renault/services/vehicle-info.service';
 import { SharedDirectivesModule } from '../../shared/directives/shared-directives.module';
@@ -10,7 +10,10 @@ import { Optional } from '../../shared/models/shared.model';
   styleUrls: ['./vehicle-selector.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, SharedDirectivesModule],
+  imports: [
+    NgIf,
+    SharedDirectivesModule,
+  ],
 })
 export class VehicleSelectorComponent {
 

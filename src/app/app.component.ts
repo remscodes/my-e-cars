@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
@@ -12,7 +11,6 @@ import { BetterRouter } from './shared/services/better-router.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
     BottomNavBarComponent,
   ],

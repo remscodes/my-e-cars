@@ -19,7 +19,10 @@ export type DialogType =
   styleUrls: ['./confirmation-dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+  ],
 })
 export class ConfirmationDialogComponent {
 

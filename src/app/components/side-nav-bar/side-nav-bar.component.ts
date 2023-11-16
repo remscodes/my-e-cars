@@ -6,5 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./side-nav-bar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  imports: [],
 })
 export class SideNavBarComponent {}

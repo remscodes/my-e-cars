@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { fadeToTop } from '../../shared/animations/fade.animation';
@@ -17,7 +17,11 @@ interface MenuItem {
   animations: [fadeToTop],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [
+    NgIf,
+    NgForOf,
+    MatIconModule,
+  ],
 })
 export class BottomNavBarComponent {
 
