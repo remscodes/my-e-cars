@@ -1,0 +1,29 @@
+<div class="fx fx-fill fx-column" style="padding: 20px;">
+
+  <div class="fx fx-flex fx-column fx-gap-16 widget" style="padding: 20px;">
+
+    <div class="fx fx-align-center-center">
+      <span>Nom</span>
+    </div>
+
+    <span>Mes voitures</span>
+
+    <span>Mes préférences</span>
+
+    <button mat-flat-button>
+      <span>Thème</span>
+    </button>
+
+    <button mat-flat-button>
+      <span>Rafraîchissement des informations</span>
+    </button>
+
+    <button mat-flat-button (click)="switchAccount()">
+      <span>Changer de compte</span>
+    </button>
+
+    <button mat-flat-button (click)="logout()">
+      <span>Se Déconnecter</span>
+    </button>
+  </div>
+</div>
