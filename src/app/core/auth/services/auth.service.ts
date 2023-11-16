@@ -1,8 +1,10 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AccountInfo, LoginInfo, Person, TokenInfo } from '@remscodes/renault-api';
 import { concatMap, iif, Observable, of, tap } from 'rxjs';
+import { Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
-import { VehicleInfoService } from '../../renault/vehicle-info.service';
+import { VehicleInfoService } from '../../renault/services/vehicle-info.service';
 import { AuthInfoService } from './auth-info.service';
 
 @Injectable({ providedIn: 'root' })
@@ -48,7 +50,7 @@ export class AuthService {
     );
   }
 
-  public getJWT(): Observable<HttpResponse<Token>> {
+  public getJWT(): Observable<HttpResponse<TokenInfo>> {
     // return this.gigyaService.getJWT().pipe(
     //   tap({
     //     next: ({ body }: HttpResponse<Token>) => {
@@ -59,7 +61,7 @@ export class AuthService {
     // );
     return mockedResponse(mockJwt).pipe(
       tap({
-        next: ({ body }: HttpResponse<Token>) => {
+        next: ({ body }: HttpResponse<TokenInfo>) => {
           const token: Optional<string> = body?.id_token;
           if (token) this.authInfoService.token.set(token);
         },

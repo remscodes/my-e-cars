@@ -30,7 +30,7 @@ export const initDepsProvider: Provider = {
   multi: true,
 };
 
-export const appInitializerProviders: Provider[] = [
+export const APP_INITIALIZER_PROVIDERS: Provider[] = [
   initDepsProvider,
   addGoogleMapApiScriptProvider,
 ];

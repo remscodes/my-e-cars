@@ -12,7 +12,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   public constructor(
     private storageService: StorageService,
     private announcer: Announcer,
-    private router: BetterRouter
+    private router: BetterRouter,
   ) { }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -41,8 +41,8 @@ export class ServerErrorInterceptor implements HttpInterceptor {
             default :
               this.announcer.warn(`Une erreur s\'est produite (${err.status}).`);
           }
-        }
-      })
+        },
+      }),
     );
   }
 

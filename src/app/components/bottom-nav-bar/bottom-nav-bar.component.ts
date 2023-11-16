@@ -1,10 +1,11 @@
-import { fadeToTop } from '@/shared/animations/fade.animation';
-import { IconRegistry } from '@/shared/modules/rems-element/icon/utils/icon-util';
-import { BetterRouter } from '@/shared/services/better-router.service';
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { fadeToTop } from '../../shared/animations/fade.animation';
+import { BetterRouter } from '../../shared/services/better-router.service';
 
 interface MenuItem {
-  icon: IconRegistry;
+  icon: string;
   label: string;
   link: string;
 }
@@ -12,9 +13,11 @@ interface MenuItem {
 @Component({
   selector: 'app-bottom-nav-bar',
   templateUrl: './bottom-nav-bar.component.html',
-  styleUrls: ['./bottom-nav-bar.component.scss'],
+  styleUrls: ['./bottom-nav-bar.component.css'],
   animations: [fadeToTop],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, MatIconModule],
 })
 export class BottomNavBarComponent {
 
@@ -25,22 +28,22 @@ export class BottomNavBarComponent {
     {
       icon: 'home',
       label: 'Accueil',
-      link: 'home'
+      link: 'home',
     },
     {
       icon: 'my-location',
       label: 'Position',
-      link: 'location'
+      link: 'location',
     },
     {
       icon: 'account-circle',
       label: 'Profil',
-      link: 'account'
-    }
+      link: 'account',
+    },
   ];
 
   public constructor(
-    private router: BetterRouter
+    private router: BetterRouter,
   ) { }
 
   public navigate(link: string): void {

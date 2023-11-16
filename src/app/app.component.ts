@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
+import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
 import { Optional } from './shared/models/shared.model';
 import { BetterRouter } from './shared/services/better-router.service';
 
@@ -8,15 +9,19 @@ import { BetterRouter } from './shared/services/better-router.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    BottomNavBarComponent,
+  ],
 })
 export class AppComponent {
 
   public constructor(
     private router: BetterRouter,
-    private contexts: ChildrenOutletContexts
+    private contexts: ChildrenOutletContexts,
   ) { }
 
   public hideNavBar: Signal<boolean> = computed(() => this.router.navigationInfo().routeData['hideNavBar']);

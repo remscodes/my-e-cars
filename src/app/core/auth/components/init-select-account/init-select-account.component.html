@@ -12,7 +12,7 @@
 
         <div *ngFor="let account of accounts" class="fx fx-row fx-gap-8">
 
-          <input remsInput
+          <input matInput
                  type="radio"
                  [disabled]="true"
                  [value]="account.accountId"
@@ -24,11 +24,11 @@
 
       <div class="fx fx-row fx-align-center-center fx-gap-16">
 
-        <button remsButton type="button" (click)="logout()">
+        <button mat-icon-button type="button" (click)="logout()">
           <span>RETOUR</span>
         </button>
 
-        <button remsButton type="submit" [disabled]="form.invalid">
+        <button mat-icon-button type="submit" [disabled]="form.invalid">
           <span>CONFIRMER</span>
         </button>
       </div>

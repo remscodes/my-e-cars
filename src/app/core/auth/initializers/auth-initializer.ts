@@ -20,13 +20,9 @@ function initUserContext(authService: AuthService, router: BetterRouter, mWindow
   };
 }
 
-export const initUserContextProvider: Provider = {
+export const INIT_USER_CONTEXT_PROVIDER: Provider = {
   provide: APP_INITIALIZER,
   useFactory: initUserContext,
   deps: [AuthService, BetterRouter, WINDOW],
   multi: true,
 };
-
-export const authInitializerProviders: Provider[] = [
-  initUserContextProvider,
-];
