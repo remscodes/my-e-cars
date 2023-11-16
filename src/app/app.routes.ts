@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/guards/auth.guard';
+import { HOME_PROVIDERS } from './pages/home/home.providers';
 
 export const APP_ROUTES: Routes = [
   {
@@ -9,7 +10,8 @@ export const APP_ROUTES: Routes = [
     data: {
       animation: 'HomePage',
     },
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+    providers: [HOME_PROVIDERS],
+    loadChildren: () => import('./pages/home/home.routes').then(m => m.HOME_ROUTES),
   },
   {
     path: 'location',

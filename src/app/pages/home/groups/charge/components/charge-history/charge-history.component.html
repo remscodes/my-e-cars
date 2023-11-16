@@ -1,0 +1,38 @@
+<div class="fx fx-fill" style="padding: 20px;">
+
+  <div class="fx fx-flex fx-column fx-gap-8 widget">
+
+    <div class="fx fx-row">
+
+      <div class="fx fx-align-center-center" style="cursor: pointer;" (click)="back()">
+        <button mat-icon-button>
+          <mat-icon>arrow-back</mat-icon>
+<!--          <rems-icon icon="arrow-back" [width]="24" [height]="24"></rems-icon>-->
+        </button>
+      </div>
+
+      <div class="fx fx-flex fx-align-center-center">
+        <span>Historique de charge</span>
+      </div>
+
+      <div style="width: 24px;"></div>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+
+      <input matInput type="date" value="2023-02-02">
+
+      <input matInput type="date" formControlName="endDate">
+
+      <button mat-flat-button type="submit" [disabled]="form.invalid">
+        <span>Rechercher</span>
+      </button>
+    </form>
+
+    <div style="border-top: 2px solid rgb(128,128,128);"></div>
+
+    <div style="overflow: auto;">
+      <app-charge *ngFor="let charge of charges" [charge]="charge"></app-charge>
+    </div>
+  </div>
+</div>

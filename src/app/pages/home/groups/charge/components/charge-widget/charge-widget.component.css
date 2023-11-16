@@ -1,0 +1,52 @@
+.battery-container {
+  border-radius: 10px;
+  padding: 4px 10px;
+}
+
+.widget__bloc {
+  background-color: #e9e9e9;
+  padding: 10px;
+  border-radius: 20px;
+  transition: height 300ms ease;
+}
+
+.widget__bloc--charging {
+  position: relative;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 3px solid #00f000;
+    animation: clippath 3s linear reverse infinite;
+  }
+
+  &::after {
+    transform: rotateZ(0.5turn);
+  }
+}
+
+@keyframes clippath {
+  0%,
+  100% {
+    clip-path: inset(0 0 90% 0);
+  }
+  25% {
+    clip-path: inset(0 90% 0 0);
+  }
+  50% {
+    clip-path: inset(90% 0 0 0);
+  }
+  75% {
+    clip-path: inset(0 0 0 90%);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotateZ(1turn);
+  }
+}

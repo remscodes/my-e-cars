@@ -1,0 +1,25 @@
+<div class="fx fx-column fx-gap-8 widget">
+
+  <div class="fx fx-row">
+
+    <div class="fx fx-align-center-center" style="cursor: pointer;">
+      <mat-icon>sync</mat-icon>
+<!--      <rems-icon icon="sync" [width]="24" [height]="24"></rems-icon>-->
+    </div>
+
+    <div class="fx fx-row fx-flex fx-align-center-center fx-gap-4">
+
+      <mat-icon>electric-car</mat-icon>
+<!--      <rems-icon icon="electric-car" [width]="30" [height]="30"></rems-icon>-->
+
+      <ng-content select="[widget-title]"></ng-content>
+    </div>
+
+    <div class="fx fx-align-center-center" style="cursor: pointer;">
+      <mat-icon>info</mat-icon>
+<!--      <rems-icon icon="info" [width]="24" [height]="24"></rems-icon>-->
+    </div>
+  </div>
+
+  <ng-content select="[widget-content]"></ng-content>
+</div>
