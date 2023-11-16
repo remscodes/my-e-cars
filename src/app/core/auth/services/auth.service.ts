@@ -1,107 +1,74 @@
-import { HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AccountInfo, LoginInfo, Person, TokenInfo } from '@remscodes/renault-api';
-import { concatMap, iif, Observable, of, tap } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { AccountInfo, LoginInfo, Person, TokenInfo, Vehicles } from '@remscodes/renault-api';
+import { GigyaClient, KamereonClient, RenaultClient } from '@remscodes/renault-api-client';
+import { concatMap, from, iif, Observable, of, tap } from 'rxjs';
 import { Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
 import { VehicleInfoService } from '../../renault/services/vehicle-info.service';
+import { RENAULT_CLIENT } from '../../renault/tokens/renault-client.token';
 import { AuthInfoService } from './auth-info.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   public constructor(
-    private gigyaService: GigyaService,
-    private kamereonService: KamereonService,
+    @Inject(RENAULT_CLIENT) private renaultClient: RenaultClient,
     private storageService: StorageService,
     private authInfoService: AuthInfoService,
     private vehicleInfoService: VehicleInfoService,
   ) { }
 
-  /* ------- */
+  private gigya: GigyaClient = this.renaultClient.gigya;
+  private kamereon: KamereonClient = this.renaultClient.kamereon;
 
-  public login(loginID: string, password: string): Observable<HttpResponse<LoginInfo>> {
-    return this.gigyaService.login(loginID, password).pipe(
+  public login(loginID: string, password: string): Observable<LoginInfo> {
+    return from(this.gigya.login(loginID, password)).pipe(
       tap({
-        next: ({ body }: HttpResponse<LoginInfo>) => {
-          const loginToken: Optional<string> = body?.sessionInfo?.cookieValue;
+        next: (login: LoginInfo) => {
+          const loginToken: Optional<string> = login?.sessionInfo?.cookieValue;
           (loginToken) && this.storageService.setGigyaToken(loginToken);
         },
       }),
     );
   }
 
-  public getAccountInfo(): Observable<HttpResponse<AccountInfo>> {
-    // return this.gigyaService.getAccountInfo().pipe(
-    //   tap({
-    //     next: ({ body }: HttpResponse<AccountInfo>) => {
-    //       const personId: Optional<string> = body?.data?.personId;
-    //       if (personId) this.authInfoService.personId.set(personId);
-    //     }
-    //   })
-    // );
-    return mockedResponse(mockAccountInfo).pipe(
+  public getAccountInfo(): Observable<AccountInfo> {
+    return from(this.gigya.getAccountInfo()).pipe(
       tap({
-        next: ({ body }: HttpResponse<AccountInfo>) => {
-          const personId: Optional<string> = body?.data?.personId;
+        next: (account: AccountInfo) => {
+          const personId: Optional<string> = account?.data?.personId;
           if (personId) this.authInfoService.personId.set(personId);
         },
       }),
     );
   }
 
-  public getJWT(): Observable<HttpResponse<TokenInfo>> {
-    // return this.gigyaService.getJWT().pipe(
-    //   tap({
-    //     next: ({ body }: HttpResponse<Token>) => {
-    //       const token: Optional<string> = body?.id_token;
-    //       if (token) this.authInfoService.token.set(token);
-    //     }
-    //   })
-    // );
-    return mockedResponse(mockJwt).pipe(
+  public getJWT(): Observable<TokenInfo> {
+    return from(this.gigya.getJwt()).pipe(
       tap({
-        next: ({ body }: HttpResponse<TokenInfo>) => {
-          const token: Optional<string> = body?.id_token;
+        next: (info: TokenInfo) => {
+          const token: Optional<string> = info?.id_token;
           if (token) this.authInfoService.token.set(token);
         },
       }),
     );
   }
 
-  public getPerson(personId: string): Observable<HttpResponse<Person>> {
-    // return this.kamereonService.getPerson(personId).pipe(
-    //   tap({
-    //     next: ({ body: person }: HttpResponse<Person>) => {
-    //       if (person) this.authInfoService.person.set(person);
-    //     }
-    //   })
-    // );
-    return mockedResponse(mockPerson).pipe(
+  public getPerson(personId: string): Observable<Person> {
+    return from(this.kamereon.getPerson(personId)).pipe(
       tap({
-        next: ({ body: person }: HttpResponse<Person>) => {
+        next: (person: Person) => {
           if (person) this.authInfoService.person.set(person);
         },
       }),
     );
   }
 
-  public getVehicles(accountId: string): Observable<HttpResponse<Vehicles>> {
-    // return this.kamereonService.getAccountVehicles(accountId).pipe(
-    //   tap({
-    //     next: ({ body: vehicles }: HttpResponse<Vehicles>) => {
-    //       if (vehicles) {
-    //         this.vehicleInfoService.vehicles.set(vehicles);
-    //       }
-    //     }
-    //   })
-    // );
-    return mockedResponse(mockAccountVehicles).pipe(
+  public getVehicles(accountId: string): Observable<Vehicles> {
+    return from(this.kamereon.getAccountVehicles(accountId)).pipe(
       tap({
-        next: ({ body: vehicles }: HttpResponse<Vehicles>) => {
-          if (vehicles) {
-            this.vehicleInfoService.vehicles.set(vehicles);
-          }
+        next: (vehicles: Vehicles) => {
+          if (vehicles) this.vehicleInfoService.vehicles.set(vehicles);
         },
       }),
     );
@@ -110,7 +77,7 @@ export class AuthService {
   public getAuthInfos(): Observable<any> {
     return this.getJWT().pipe(
       concatMap(() => this.getAccountInfo()),
-      concatMap(({ body }: HttpResponse<AccountInfo>) => this.getPerson(body?.data?.personId!)),
+      concatMap((account: AccountInfo) => this.getPerson(account?.data?.personId!)),
       concatMap(() => iif(
         () => !!this.storageService.getAccountId(),
         this.getVehicles(this.storageService.getAccountId()!),
