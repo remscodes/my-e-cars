@@ -1,7 +1,7 @@
 import { effect, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { BetterRouter } from '../../../shared/services/better-router.service';
-import { VehicleInfoService } from '../../renault/vehicle-info.service';
+import { VehicleInfoService } from '../../renault/services/vehicle-info.service';
 import { AuthInfoService } from './auth-info.service';
 
 @Injectable({ providedIn: 'root' })
@@ -10,12 +10,10 @@ export class RedirectionService {
   public constructor(
     private authInfoService: AuthInfoService,
     private vehicleInfoService: VehicleInfoService,
-    private router: BetterRouter
+    private router: BetterRouter,
   ) {
     this.observe();
   }
-
-  /* ------- */
 
   private observe(): void {
     effect(() => {

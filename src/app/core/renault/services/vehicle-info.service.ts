@@ -1,8 +1,8 @@
 import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { BatteryStatus, ChargeMode, Charges, IMAGE_ORIENTATION_KEY, VehicleLink, Vehicles } from '@remscodes/renault-api';
-import { environment } from '../../../environments/environment';
-import { Nullable, Optional } from '../../shared/models/shared.model';
-import { StorageService } from '../../shared/services/storage.service';
+import { environment } from '../../../../environments/environment';
+import { Nullable, Optional } from '../../../shared/models/shared.model';
+import { StorageService } from '../../../shared/services/storage.service';
 
 interface VehicleStats {
   batteryStatus: Nullable<BatteryStatus>;
@@ -24,8 +24,6 @@ export class VehicleInfoService {
   ) {
     this.onEffect();
   }
-
-  /* ------- */
 
   public readonly vehicles: WritableSignal<Nullable<Vehicles>> = signal(null);
 
@@ -64,8 +62,6 @@ export class VehicleInfoService {
   public readonly batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.lastStats().batteryStatus);
   public readonly chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.lastStats().chargeMode);
   public readonly charges: Signal<Nullable<Charges>> = computed(() => this.lastStats().charges);
-
-  /* ------- */
 
   public updateBatteryStatus(batteryStatus: BatteryStatus): void {
     this.lastStats.update((stats: VehicleStats) => ({

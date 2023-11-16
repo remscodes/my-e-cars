@@ -44,16 +44,11 @@ export class AuthInfoService {
     });
 
     effect(() => {
-
-    });
-
-    effect(() => {
       const accountId: Nullable<string> = this.selectedAccountId();
 
       (accountId)
         ? this.storageService.setAccountId(accountId)
         : this.storageService.clearAccountId();
     });
-
   }
 }

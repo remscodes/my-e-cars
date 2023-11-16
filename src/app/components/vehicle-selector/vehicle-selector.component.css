@@ -1,10 +1,8 @@
-@use 'colors';
-
 .car-img {
   position: static !important;
   height: 40px !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 0 10px colors.$accent);
+  filter: drop-shadow(0 0 10px var(--accent-color));
 }
 
 #vehicle-label {

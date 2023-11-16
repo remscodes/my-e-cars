@@ -15,18 +15,18 @@ export class GlobalErrorHandler implements ErrorHandler {
 
   public constructor(
     @Inject(WINDOW) private window: Window,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
   ) { }
 
   public handleError(error: any): void {
     console.error(`[ErrorHandler] Handled error -> ${(typeof error === 'string') ? error : JSON.stringify(error)}`);
 
     const errorBundle: ErrorBundle = {
-      version: "1",
+      version: '1',
       isBrowser: isPlatformBrowser(this.platformId),
       url: this.window.location.href,
       userAgent: this.window.navigator.userAgent,
-      error
+      error,
     };
 
     console.error(`[ErrorHandler] Bundled information -> ${JSON.stringify(errorBundle)}`);

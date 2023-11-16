@@ -13,18 +13,16 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
     private storageService: StorageService,
     private router: BetterRouter,
     private announcer: Announcer,
-    private bouncer: Bouncer
+    private bouncer: Bouncer,
   ) { }
-
-  /* ------- */
 
   public intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       tap({
         error: (err: HttpErrorResponse) => {
           if (err.status === 401) this.closeSession();
-        }
-      })
+        },
+      }),
     );
   }
 

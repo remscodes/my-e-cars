@@ -3,9 +3,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-side-nav-bar',
   templateUrl: './side-nav-bar.component.html',
-  styleUrls: ['./side-nav-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./side-nav-bar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
 })
-export class SideNavBarComponent {
-
-}
+export class SideNavBarComponent {}

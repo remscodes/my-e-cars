@@ -1,6 +1,6 @@
-import { RemsDialogRef } from '@/rems-element/dialog/services/rems-dialog-ref.service';
-import { REMS_DIALOG_DATA } from '@/rems-element/dialog/tokens/rems-dialog-data.token';
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 export interface DialogData {
   title?: string;
@@ -16,13 +16,15 @@ export type DialogType =
 
 @Component({
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./confirmation-dialog.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
 })
 export class ConfirmationDialogComponent {
 
   public constructor(
-    @Inject(REMS_DIALOG_DATA) public data: DialogData,
-    public dialogRef: RemsDialogRef
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
   ) { }
 }
