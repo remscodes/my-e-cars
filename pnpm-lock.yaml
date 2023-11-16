@@ -41,6 +41,9 @@ dependencies:
   '@remscodes/renault-api-client':
     specifier: ^1.0.0
     version: 1.0.0
+  dayjs:
+    specifier: ^1.11.10
+    version: 1.11.10
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1

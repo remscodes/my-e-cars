@@ -1,0 +1,24 @@
+<form [formGroup]="form" class="fx fx-column fx-gap-16 p-20" (ngSubmit)="onSubmit()">
+
+  <div class="fx fx-align-center-center p-20" style="background-color: #f2f2f2; border-radius: 20px;">
+    <span style="font-size: 20px; font-weight: bold;">Charge différée</span>
+  </div>
+
+  <div class="fx fx-column fx-align-center-center fx-gap-8">
+
+    <span>Choissez une heure</span>
+
+    <input matInput type="time" formControlName="time">
+  </div>
+
+  <div class="fx fx-column fx-gap-16">
+
+    <button mat-flat-button type="submit" [disabled]="form.invalid">
+      <span>Valider</span>
+    </button>
+
+    <button mat-flat-button (click)="close()">
+      <span>Annuler</span>
+    </button>
+  </div>
+</form>
