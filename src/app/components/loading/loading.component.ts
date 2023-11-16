@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from "@angular/animations";
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, OnChanges, Signal, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
@@ -24,7 +24,11 @@ import { WINDOW } from '../../shared/tokens/window.token';
     ]),
   ],
   standalone: true,
-  imports: [CommonModule, MatIconModule, SpinnerComponent],
+  imports: [
+    NgIf,
+    MatIconModule,
+    SpinnerComponent,
+  ],
 })
 export class LoadingComponent implements OnChanges {
 

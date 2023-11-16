@@ -3,9 +3,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 @Component({
   selector: 'app-panel',
   templateUrl: './panel.component.html',
-  styleUrls: ['./panel.component.scss'],
+  styleUrls: ['./panel.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  imports: [],
 })
 export class PanelComponent {
 
