@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BetterSchedule } from '../../components/charge-mode/charge-mode.component';
+import { WeekRibbonComponent } from '../../components/week-ribbon/week-ribbon.component';
 
 export interface AddWeekScheduleDialogComponentData {
   index: number;
@@ -12,7 +13,9 @@ export interface AddWeekScheduleDialogComponentData {
   styleUrls: ['./add-week-schedule-dialog.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [
+    WeekRibbonComponent,
+  ],
 })
 export class AddWeekScheduleDialogComponent {
 

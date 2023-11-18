@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { VehicleSelectorComponent } from './components/vehicle-selector/vehicle-selector.component';
 import { Optional } from './shared/models/shared.model';
 import { BetterRouter } from './shared/services/better-router.service';
 
@@ -13,6 +15,8 @@ import { BetterRouter } from './shared/services/better-router.service';
   imports: [
     RouterOutlet,
     BottomNavBarComponent,
+    VehicleSelectorComponent,
+    LoadingComponent,
   ],
 })
 export class AppComponent {
