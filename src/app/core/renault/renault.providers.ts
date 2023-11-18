@@ -8,7 +8,7 @@ export const RENAULT_PROVIDERS: Provider[] = [
   {
     provide: RENAULT_CLIENT,
     deps: [StorageService],
-    useFactory: (storage: StorageService) => () => {
+    useFactory: (storage: StorageService) => {
       const client = new RenaultClient();
 
       const token: Nullable<string> = storage.getToken();
