@@ -39,8 +39,8 @@ dependencies:
     specifier: ^17.0.0
     version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
   '@remscodes/renault-api':
-    specifier: ^1.2.0
-    version: 1.2.0
+    specifier: ^1.2.2
+    version: 1.2.2
   '@remscodes/renault-api-client':
     specifier: ^1.0.0
     version: 1.0.0
@@ -3037,14 +3037,14 @@ packages:
     resolution: {integrity: sha512-fYKwlBqmXftxav8ex9JVPdr7EIzPZ3Eca0rUJMLYBlqm8d+a1X4b0QfBeIArrvvJ4EeKyvfoJZxpKb10PQE7Yw==}
     engines: {node: '>=18.13.0'}
     dependencies:
-      '@remscodes/renault-api': 1.2.0
+      '@remscodes/renault-api': 1.2.2
       dayjs: 1.11.10
       drino: 1.7.0
       thror: 1.0.1
     dev: false
 
-  /@remscodes/renault-api@1.2.0:
-    resolution: {integrity: sha512-kHuS0HEE0txveHjQ1ICdh/7l0G4u6mWgniEhudSVkBAye3bnaSNaFeIQZxhJsQqagFCErq4gGSsiTwidiBZngA==}
+  /@remscodes/renault-api@1.2.2:
+    resolution: {integrity: sha512-7iamPwBH54SzHhnz06r9SPjoplT/6vcjS0zCO1pBSaaZZB82Ib+hHAtNy8LxVA62OHoTbGuhWEZTaGwnmGtwnQ==}
     engines: {node: '>=18.13.0'}
     dev: false
 
