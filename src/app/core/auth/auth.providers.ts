@@ -1,16 +1,15 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from '@angular/common/http';
 import { EnvironmentProviders, Provider } from '@angular/core';
 import { provideCommonRootRouter } from '../../common/router-features';
 import { AUTH_ROUTES } from './auth.routes';
 import { INIT_USER_CONTEXT_PROVIDER } from './initializers/auth-initializer';
-import { AuthExpiredInterceptor } from './interceptors/auth-expired.interceptor';
+import { authExpiredInterceptor } from './interceptors/auth-expired.interceptor';
 
 export const AUTH_PROVIDERS: (Provider | EnvironmentProviders)[] = [
   provideCommonRootRouter(AUTH_ROUTES),
+  provideHttpClient(
+    withInterceptors([authExpiredInterceptor()]),
+    withRequestsMadeViaParent(),
+  ),
   INIT_USER_CONTEXT_PROVIDER,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthExpiredInterceptor,
-    multi: true,
-  },
 ];
