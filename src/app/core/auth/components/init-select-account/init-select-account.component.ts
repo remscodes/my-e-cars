@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +16,8 @@ import { AuthInfoService } from '../../services/auth-info.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
+    NgForOf,
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
@@ -31,19 +32,13 @@ export class InitSelectAccountComponent {
     private bouncer: Bouncer,
   ) { }
 
-  /* ------- */
-
   public person: Signal<Nullable<Person>> = this.authInfoService.person;
 
   public accounts = this.authInfoService.person()?.accounts ?? [];
 
-  public accountIdControl: FormControl = new FormControl(this.authInfoService.selectedAccountId(), Validators.required);
-
   public form: FormGroup = new FormGroup({
-    accountId: this.accountIdControl,
+    accountId: new FormControl(this.authInfoService.selectedAccountId(), Validators.required),
   });
-
-  /* ------- */
 
   public onSubmit(): void {
     if (this.form.invalid) return;
