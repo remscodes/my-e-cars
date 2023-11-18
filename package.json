@@ -2,23 +2,21 @@
   "name": "my-e-cars",
   "version": "0.0.0",
   "private": true,
+  "license": "Apache 2.0",
   "author": {
     "name": "Rémy Abitbol",
     "url": "https://github.com/remscodes"
   },
   "scripts": {
-    "start": "ng serve",
+    "start": "npm run init && ng serve",
     "start:host": "ng serve --host 0.0.0.0 --port 3000 --disable-host-check",
-    "build": "ng build",
+    "build": "npm run init && ng build",
     "types": "tsc --noEmit",
-    "test": "ng test --code-coverage",
+    "test": "npm run init && ng test --code-coverage",
     "test:ci": "npm run test -- --no-watch --no-progress --browsers=ChromeHeadless",
     "init": "npm run inject-version & npm run create-env-file",
     "inject-version": "node ./scripts/inject-version.cjs",
-    "create-env-file": "node ./scripts/create-env-js.cjs",
-    "prestart": "npm run init",
-    "prebuild": "npm run init",
-    "pretest": "npm run init"
+    "create-env-file": "node ./scripts/create-env-js.cjs"
   },
   "repository": {
     "type": "git",
