@@ -6,7 +6,7 @@ import { provideCommonRootRouter } from './common/router-features';
 import { AUTH_PROVIDERS } from './core/auth/auth.providers';
 import { ERROR_PROVIDERS } from './core/error/error.providers';
 import { RENAULT_PROVIDERS } from './core/renault/renault.providers';
-import { APP_INITIALIZER_PROVIDERS } from './providers/app-initializers';
+import { APP_INITIALIZER_PROVIDERS } from './initializers/app-initializers';
 
 export const appConfig: ApplicationConfig = {
   providers: [

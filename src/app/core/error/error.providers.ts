@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptors, withRequestsMadeViaParent } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { EnvironmentProviders, Provider } from '@angular/core';
 import { provideCommonRootRouter } from '../../common/router-features';
 import { ERROR_ROUTES } from './error.routes';
@@ -8,6 +8,5 @@ export const ERROR_PROVIDERS: (Provider | EnvironmentProviders)[] = [
   provideCommonRootRouter(ERROR_ROUTES),
   provideHttpClient(
     withInterceptors([serverErrorInterceptor()]),
-    withRequestsMadeViaParent(),
   ),
 ];
