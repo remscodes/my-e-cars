@@ -38,12 +38,12 @@ dependencies:
   '@angular/router':
     specifier: ^17.0.0
     version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
+  '@remscodes/ngx-renault-api-client':
+    specifier: ^1.0.0
+    version: 1.0.0(@angular/common@17.0.2)(@angular/core@17.0.2)(@remscodes/renault-api@1.2.2)(dayjs@1.11.10)(rxjs@7.8.1)(thror@1.0.1)
   '@remscodes/renault-api':
     specifier: ^1.2.2
     version: 1.2.2
-  '@remscodes/renault-api-client':
-    specifier: ^1.0.0
-    version: 1.0.0
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -3033,14 +3033,24 @@ packages:
     dev: true
     optional: true
 
-  /@remscodes/renault-api-client@1.0.0:
-    resolution: {integrity: sha512-fYKwlBqmXftxav8ex9JVPdr7EIzPZ3Eca0rUJMLYBlqm8d+a1X4b0QfBeIArrvvJ4EeKyvfoJZxpKb10PQE7Yw==}
+  /@remscodes/ngx-renault-api-client@1.0.0(@angular/common@17.0.2)(@angular/core@17.0.2)(@remscodes/renault-api@1.2.2)(dayjs@1.11.10)(rxjs@7.8.1)(thror@1.0.1):
+    resolution: {integrity: sha512-GR6Npx9vOX0dY80NNxijRHTtJT5mJhfu8oW+fA/Z32amavhbH27SW4b74UXuO5j+TXM5KHS05KvWjVqz81uwnA==}
     engines: {node: '>=18.13.0'}
+    peerDependencies:
+      '@angular/common': ^17.0.0
+      '@angular/core': ^17.0.0
+      '@remscodes/renault-api': ^1.2.2
+      dayjs: ^1.11.10
+      rxjs: ~7.8.0
+      thror: ^1.0.1
     dependencies:
+      '@angular/common': 17.0.2(@angular/core@17.0.2)(rxjs@7.8.1)
+      '@angular/core': 17.0.2(rxjs@7.8.1)(zone.js@0.14.2)
       '@remscodes/renault-api': 1.2.2
       dayjs: 1.11.10
-      drino: 1.7.0
+      rxjs: 7.8.1
       thror: 1.0.1
+      tslib: 2.6.2
     dev: false
 
   /@remscodes/renault-api@1.2.2:
@@ -4466,13 +4476,6 @@ packages:
       domelementtype: 2.3.0
       domhandler: 5.0.3
     dev: true
-
-  /drino@1.7.0:
-    resolution: {integrity: sha512-wF+utu5tsMz8S6cvtCup0oGLNUSAMstydTgQtxFr4MDir0t+AmtfK+mx/eaviO+JrVX5K0y/fGnk4qaAxPCeMA==}
-    engines: {node: '>=18.13.0'}
-    dependencies:
-      thror: 1.0.1
-    dev: false
 
   /eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
