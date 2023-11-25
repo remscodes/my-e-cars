@@ -18,16 +18,16 @@ function addGoogleMapApiScript(mWindow: Window): () => Promise<boolean> {
 
 export const addGoogleMapApiScriptProvider: Provider = {
   provide: APP_INITIALIZER,
-  useFactory: addGoogleMapApiScript,
-  deps: [WINDOW],
   multi: true,
+  deps: [WINDOW],
+  useFactory: addGoogleMapApiScript,
 };
 
 export const initDepsProvider: Provider = {
   provide: APP_INITIALIZER,
-  useFactory: () => () => {},
-  deps: [BetterRouter, RedirectionService],
   multi: true,
+  deps: [BetterRouter, RedirectionService],
+  useFactory: () => () => {},
 };
 
 export const APP_INITIALIZER_PROVIDERS: Provider[] = [
