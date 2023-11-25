@@ -16,7 +16,7 @@ export type DialogType =
 
 @Component({
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css'],
+  styleUrl: './confirmation-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

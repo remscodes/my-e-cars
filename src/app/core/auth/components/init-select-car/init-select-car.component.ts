@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   templateUrl: './init-select-car.component.html',
-  styleUrls: ['./init-select-car.component.css'],
+  styleUrl: './init-select-car.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

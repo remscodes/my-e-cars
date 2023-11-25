@@ -12,37 +12,20 @@ export class AuthInfoService {
     this.onEffect();
   }
 
-  /* ------- */
-
-  public readonly gigyaToken: WritableSignal<Nullable<string>> = signal(this.storageService.getGigyaToken());
-  public readonly token: WritableSignal<Nullable<string>> = signal(this.storageService.getToken());
-
   public readonly personId: WritableSignal<Nullable<string>> = signal(null);
   public readonly person: WritableSignal<Nullable<Person>> = signal(null);
 
   public readonly selectedAccountId: WritableSignal<Nullable<string>> = signal(this.storageService.getAccountId());
 
   public readonly selectedAccount: Signal<Optional<AccountInfo>> = computed(() => {
-    return this.person()
-      ?.accounts
-      ?.find(account => account.accountId === this.selectedAccountId());
+    return this.person()?.accounts?.find(acc => acc.accountId === this.selectedAccountId());
   });
-
-  /* ------- */
 
   public isAuthenticated(): boolean {
     return !!this.person();
   }
 
   private onEffect(): void {
-    effect(() => {
-      const gigyaToken: Nullable<string> = this.gigyaToken();
-
-      (gigyaToken)
-        ? this.storageService.setGigyaToken(gigyaToken)
-        : this.storageService.clearGigyaToken();
-    });
-
     effect(() => {
       const accountId: Nullable<string> = this.selectedAccountId();
 

@@ -12,7 +12,7 @@ import { AuthInfoService } from '../../services/auth-info.service';
 
 @Component({
   templateUrl: './init-select-account.component.html',
-  styleUrls: ['./init-select-account.component.css'],
+  styleUrl: './init-select-account.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
