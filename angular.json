@@ -8,7 +8,12 @@
       "schematics": {
         "@schematics/angular:component": {
           "changeDetection": "OnPush",
-          "standalone": true,
+          "skipImport": true
+        },
+        "@schematics/angular:directive": {
+          "skipImport": true
+        },
+        "@schematics/angular:pipe": {
           "skipImport": true
         }
       },
@@ -33,7 +38,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "dayjs"
+            ]
           },
           "configurations": {
             "production": {
