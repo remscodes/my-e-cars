@@ -8,7 +8,7 @@ import { Optional } from '../../shared/models/shared.model';
 @Component({
   selector: 'app-vehicle-selector',
   templateUrl: './vehicle-selector.component.html',
-  styleUrls: ['./vehicle-selector.component.css'],
+  styleUrl: './vehicle-selector.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -21,8 +21,6 @@ export class VehicleSelectorComponent {
   public constructor(
     private vehicleInfoService: VehicleInfoService,
   ) { }
-
-  /* ------- */
 
   public tag: Signal<Optional<VehicleDetails['model']>> = this.vehicleInfoService.selectedModel;
   public imageSrc: Signal<Optional<string>> = this.vehicleInfoService.selectedImgSrc;

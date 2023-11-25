@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrl: './login.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

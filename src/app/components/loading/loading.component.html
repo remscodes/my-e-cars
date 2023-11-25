@@ -1,11 +1,11 @@
 <div *ngIf="active()" @loadingAnimation class="fx fx-column fx-align-center-center loading-background">
 
   <div class="fx fx-column fx-align-center-center p-20 loading-box">
-    <app-spinner></app-spinner>
+    <app-spinner/>
   </div>
 
   <div *ngIf="canClose" class="loading-close">
     <mat-icon (click)="forceClose()">close</mat-icon>
-<!--    <rems-icon icon="close" (click)="forceClose()"></rems-icon>-->
+    <!--    <rems-icon icon="close" (click)="forceClose()"></rems-icon>-->
   </div>
 </div>

@@ -14,7 +14,7 @@ export class Bouncer {
 
   public clearSession(): void {
     this.clearAccount();
-    this.authInfoService.token.set(null);
+    this.storageService.clearToken();
     this.authInfoService.personId.set(null);
     this.authInfoService.person.set(null);
     this.storageService.clearAllFromSession();

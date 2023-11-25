@@ -1,4 +1,4 @@
-import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { fadeToTop } from '../../shared/animations/fade.animation';
@@ -13,7 +13,7 @@ interface MenuItem {
 @Component({
   selector: 'app-bottom-nav-bar',
   templateUrl: './bottom-nav-bar.component.html',
-  styleUrls: ['./bottom-nav-bar.component.css'],
+  styleUrl: './bottom-nav-bar.component.css',
   animations: [fadeToTop],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
@@ -24,6 +24,10 @@ interface MenuItem {
   ],
 })
 export class BottomNavBarComponent {
+
+  public constructor(
+    private router: BetterRouter,
+  ) { }
 
   @Input()
   public displayNavBar: boolean = true;
@@ -45,10 +49,6 @@ export class BottomNavBarComponent {
       link: 'account',
     },
   ];
-
-  public constructor(
-    private router: BetterRouter,
-  ) { }
 
   public navigate(link: string): void {
     this.router.navigate([link]).then();

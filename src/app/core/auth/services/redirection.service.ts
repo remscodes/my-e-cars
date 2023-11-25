@@ -19,9 +19,7 @@ export class RedirectionService {
     effect(() => {
       if (environment.devkit?.logEffect) console.log('AutoRouting');
 
-      if (!this.authInfoService.isAuthenticated()) {
-        return;
-      }
+      if (!this.authInfoService.isAuthenticated()) return;
 
       if (!this.authInfoService.selectedAccount()) {
         this.router.navigate(['init-select-account']).then();
