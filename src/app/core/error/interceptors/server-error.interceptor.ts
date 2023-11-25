@@ -4,7 +4,6 @@ import { tap } from "rxjs";
 import { environment } from '../../../../environments/environment';
 import { Announcer } from '../../../shared/services/announcer.service';
 import { BetterRouter } from '../../../shared/services/better-router.service';
-import { Bouncer } from '../../../shared/services/bouncer.service';
 import { StorageService } from '../../../shared/services/storage.service';
 
 export function serverErrorInterceptor(): HttpInterceptorFn {
@@ -12,23 +11,15 @@ export function serverErrorInterceptor(): HttpInterceptorFn {
     const storageService: StorageService = inject(StorageService);
     const announcer: Announcer = inject(Announcer);
     const router: BetterRouter = inject(BetterRouter);
-    const bouncer: Bouncer = inject(Bouncer);
 
     return next(req).pipe(
       tap({
         error: (err: HttpErrorResponse) => {
           (environment.devkit?.logInterceptedError) && console.error(`Intercepted error on request : ${req.url}, message : ${JSON.stringify(err)}`);
 
-          if (announcer.isErrorAnnounceActive) return;
+          if (err.status < 500 || announcer.isErrorAnnounceActive) return;
 
           switch (err.status) {
-            case 401:
-              announcer.notify('Votre session a expiré.', 4000);
-              bouncer.clearSession();
-              storageService.setPreviousUrl(router.routerState.snapshot.url);
-              router.navigate(['login']).then();
-              break;
-
             case 502:
               announcer.warn('Erreur durant le transfère de la requête (502).');
               break;
