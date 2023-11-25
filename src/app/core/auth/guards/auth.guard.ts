@@ -1,11 +1,11 @@
 import { inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 import { Announcer } from '../../../shared/services/announcer.service';
 import { BetterRouter } from '../../../shared/services/better-router.service';
 import { AuthInfoService } from '../services/auth-info.service';
 
 export function authGuard(): CanActivateFn {
-  return (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => {
+  return () => {
     const authInfoService: AuthInfoService = inject(AuthInfoService);
     const router: BetterRouter = inject(BetterRouter);
     const announcer: Announcer = inject(Announcer);

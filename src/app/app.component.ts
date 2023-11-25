@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -21,10 +21,8 @@ import { BetterRouter } from './shared/services/better-router.service';
 })
 export class AppComponent {
 
-  public constructor(
-    private router: BetterRouter,
-    private contexts: ChildrenOutletContexts,
-  ) { }
+  private router: BetterRouter = inject(BetterRouter);
+  private contexts: ChildrenOutletContexts = inject(ChildrenOutletContexts);
 
   public hideNavBar: Signal<boolean> = computed(() => this.router.navigationInfo().routeData['hideNavBar']);
 

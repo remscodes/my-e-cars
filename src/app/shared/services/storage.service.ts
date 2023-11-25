@@ -1,27 +1,23 @@
-import { Inject, Injectable, NgZone } from '@angular/core';
+import { inject, Injectable, NgZone } from '@angular/core';
 import { LOCAL_STORAGE } from '../tokens/local-storage.token';
 import { SESSION_STORAGE } from '../tokens/session-storage.token';
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
 
-  public constructor(
-    @Inject(SESSION_STORAGE) private sessionStorage: Storage,
-    @Inject(LOCAL_STORAGE) private localStorage: Storage,
-    private ngZone: NgZone
-  ) { }
+  private sessionStorage: Storage = inject(SESSION_STORAGE);
+  private localStorage: Storage = inject(LOCAL_STORAGE);
+  private ngZone: NgZone = inject(NgZone);
 
-  /* ------- */
+  private keyPrefix: string = 'my-reno:';
 
-  private readonly keyPrefix: string = 'my-reno:';
+  private previousUrlKey: string = 'previous_url';
+  private tokenKey: string = 'token';
+  private accountIdKey: string = 'account_id';
+  private vinKey: string = 'vin';
 
-  private readonly previousUrlKey: string = 'previous_url';
-  private readonly tokenKey: string = 'token';
-  private readonly accountIdKey: string = 'account_id';
-  private readonly vinKey: string = 'vin';
-
-  private readonly gigyaTokenKey: string = 'gigya_token';
-  private readonly appKeyKey: string = 'app_key';
+  private gigyaTokenKey: string = 'gigya_token';
+  private appKeyKey: string = 'app_key';
 
   /* ------- */
 

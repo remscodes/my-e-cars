@@ -1,4 +1,4 @@
-import { Inject, Injectable, NgZone, signal, WritableSignal } from "@angular/core";
+import { inject, Injectable, NgZone, signal, WritableSignal } from "@angular/core";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Data, Event, NavigationBehaviorOptions, NavigationCancel, NavigationEnd, NavigationError, NavigationExtras, ResolveEnd, ResolveStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterState } from "@angular/router";
 import { Observable } from "rxjs";
@@ -13,24 +13,24 @@ interface NavigationInfo {
 @Injectable({ providedIn: 'root' })
 export class BetterRouter {
 
-  public readonly navigationInfo: WritableSignal<NavigationInfo> = signal({
-    routeData: {}
-  });
-
-  public constructor(
-    @Inject(WINDOW) private window: Window,
-    private router: Router,
-    private loading: Loading,
-    private ngZone: NgZone,
-    private storageService: StorageService,
-    private route: ActivatedRoute
-  ) {
+  public constructor() {
     this.subToRouterEvents();
   }
 
+  private window: Window = inject(WINDOW);
+  private router: Router = inject(Router);
+  private loading: Loading = inject(Loading);
+  private ngZone: NgZone = inject(NgZone);
+  private storageService: StorageService = inject(StorageService);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+
+  public navigationInfo: WritableSignal<NavigationInfo> = signal({
+    routeData: {},
+  });
+
   private subToRouterEvents(): void {
     this.events.pipe(
-      takeUntilDestroyed()
+      takeUntilDestroyed(),
     ).subscribe({
       next: (event: Event) => {
         switch (true) {
@@ -53,13 +53,13 @@ export class BetterRouter {
             this.updateNavigationInfo();
             break;
         }
-      }
+      },
     });
   }
 
   private updateNavigationInfo(): void {
     this.navigationInfo.set({
-      routeData: this.getData()
+      routeData: this.getData(),
     });
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { AuthInfoService } from '../../core/auth/services/auth-info.service';
 import { VehicleInfoService } from '../../core/renault/services/vehicle-info.service';
 import { StorageService } from './storage.service';
@@ -6,11 +6,9 @@ import { StorageService } from './storage.service';
 @Injectable({ providedIn: 'root' })
 export class Bouncer {
 
-  public constructor(
-    private storageService: StorageService,
-    private authInfoService: AuthInfoService,
-    private vehicleInfoService: VehicleInfoService,
-  ) { }
+  private storageService: StorageService = inject(StorageService);
+  private authInfoService: AuthInfoService = inject(AuthInfoService);
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
 
   public clearSession(): void {
     this.clearAccount();

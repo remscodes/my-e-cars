@@ -1,5 +1,6 @@
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +28,7 @@ export interface BetterSchedule {
 
 @Component({
   templateUrl: './charge-mode.component.html',
-  styleUrls: ['./charge-mode.component.css'],
+  styleUrl: './charge-mode.component.css',
   animations: [fade],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
@@ -46,30 +47,16 @@ export interface BetterSchedule {
 })
 export class ChargeModeComponent implements OnInit {
 
-  public constructor(
-    private loading: Loading,
-    private router: BetterRouter,
-    private dialog: MatDialog,
-    private destroyRef: DestroyRef,
-    private cdr: ChangeDetectorRef,
-  ) { }
+  private loading: Loading = inject(Loading);
+  private router: BetterRouter = inject(BetterRouter);
+  private dialog: MatDialog = inject(MatDialog);
+  private destroyRef: DestroyRef = inject(DestroyRef);
+  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   public options: Option[] = [
-    {
-      label: 'Instantanée',
-      mode: 'always',
-      icon: 'cable',
-    },
-    {
-      label: 'Différée',
-      mode: 'always_charging',
-      icon: 'cable',
-    },
-    {
-      label: 'Personnalisée',
-      mode: 'schedule_mode',
-      icon: 'cable',
-    },
+    { label: 'Instantanée', mode: 'always', icon: 'cable' },
+    { label: 'Différée', mode: 'always_charging', icon: 'cable' },
+    { label: 'Personnalisée', mode: 'schedule_mode', icon: 'cable' },
   ];
 
   public selectedMode?: string;
@@ -102,12 +89,15 @@ export class ChargeModeComponent implements OnInit {
   }
 
   public openTimeScheduler(): void {
-    this.dialog.open(AddTimeScheduleDialogComponent, {
-      id: 'AddScheduleDialogComponentId',
-      data: {
-        time: this.timeSchedule,
-      },
-    }).afterClosed()
+    this.dialog
+      .open(AddTimeScheduleDialogComponent, {
+        id: 'AddScheduleDialogComponentId',
+        data: {
+          time: this.timeSchedule,
+        },
+      })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (time: string) => {
           this.timeSchedule = time;
@@ -117,13 +107,16 @@ export class ChargeModeComponent implements OnInit {
   }
 
   public openWeekScheduler(index: number): void {
-    this.dialog.open(AddWeekScheduleDialogComponent, {
-      id: 'AddWeekScheduleDialogComponentId',
-      data: {
-        index,
-        schedule: this.weekSchedules.at(index),
-      },
-    }).afterClosed()
+    this.dialog
+      .open(AddWeekScheduleDialogComponent, {
+        id: 'AddWeekScheduleDialogComponentId',
+        data: {
+          index,
+          schedule: this.weekSchedules.at(index),
+        },
+      })
+      .afterClosed()
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
 

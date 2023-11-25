@@ -4,7 +4,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 @Component({
   selector: 'app-premium-map',
   templateUrl: './premium-map.component.html',
-  styleUrls: ['./premium-map.component.css'],
+  styleUrl: './premium-map.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

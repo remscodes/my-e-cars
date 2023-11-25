@@ -8,7 +8,7 @@ export interface AnnounceStatus {
 @Injectable({ providedIn: 'root' })
 export class Announcer {
 
-  public readonly status: WritableSignal<AnnounceStatus> = signal({ active: false });
+  public status: WritableSignal<AnnounceStatus> = signal({ active: false });
 
   public notify(message: string, duration?: number): void {
     this.createSnackBar(message, duration);

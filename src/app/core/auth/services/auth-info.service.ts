@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { AccountInfo, Person } from '@remscodes/renault-api';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -6,11 +6,11 @@ import { StorageService } from '../../../shared/services/storage.service';
 @Injectable({ providedIn: 'root' })
 export class AuthInfoService {
 
-  public constructor(
-    private storageService: StorageService,
-  ) {
+  public constructor() {
     this.onEffect();
   }
+
+  private readonly storageService: StorageService = inject(StorageService);
 
   public readonly personId: WritableSignal<Nullable<string>> = signal(null);
   public readonly person: WritableSignal<Nullable<Person>> = signal(null);

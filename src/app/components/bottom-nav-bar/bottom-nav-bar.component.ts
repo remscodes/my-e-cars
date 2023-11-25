@@ -1,5 +1,5 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { fadeToTop } from '../../shared/animations/fade.animation';
 import { BetterRouter } from '../../shared/services/better-router.service';
@@ -25,29 +25,15 @@ interface MenuItem {
 })
 export class BottomNavBarComponent {
 
-  public constructor(
-    private router: BetterRouter,
-  ) { }
+  private router: BetterRouter = inject(BetterRouter);
 
   @Input()
   public displayNavBar: boolean = true;
 
   public items: MenuItem[] = [
-    {
-      icon: 'home',
-      label: 'Accueil',
-      link: 'home',
-    },
-    {
-      icon: 'my-location',
-      label: 'Position',
-      link: 'location',
-    },
-    {
-      icon: 'account-circle',
-      label: 'Profil',
-      link: 'account',
-    },
+    { icon: 'home', label: 'Accueil', link: 'home' },
+    { icon: 'my-location', label: 'Position', link: 'location' },
+    { icon: 'account-circle', label: 'Profil', link: 'account' },
   ];
 
   public navigate(link: string): void {

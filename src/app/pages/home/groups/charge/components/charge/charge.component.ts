@@ -7,7 +7,7 @@ import { MinuteToHourPipe } from '../../../../../../shared/pipes/minute-to-hour.
 @Component({
   selector: 'app-charge',
   templateUrl: './charge.component.html',
-  styleUrls: ['./charge.component.css'],
+  styleUrl: './charge.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
