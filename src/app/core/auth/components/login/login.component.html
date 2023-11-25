@@ -9,13 +9,13 @@
     <input matInput
            id="user-text-field"
            type="email"
-           [formControl]="loginControl"
+           formControlName="login"
            placeholder="Email *">
 
     <input matInput
            id="current-password"
            type="password"
-           [formControl]="passwordControl"
+           formControlName="password"
            placeholder="Mot de passe *">
 
     <!--        <span *ngIf="form.get('login')?.touched && !form.get('login')?.valid"-->

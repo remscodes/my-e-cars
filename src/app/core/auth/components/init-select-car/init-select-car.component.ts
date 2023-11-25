@@ -1,5 +1,5 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,13 +29,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class InitSelectCarComponent implements OnInit {
 
-  public constructor(
-    private vehicleInfoService: VehicleInfoService,
-    private authService: AuthService,
-    private authInfoService: AuthInfoService,
-    private destroyRef: DestroyRef,
-    private router: BetterRouter,
-  ) { }
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private authService: AuthService = inject(AuthService);
+  private authInfoService: AuthInfoService = inject(AuthInfoService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
+  private router: BetterRouter = inject(BetterRouter);
 
   public vehicles = this.vehicleInfoService.vehicles;
 

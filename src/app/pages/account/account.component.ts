@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthInfoService } from '../../core/auth/services/auth-info.service';
 import { VehicleInfoService } from '../../core/renault/services/vehicle-info.service';
@@ -8,7 +8,7 @@ import { Evaluator } from '../../shared/services/evaluator.service';
 
 @Component({
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],
+  styleUrl: './account.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -17,15 +17,11 @@ import { Evaluator } from '../../shared/services/evaluator.service';
 })
 export class AccountComponent {
 
-  public constructor(
-    private authInfoService: AuthInfoService,
-    private vehicleInfoService: VehicleInfoService,
-    private bouncer: Bouncer,
-    private router: BetterRouter,
-    private evaluator: Evaluator,
-  ) { }
-
-  /* ------- */
+  private authInfoService: AuthInfoService = inject(AuthInfoService);
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private bouncer: Bouncer = inject(Bouncer);
+  private router: BetterRouter = inject(BetterRouter);
+  private evaluator: Evaluator = inject(Evaluator);
 
   public switchAccount(): void {
     this.bouncer.clearAccount();

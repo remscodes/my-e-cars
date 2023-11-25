@@ -1,12 +1,12 @@
 export function addHeadScript(src: string): Promise<boolean> {
+  const script: HTMLScriptElement = document.createElement('script');
+  script.src = src;
+  script.type = 'module';
+
+  const abortCtrl: AbortController = new AbortController();
+  const signal: AbortSignal = abortCtrl.signal;
+
   return new Promise((resolve, reject) => {
-    const script: HTMLScriptElement = document.createElement('script');
-    script.src = src;
-    script.type = 'module';
-
-    const abortCtrl: AbortController = new AbortController();
-    const signal: AbortSignal = abortCtrl.signal;
-
     script.addEventListener('load', () => {
       abortCtrl.abort();
       resolve(true);

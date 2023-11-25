@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-hvac-widget',
   templateUrl: './hvac-widget.component.html',
-  styleUrls: ['./hvac-widget.component.css'],
+  styleUrl: './hvac-widget.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -16,10 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HvacWidgetComponent implements OnInit {
 
-  public constructor(
-    private destroyRef: DestroyRef,
-    private dialog: MatDialog,
-  ) { }
+  private destroyRef: DestroyRef = inject(DestroyRef);
+  private dialog: MatDialog = inject(MatDialog);
 
   public ngOnInit(): void {
     // this.getHvacStatus();

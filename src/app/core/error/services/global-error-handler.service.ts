@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ErrorHandler, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ErrorHandler, inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { __VERSION__ } from '../../../../environments/version';
 import { WINDOW } from '../../../shared/tokens/window.token';
 
@@ -14,10 +14,8 @@ interface ErrorBundle {
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-  public constructor(
-    @Inject(WINDOW) private window: Window,
-    @Inject(PLATFORM_ID) private platformId: Object,
-  ) { }
+  private window: Window = inject(WINDOW);
+  private platformId: Object = inject(PLATFORM_ID);
 
   public handleError(error: any): void {
     console.error(`[ErrorHandler] Handled error -> ${(typeof error === 'string') ? error : JSON.stringify(error)}`);

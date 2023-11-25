@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BetterSchedule } from '../../components/charge-mode/charge-mode.component';
 import { WeekRibbonComponent } from '../../components/week-ribbon/week-ribbon.component';
@@ -10,7 +10,7 @@ export interface AddWeekScheduleDialogComponentData {
 
 @Component({
   templateUrl: './add-week-schedule-dialog.component.html',
-  styleUrls: ['./add-week-schedule-dialog.component.css'],
+  styleUrl: './add-week-schedule-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -19,16 +19,11 @@ export interface AddWeekScheduleDialogComponentData {
 })
 export class AddWeekScheduleDialogComponent {
 
-  public planningNumber: number;
-  public schedule: BetterSchedule;
+  private data: AddWeekScheduleDialogComponentData = inject(MAT_DIALOG_DATA);
+  private dialogRef: MatDialogRef<AddWeekScheduleDialogComponent> = inject(MatDialogRef);
 
-  public constructor(
-    @Inject(MAT_DIALOG_DATA) { index, schedule }: AddWeekScheduleDialogComponentData,
-    private dialogRef: MatDialogRef<AddWeekScheduleDialogComponent>,
-  ) {
-    this.planningNumber = index;
-    this.schedule = schedule;
-  }
+  public planningNumber: number = this.data.index;
+  public schedule: BetterSchedule = this.data.schedule;
 
   public close(): void {
     this.dialogRef.close();

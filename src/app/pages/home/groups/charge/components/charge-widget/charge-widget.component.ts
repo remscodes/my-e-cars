@@ -1,5 +1,5 @@
 import { DatePipe, NgClass, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, OnInit, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, Signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,7 +13,7 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
 @Component({
   selector: 'app-charge-widget',
   templateUrl: './charge-widget.component.html',
-  styleUrls: ['./charge-widget.component.css'],
+  styleUrl: './charge-widget.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -30,12 +30,8 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
 })
 export class ChargeWidgetComponent implements OnInit {
 
-  public constructor(
-    private vehicleInfoService: VehicleInfoService,
-    private destroyRef: DestroyRef,
-  ) { }
-
-  /* ------- */
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   public batteryStatus: Signal<Nullable<BatteryStatus>> = this.vehicleInfoService.batteryStatus;
 
@@ -49,8 +45,6 @@ export class ChargeWidgetComponent implements OnInit {
   public revealActions: boolean = false;
 
   public isLoading: boolean = false;
-
-  /* ------- */
 
   public ngOnInit(): void {
     if (!this.batteryStatus()) this.getBatteryStatus();

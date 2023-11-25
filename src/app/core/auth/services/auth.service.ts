@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { NgxGigyaClient, NgxKamereonClient, NgxRenaultClient } from '@remscodes/ngx-renault-api-client';
+import { inject, Injectable } from '@angular/core';
+import { NgxGigyaClient, NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { AccountInfo, LoginInfo, Person, TokenInfo, Vehicles } from '@remscodes/renault-api';
 import { concatMap, iif, Observable, of, tap } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -9,15 +9,11 @@ import { AuthInfoService } from './auth-info.service';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  public constructor(
-    private renault: NgxRenaultClient,
-    private storageService: StorageService,
-    private authInfoService: AuthInfoService,
-    private vehicleInfoService: VehicleInfoService,
-  ) { }
-
-  private gigya: NgxGigyaClient = this.renault.gigya;
-  private kamereon: NgxKamereonClient = this.renault.kamereon;
+  private gigya: NgxGigyaClient = inject(NgxGigyaClient);
+  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
+  private storageService: StorageService = inject(StorageService);
+  private authInfoService: AuthInfoService = inject(AuthInfoService);
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
 
   public login(loginID: string, password: string): Observable<LoginInfo> {
     return this.gigya.login(loginID, password).pipe(

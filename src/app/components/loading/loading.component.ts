@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnChanges, Signal, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnChanges, Signal, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { Loading } from '../../shared/services/loading.service';
@@ -32,11 +32,9 @@ import { WINDOW } from '../../shared/tokens/window.token';
 })
 export class LoadingComponent implements OnChanges {
 
-  public constructor(
-    @Inject(WINDOW) private window: Window,
-    private loading: Loading,
-  ) { }
-  
+  private window: Window = inject(WINDOW);
+  private loading: Loading = inject(Loading);
+
   public active: Signal<boolean> = this.loading.active.asReadonly();
 
   public canClose: boolean = false;

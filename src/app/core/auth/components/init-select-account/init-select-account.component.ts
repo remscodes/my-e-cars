@@ -1,9 +1,9 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { Person } from '@remscodes/renault-api';
+import { Account, Person } from '@remscodes/renault-api';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { Nullable } from '../../../../shared/models/shared.model';
@@ -27,14 +27,11 @@ import { AuthInfoService } from '../../services/auth-info.service';
 })
 export class InitSelectAccountComponent {
 
-  public constructor(
-    private authInfoService: AuthInfoService,
-    private bouncer: Bouncer,
-  ) { }
+  private authInfoService: AuthInfoService = inject(AuthInfoService);
+  private bouncer: Bouncer = inject(Bouncer);
 
-  public person: Signal<Nullable<Person>> = this.authInfoService.person;
-
-  public accounts = this.authInfoService.person()?.accounts ?? [];
+  public person: Signal<Nullable<Person>> = this.authInfoService.person.asReadonly();
+  public accounts: Account[] = this.person()?.accounts ?? [];
 
   public form: FormGroup = new FormGroup({
     accountId: new FormControl(this.authInfoService.selectedAccountId(), Validators.required),

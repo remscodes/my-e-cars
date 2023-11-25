@@ -6,21 +6,18 @@ import { BetterRouter } from '../shared/services/better-router.service';
 import { WINDOW } from '../shared/tokens/window.token';
 import { addHeadScript } from '../shared/utils/browser-utils';
 
-function addGoogleMapApiScript(mWindow: Window): () => Promise<boolean> {
-  return () => {
-    const apiKey: Optional<string> = mWindow.GOOGLE_MAPS_API_KEY;
-    if (!apiKey)
-      emitError('GoogleMapsException', 'GOOGLE_MAPS_API_KEY has to be filled into src/environment/env.js');
-
-    return addHeadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`);
-  };
-}
-
 export const addGoogleMapApiScriptProvider: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
   deps: [WINDOW],
-  useFactory: addGoogleMapApiScript,
+  useFactory: (mWindow: Window) => {
+    return () => {
+      const apiKey: Optional<string> = mWindow.GOOGLE_MAPS_API_KEY;
+      if (!apiKey) emitError('GoogleMapsException', 'GOOGLE_MAPS_API_KEY has to be filled into src/environment/env.js');
+
+      return addHeadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`);
+    };
+  },
 };
 
 export const initDepsProvider: Provider = {

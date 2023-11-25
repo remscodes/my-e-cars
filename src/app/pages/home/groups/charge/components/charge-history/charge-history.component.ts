@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,7 +13,7 @@ import { ChargeComponent } from '../charge/charge.component';
 
 @Component({
   templateUrl: './charge-history.component.html',
-  styleUrls: ['./charge-history.component.css'],
+  styleUrl: './charge-history.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -28,18 +28,16 @@ import { ChargeComponent } from '../charge/charge.component';
 })
 export class ChargeHistoryComponent implements OnInit {
 
+  private router: BetterRouter = inject(BetterRouter);
+  private loading: Loading = inject(Loading);
+  private destroyRef: DestroyRef = inject(DestroyRef);
+
   public form: FormGroup = new FormGroup({
     startDate: new FormControl(dayjs().subtract(1, 'week').toDate()),
     endDate: new FormControl('06-23-2023'),
   });
 
   public charges: Optional<ChargeDetails[]>;
-
-  public constructor(
-    private router: BetterRouter,
-    private loading: Loading,
-    private destroyRef: DestroyRef,
-  ) { }
 
   public ngOnInit(): void {
     this.getCharges();

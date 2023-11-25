@@ -5,7 +5,7 @@ import { HvacWidgetComponent } from './groups/hvac/components/hvac-widget/hvac-w
 
 @Component({
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Optional } from '../../../../shared/models/shared.model';
 import { WINDOW } from '../../../../shared/tokens/window.token';
@@ -7,7 +7,7 @@ import { WINDOW } from '../../../../shared/tokens/window.token';
 @Component({
   selector: 'app-freemium-map',
   templateUrl: './freemium-map.component.html',
-  styleUrls: ['./freemium-map.component.css'],
+  styleUrl: './freemium-map.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -16,10 +16,8 @@ import { WINDOW } from '../../../../shared/tokens/window.token';
 })
 export class FreemiumMapComponent implements OnInit, OnChanges {
 
-  public constructor(
-    @Inject(WINDOW) private mWindow: Window,
-    private sanitizer: DomSanitizer,
-  ) { }
+  private mWindow: Window = inject(WINDOW);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
 
   @Input({ required: true })
   public topic!: string;

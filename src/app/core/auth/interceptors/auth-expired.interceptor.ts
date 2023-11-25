@@ -15,8 +15,8 @@ export function authExpiredInterceptor(): HttpInterceptorFn {
 
     return next(req).pipe(
       tap({
-        error: (err: HttpErrorResponse) => {
-          if (err.status !== 401) return;
+        error: ({ status }: HttpErrorResponse) => {
+          if (status !== 401) return;
 
           announcer.notify('Votre session a expiré.', 4000);
           bouncer.clearSession();

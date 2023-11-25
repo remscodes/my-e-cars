@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,19 +23,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
 
-  public constructor(
-    private authService: AuthService,
-    private router: BetterRouter,
-    private loading: Loading,
-    private destroyRef: DestroyRef,
-  ) { }
-
-  public loginControl: FormControl = new FormControl('', Validators.required);
-  public passwordControl: FormControl = new FormControl('', Validators.required);
+  private authService: AuthService = inject(AuthService);
+  private router: BetterRouter = inject(BetterRouter);
+  private loading: Loading = inject(Loading);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   public form: FormGroup = new FormGroup({
-    login: this.loginControl,
-    password: this.passwordControl,
+    login: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
 
   public onSubmit(): void {
@@ -58,9 +53,6 @@ export class LoginComponent {
   }
 
   public get isInvalid(): boolean {
-    return this.loginControl.touched
-      && !this.loginControl.valid
-      && this.passwordControl
-      && !this.passwordControl.valid;
+    return this.form.touched && this.form.invalid;
   }
 }

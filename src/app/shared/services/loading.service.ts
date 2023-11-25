@@ -14,9 +14,9 @@ interface RegisteredSub {
 @Injectable({ providedIn: 'root' })
 export class Loading {
 
-  private readonly subsMap: Map<string, SubLike> = new Map();
+  private subsMap: Map<string, SubLike> = new Map();
 
-  public readonly active: WritableSignal<boolean> = signal(false);
+  public active: WritableSignal<boolean> = signal(false);
 
   private count: number = 0;
 

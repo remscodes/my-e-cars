@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ export interface AddScheduleDialogComponentData {
 
 @Component({
   templateUrl: './add-time-schedule-dialog.component.html',
-  styleUrls: ['./add-time-schedule-dialog.component.css'],
+  styleUrl: './add-time-schedule-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -24,10 +24,8 @@ export interface AddScheduleDialogComponentData {
 })
 export class AddTimeScheduleDialogComponent {
 
-  public constructor(
-    @Inject(MAT_DIALOG_DATA) private data: AddScheduleDialogComponentData,
-    private dialogRef: MatDialogRef<AddTimeScheduleDialogComponent>,
-  ) { }
+  private data: AddScheduleDialogComponentData = inject(MAT_DIALOG_DATA);
+  private dialogRef: MatDialogRef<AddTimeScheduleDialogComponent> = inject(MatDialogRef);
 
   public form: FormGroup = new FormGroup({
     time: new FormControl(dayjs(this.data.time).format('HH:mm'), Validators.required),

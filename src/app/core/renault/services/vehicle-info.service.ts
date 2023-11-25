@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { BatteryStatus, ChargeMode, Charges, IMAGE_ORIENTATION_KEY, VehicleDetails, VehicleLink, Vehicles } from '@remscodes/renault-api';
 import { environment } from '../../../../environments/environment';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
@@ -13,11 +13,11 @@ interface VehicleStats {
 @Injectable({ providedIn: 'root' })
 export class VehicleInfoService {
 
-  public constructor(
-    private storageService: StorageService,
-  ) {
-    this.onEffect();
+  public constructor() {
+    this.observe();
   }
+
+  private storageService: StorageService = inject(StorageService);
 
   public readonly vehicles: WritableSignal<Nullable<Vehicles>> = signal(null);
 
@@ -78,7 +78,7 @@ export class VehicleInfoService {
     }));
   }
 
-  private onEffect(): void {
+  private observe(): void {
     effect(() => {
       const vin: Nullable<string> = this.selectedVin();
 

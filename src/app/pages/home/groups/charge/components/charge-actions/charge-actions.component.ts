@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { BetterRouter } from '../../../../../../shared/services/better-router.service';
@@ -6,7 +6,7 @@ import { BetterRouter } from '../../../../../../shared/services/better-router.se
 @Component({
   selector: 'app-charge-actions',
   templateUrl: './charge-actions.component.html',
-  styleUrls: ['./charge-actions.component.css'],
+  styleUrl: './charge-actions.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -15,10 +15,8 @@ import { BetterRouter } from '../../../../../../shared/services/better-router.se
 })
 export class ChargeActionsComponent {
 
-  public constructor(
-    private router: BetterRouter,
-    private route: ActivatedRoute,
-  ) { }
+  private router: BetterRouter = inject(BetterRouter);
+  private route: ActivatedRoute = inject(ActivatedRoute);
 
   private extras: NavigationExtras = {
     relativeTo: this.route,

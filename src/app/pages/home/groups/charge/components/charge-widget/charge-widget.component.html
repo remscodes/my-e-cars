@@ -5,7 +5,7 @@
     <div class="fx fx-row fx-flex fx-align-center-center fx-gap-4">
 
       <mat-icon>electric-car</mat-icon>
-<!--      <rems-icon icon="electric-car" [width]="30" [height]="30"></rems-icon>-->
+      <!--      <rems-icon icon="electric-car" [width]="30" [height]="30"></rems-icon>-->
 
       <span>Niveau de Charge</span>
     </div>
@@ -49,7 +49,7 @@
                  style="background-color: white; padding: 5px; border-radius: 20px;">
 
               <mat-icon>directions-car</mat-icon>
-<!--              <rems-icon icon="directions-car" [width]="20" [height]="20"></rems-icon>-->
+              <!--              <rems-icon icon="directions-car" [width]="20" [height]="20"></rems-icon>-->
 
               <span>{{batteryStatus()!.batteryAutonomy}} km</span>
             </div>
@@ -57,7 +57,7 @@
             <div class="fx fx-row fx-gap-2" style="background-color: white; padding: 5px; border-radius: 20px;">
 
               <mat-icon>electric-bolt</mat-icon>
-<!--              <rems-icon icon="electric-bolt" [width]="20" [height]="20"></rems-icon>-->
+              <!--              <rems-icon icon="electric-bolt" [width]="20" [height]="20"></rems-icon>-->
 
               <span>{{batteryStatus()!.batteryAvailableEnergy}} kW</span>
             </div>
@@ -78,13 +78,13 @@
         </button>
       </div>
 
-      <app-charge-actions *ngIf="revealActions"></app-charge-actions>
+      <app-charge-actions *ngIf="revealActions"/>
     </div>
   </div>
 
   <ng-template #loading>
     <div class="fx fx-align-center-center">
-      <app-spinner></app-spinner>
+      <app-spinner/>
     </div>
   </ng-template>
 </div>
