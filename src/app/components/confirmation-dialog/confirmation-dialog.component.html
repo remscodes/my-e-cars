@@ -1,21 +1,17 @@
-<div class="fx fx-column p-20">
+<div class="flex flex-col gap-4 p-5">
 
-  <div class="">
+  <div class="flex justify-center">
     <span>Title</span>
   </div>
 
-  <div>
+  <div class="flex justify-center">
     <span>Content</span>
   </div>
 
-  <div class="fx fx-row fx-gap-16">
+  <div class="flex gap-4">
 
-    <button mat-flat-button type="button" (click)="dialogRef.close(false)">
-      <span>Fermer</span>
-    </button>
+    <button mat-flat-button type="button" (click)="dialogRef.close(false)">Fermer</button>
 
-    <button mat-flat-button type="button" (click)="dialogRef.close(true)">
-      <span>Confirmer</span>
-    </button>
+    <button mat-flat-button type="button" (click)="dialogRef.close(true)">Confirmer</button>
   </div>
 </div>

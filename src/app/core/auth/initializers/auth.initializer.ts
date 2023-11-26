@@ -16,7 +16,8 @@ export const INIT_USER_CONTEXT_PROVIDER: Provider = {
         authService.getAuthInfos().pipe(
           finalize(() => subscriber.complete()),
         ).subscribe({
-          error: () => {
+          error: (err) => {
+            console.error(err);
             router.navigate(['login']).then();
           },
         });

@@ -25,24 +25,7 @@ export class StorageService {
     return `${this.keyPrefix}${key}`;
   }
 
-  private convertValue(value: string): any {
-    console.log(value);
-    switch (true) {
-      case value === 'undefined':
-        return undefined;
-      case value !== ''
-      && (
-        (value.startsWith('[') && value.endsWith(']'))
-        || (value.startsWith('{') && value.endsWith('}'))
-        || value === 'null'
-        || value === 'true'
-        || value === 'false'
-      ):
-        return JSON.parse(value);
-      default:
-        return value;
-    }
-  }
+  /* ------- */
 
   private setInStorage(storage: Storage, key: string, value: any): void {
     this.ngZone.run(() => storage.setItem(this.formatKey(key), `${value}`));

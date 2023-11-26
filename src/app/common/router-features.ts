@@ -1,7 +1,8 @@
+import { HttpFeature } from '@angular/common/http';
 import { EnvironmentProviders } from '@angular/core';
 import { provideRouter, Routes, withComponentInputBinding, withInMemoryScrolling, withRouterConfig } from '@angular/router';
 
-export function provideCommonRootRouter(routes: Routes): EnvironmentProviders {
+export function provideCommonRootRouter(routes: Routes, ...features: HttpFeature<any>[]): EnvironmentProviders {
   return provideRouter(routes,
     withComponentInputBinding(),
     withRouterConfig({
@@ -11,12 +12,14 @@ export function provideCommonRootRouter(routes: Routes): EnvironmentProviders {
     withInMemoryScrolling({
       anchorScrolling: 'enabled',
       scrollPositionRestoration: 'enabled'
-    })
+    }),
+    ...features
   );
 }
 
-export function provideCommonChildRouter(routes: Routes): EnvironmentProviders {
+export function provideCommonChildRouter(routes: Routes, ...features: HttpFeature<any>[]): EnvironmentProviders {
   return provideRouter(routes,
-    withComponentInputBinding()
+    withComponentInputBinding(),
+    ...features
   );
 }

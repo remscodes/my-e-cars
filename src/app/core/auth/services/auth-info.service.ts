@@ -1,4 +1,5 @@
 import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { NgxRenaultSession } from '@remscodes/ngx-renault-api-client';
 import { AccountInfo, Person } from '@remscodes/renault-api';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -10,18 +11,19 @@ export class AuthInfoService {
     this.onEffect();
   }
 
-  private readonly storageService: StorageService = inject(StorageService);
+  private storageService: StorageService = inject(StorageService);
+  private session: NgxRenaultSession = inject(NgxRenaultSession);
 
-  public readonly personId: WritableSignal<Nullable<string>> = signal(null);
-  public readonly person: WritableSignal<Nullable<Person>> = signal(null);
+  public personId: WritableSignal<Nullable<string>> = signal(null);
+  public person: WritableSignal<Nullable<Person>> = signal(null);
 
-  public readonly selectedAccountId: WritableSignal<Nullable<string>> = signal(this.storageService.getAccountId());
+  public selectedAccountId: WritableSignal<Nullable<string>> = signal(this.storageService.getAccountId());
 
-  public readonly selectedAccount: Signal<Optional<AccountInfo>> = computed(() => {
+  public selectedAccount: Signal<Optional<AccountInfo>> = computed(() => {
     return this.person()?.accounts?.find(acc => acc.accountId === this.selectedAccountId());
   });
 
-  public isAuthenticated(): boolean {
+  public isAuth(): boolean {
     return !!this.person();
   }
 
@@ -29,9 +31,14 @@ export class AuthInfoService {
     effect(() => {
       const accountId: Nullable<string> = this.selectedAccountId();
 
-      (accountId)
-        ? this.storageService.setAccountId(accountId)
-        : this.storageService.clearAccountId();
+      if (accountId) {
+        this.storageService.setAccountId(accountId);
+        this.session.accountId = accountId;
+      }
+      else {
+        this.storageService.clearAccountId();
+        this.session.accountId = undefined;
+      }
     });
   }
 }

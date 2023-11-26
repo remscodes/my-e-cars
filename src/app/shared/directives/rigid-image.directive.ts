@@ -4,7 +4,8 @@ import { Directive } from '@angular/core';
   selector: 'img[rigid]',
   host: {
     'class': 'not-selectable',
-    'draggable': 'false'
-  }
+    'draggable': 'false',
+  },
+  standalone: true,
 })
 export class RigidImageDirective {}

@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   public getJWT(): Observable<TokenInfo> {
-    return this.gigya.getJwt().pipe(
+    return this.gigya.getJwt(9000).pipe(
       tap({
         next: ({ id_token }: TokenInfo) => {
           if (id_token) this.storageService.setToken(id_token);
@@ -66,14 +66,14 @@ export class AuthService {
   }
 
   public getAuthInfos(): Observable<any> {
-    return this.getJWT().pipe(
-      concatMap(() => this.getAccountInfo()),
-      concatMap(({ data: { personId } = {} }: AccountInfo) => this.getPerson(personId!)),
-      concatMap(() => iif(
-        () => !!this.storageService.getAccountId(),
-        this.getVehicles(this.storageService.getAccountId()!),
-        of(undefined),
-      )),
-    );
+    return this.getAccountInfo()
+      .pipe(
+        concatMap(({ data: { personId } = {} }: AccountInfo) => this.getPerson(personId!)),
+        concatMap(() => iif(
+          () => !!this.storageService.getAccountId(),
+          this.getVehicles(this.storageService.getAccountId()!),
+          of(undefined),
+        )),
+      );
   }
 }

@@ -1,13 +1,16 @@
-@import 'custom-theme.scss';
+@use 'styles/theme';
+@use 'styles/colors';
 
-@tailwind base;
+//@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@include theme.all();
+
 :root {
-  --primary-color: black;
-  --secondary-color: gold;
-  --accent-color: crimson;
+  --primary-color: #{colors.$primary-color};
+  --accent-color: #{colors.$accent-color};
+  --warn-color: #{colors.$warn-color};
 }
 
 *,
@@ -41,12 +44,6 @@ body {
   padding: 30px;
   width: 600px;
   max-width: 100%;
-}
-
-.not-selectable {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 .remove-input-arrows {

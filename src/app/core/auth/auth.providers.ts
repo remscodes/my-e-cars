@@ -7,8 +7,6 @@ import { authExpiredInterceptor } from './interceptors/auth-expired.interceptor'
 
 export const AUTH_PROVIDERS: (Provider | EnvironmentProviders)[] = [
   provideCommonRootRouter(AUTH_ROUTES),
-  provideHttpClient(
-    withInterceptors([authExpiredInterceptor()]),
-  ),
+  provideHttpClient(withInterceptors([authExpiredInterceptor()])),
   INIT_USER_CONTEXT_PROVIDER,
 ];

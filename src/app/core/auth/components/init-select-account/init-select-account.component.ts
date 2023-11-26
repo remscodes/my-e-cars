@@ -2,7 +2,7 @@ import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { Account, Person } from '@remscodes/renault-api';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
@@ -20,7 +20,7 @@ import { AuthInfoService } from '../../services/auth-info.service';
     NgForOf,
     ReactiveFormsModule,
     MatButtonModule,
-    MatInputModule,
+    MatRadioModule,
     PanelComponent,
     SpinnerComponent,
   ],
@@ -48,4 +48,6 @@ export class InitSelectAccountComponent {
   public logout(): void {
     this.bouncer.disconnect();
   }
+
+  public trackById = (_i: number, { accountId }: Account) => accountId;
 }

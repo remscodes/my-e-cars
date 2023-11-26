@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+@use 'palettes' as p;
+
+$app-primary: mat.define-palette(p.$primary-palette);
+$app-accent: mat.define-palette(p.$accent-palette);
+$app-warn: mat.define-palette(p.$warn-palette);
+
+$app-typography: mat.define-typography-config($font-family: '"Raleway", sans-serif');
+
+$app-theme: mat.define-light-theme((
+  color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
+  ),
+  typography: $app-typography
+));
+
+@mixin all() {
+  @include mat.core();
+  @include mat.all-component-themes($app-theme);
+}

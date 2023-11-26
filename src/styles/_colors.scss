@@ -1,0 +1,6 @@
+@use '@angular/material' as mat;
+@use 'theme';
+
+$primary-color: mat.get-color-from-palette(theme.$app-primary);
+$accent-color: mat.get-color-from-palette(theme.$app-accent);
+$warn-color: mat.get-color-from-palette(theme.$app-warn);

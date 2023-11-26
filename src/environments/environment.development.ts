@@ -1,7 +1,7 @@
 export const environment = {
   pwa: false,
   devkit: {
-    logEffect: false,
-    logInterceptedError: false,
+    logEffect: true,
+    logInterceptedError: true,
   },
 } as const;

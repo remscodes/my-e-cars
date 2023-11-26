@@ -2,7 +2,7 @@
   <div *ngFor="let day of enabledDays"
        class="fx fx-align-center-center pin"
        [style.background-color]="(day.enabled) ? 'black' : 'rgb(240, 240, 240)'"
-       (click)="!readonly && toggle(day)">
+       (click)="!isReadonly && toggle(day)">
     <span [style.color]="(day.enabled) ? 'white' : 'unset'">{{day.day.at(0) | uppercase}}</span>
   </div>
 </div>

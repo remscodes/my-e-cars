@@ -3,7 +3,7 @@ import { Unsubscribable } from 'rxjs';
 import { Optional } from '../models/shared.model';
 
 export interface SubLike extends Unsubscribable {
-  readonly closed: boolean;
+  closed: boolean;
 }
 
 interface RegisteredSub {
