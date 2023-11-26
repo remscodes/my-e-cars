@@ -1,13 +1,11 @@
-<div class="fx fx-fill fx-column fx-align-start-stretch">
+<div class="flex h-full">
 
-  <div class="fx fx-flex fx-column p-20"
-       style="margin-top: auto; margin-bottom: auto;"
-       [class.fx-align-center-center]="centered">
+  <div class="flex flex-col flex-1 p-5"
+       [class.justify-center]="centered"
+       [class.items-center]="centered">
 
-    <div class="fx fx-column fx-align-start-stretch fx-gap-16 panel">
-
+    <div class="flex flex-col gap-4 panel">
       <ng-content/>
-
     </div>
   </div>
 </div>

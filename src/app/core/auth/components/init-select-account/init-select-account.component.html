@@ -1,36 +1,24 @@
 <app-panel>
 
-  <div *ngIf="person(); else loading" class="fx fx-column fx-gap-16">
+  <div *ngIf="person(); else loading" class="flex flex-col gap-4">
 
-    <div class="fx fx-align-center-center">
+    <div class="flex justify-center items-center">
       <span style="font-weight: bold;">Comptes disponibles</span>
     </div>
 
-    <form [formGroup]="form" class="fx fx-column fx-gap-16" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
-      <div class="fx fx-column fx-gap-8">
+      <mat-radio-group class="flex flex-col gap-2" formControlName="accountId">
+        <mat-radio-button *ngFor="let account of accounts; trackBy: trackById" [value]="account.accountId">
+          {{account.accountType}}
+        </mat-radio-button>
+      </mat-radio-group>
 
-        <div *ngFor="let account of accounts" class="fx fx-row fx-gap-8">
+      <div class="flex justify-center items-center gap-4">
 
-          <input matInput
-                 type="radio"
-                 [disabled]="true"
-                 [value]="account.accountId"
-                 formControlName="accountId">
+        <button mat-icon-button type="button" (click)="logout()">RETOUR</button>
 
-          <span>{{account.accountType}}</span>
-        </div>
-      </div>
-
-      <div class="fx fx-row fx-align-center-center fx-gap-16">
-
-        <button mat-icon-button type="button" (click)="logout()">
-          <span>RETOUR</span>
-        </button>
-
-        <button mat-icon-button type="submit" [disabled]="form.invalid">
-          <span>CONFIRMER</span>
-        </button>
+        <button mat-icon-button type="submit" [disabled]="form.invalid">CONFIRMER</button>
       </div>
     </form>
   </div>

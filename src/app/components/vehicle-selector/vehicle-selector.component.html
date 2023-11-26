@@ -1,16 +1,15 @@
-<div class="fx fx-column">
+<div class="flex flex-col">
 
-  <div class="fx fx-row fx-align-center-center fx-gap-4 p-10 bgc-primary" style="height: 64px;">
+  <div class="flex justify-center items-center gap-1 p-2 bg-primary h-16">
 
-    <div *ngIf="imageSrc()" style="position: relative;">
+    <div *ngIf="imageSrc()" class="relative">
       <img rigid
            [ngSrc]="imageSrc()!"
            class="car-img"
-           height="60"
-           width=""
+           fill=""
            alt="">
     </div>
 
-    <span id="vehicle-label">{{tag()?.label}}</span>
+    <span class="uppercase text-white text-sm max-[300px]:hidden">{{tag()?.label}}</span>
   </div>
 </div>

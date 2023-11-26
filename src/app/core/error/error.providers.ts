@@ -6,7 +6,5 @@ import { serverErrorInterceptor } from './interceptors/server-error.interceptor'
 
 export const ERROR_PROVIDERS: (Provider | EnvironmentProviders)[] = [
   provideCommonRootRouter(ERROR_ROUTES),
-  provideHttpClient(
-    withInterceptors([serverErrorInterceptor()]),
-  ),
+  provideHttpClient(withInterceptors([serverErrorInterceptor()])),
 ];

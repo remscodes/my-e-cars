@@ -4,6 +4,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { finalize } from 'rxjs';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
@@ -25,6 +26,7 @@ import { AuthService } from '../../services/auth.service';
     MatInputModule,
     PanelComponent,
     SpinnerComponent,
+    MatRadioModule,
   ],
 })
 export class InitSelectCarComponent implements OnInit {

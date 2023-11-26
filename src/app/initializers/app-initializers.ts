@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, Provider } from '@angular/core';
 import { emitError } from 'thror';
-import { RedirectionService } from '../core/auth/services/redirection.service';
+import { AutoRedirect } from '../core/auth/services/auto-redirect.service';
 import { Optional } from '../shared/models/shared.model';
 import { BetterRouter } from '../shared/services/better-router.service';
 import { WINDOW } from '../shared/tokens/window.token';
@@ -23,7 +23,7 @@ export const addGoogleMapApiScriptProvider: Provider = {
 export const initDepsProvider: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
-  deps: [BetterRouter, RedirectionService],
+  deps: [BetterRouter, AutoRedirect],
   useFactory: () => () => {},
 };
 

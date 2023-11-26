@@ -1,44 +1,36 @@
 <app-panel>
 
-  <form [formGroup]="form" class="fx fx-column fx-gap-8" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" class="flex flex-col gap-2" (ngSubmit)="onSubmit()">
 
-    <div class="fx fx-align-center-center">
+    <div class="flex justify-center items-center">
       <span>VÉHICULES</span>
     </div>
 
     <div *ngIf="vehicles() && !isLoading; else loading">
 
-      <div *ngIf="vehicles()!.vehicleLinks?.length; else empty">
-        <div *ngFor="let vehicle of vehicles()!.vehicleLinks" class="fx fx-row fx-gap-8">
-
-          <input matInput
-                 type="radio"
-                 [value]="vehicle.vin"
-                 formControlName="vin">
-
-          <span>{{vehicle.vin}}</span>
-        </div>
-      </div>
+      <mat-radio-group *ngIf="vehicles()!.vehicleLinks?.length; else empty"
+                       class="flex flex-col gap-2"
+                       formControlName="vin">
+        <mat-radio-button *ngFor="let vehicle of vehicles()!.vehicleLinks" [value]="vehicle.vin">
+          {{vehicle.vin}}
+        </mat-radio-button>
+      </mat-radio-group>
 
       <ng-template #empty>
         <span>Aucune voiture associée à ce compte</span>
       </ng-template>
     </div>
 
-    <div class="fx fx-row fx-align-center-center fx-gap-16">
+    <div class="flex justify-center items-center gap-4">
 
-      <button mat-flat-button type="button" (click)="switchAccount()">
-        <span>RETOUR</span>
-      </button>
+      <button mat-flat-button type="button" (click)="switchAccount()">RETOUR</button>
 
-      <button mat-flat-button type="submit" [disabled]="form.invalid">
-        <span>CONFIRMER</span>
-      </button>
+      <button mat-flat-button type="submit" [disabled]="form.invalid">CONFIRMER</button>
     </div>
   </form>
 
   <ng-template #loading>
-    <div class="fx fx-align-center-center">
+    <div class="flex justify-center items-center">
       <app-spinner/>
     </div>
   </ng-template>

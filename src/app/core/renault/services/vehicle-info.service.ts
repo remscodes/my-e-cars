@@ -19,11 +19,11 @@ export class VehicleInfoService {
 
   private storageService: StorageService = inject(StorageService);
 
-  public readonly vehicles: WritableSignal<Nullable<Vehicles>> = signal(null);
+  public vehicles: WritableSignal<Nullable<Vehicles>> = signal(null);
 
-  public readonly selectedVin: WritableSignal<Nullable<string>> = signal(this.storageService.getVin());
+  public selectedVin: WritableSignal<Nullable<string>> = signal(this.storageService.getVin());
 
-  public readonly selectedVehicle: Signal<Optional<VehicleLink>> = computed(() => {
+  public selectedVehicle: Signal<Optional<VehicleLink>> = computed(() => {
     return this.vehicles()
       ?.vehicleLinks
       ?.find((vehicle: VehicleLink) => vehicle.vin === this.selectedVin());
@@ -31,13 +31,13 @@ export class VehicleInfoService {
     equal: (a, b) => a?.vin === b?.vin,
   });
 
-  public readonly selectedModel: Signal<Optional<VehicleDetails['model']>> = computed(() => {
+  public selectedModel: Signal<Optional<VehicleDetails['model']>> = computed(() => {
     return this.selectedVehicle()
       ?.vehicleDetails
       ?.model;
   });
 
-  public readonly selectedImgSrc: Signal<Optional<string>> = computed(() => {
+  public selectedImgSrc: Signal<Optional<string>> = computed(() => {
     return this.selectedVehicle()
       ?.vehicleDetails
       ?.assets
@@ -47,15 +47,15 @@ export class VehicleInfoService {
       ?.url;
   });
 
-  private readonly lastStats: WritableSignal<VehicleStats> = signal({
+  private lastStats: WritableSignal<VehicleStats> = signal({
     batteryStatus: null,
     chargeMode: null,
     charges: null,
   });
 
-  public readonly batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.lastStats().batteryStatus);
-  public readonly chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.lastStats().chargeMode);
-  public readonly charges: Signal<Nullable<Charges>> = computed(() => this.lastStats().charges);
+  public batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.lastStats().batteryStatus);
+  public chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.lastStats().chargeMode);
+  public charges: Signal<Nullable<Charges>> = computed(() => this.lastStats().charges);
 
   public updateBatteryStatus(batteryStatus: BatteryStatus): void {
     this.lastStats.update((stats: VehicleStats) => ({
@@ -81,12 +81,10 @@ export class VehicleInfoService {
   private observe(): void {
     effect(() => {
       const vin: Nullable<string> = this.selectedVin();
+      if (!vin) return;
 
-      if (environment.devkit?.logEffect) console.info(`Vin : ${vin}`);
-
-      (vin)
-        ? this.storageService.setVin(vin)
-        : this.storageService.clearVin();
+      if (environment.devkit?.logEffect) console.info(`Selected Vin : ${vin}`);
+      this.storageService.setVin(vin);
     });
   }
 }

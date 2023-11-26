@@ -23,8 +23,8 @@ export class WeekRibbonComponent {
   @Input({ required: true })
   public enabledDays!: EnabledDay[];
 
-  @Input()
-  public readonly: boolean = false;
+  @Input('readonly')
+  public isReadonly: boolean = false;
 
   @Output()
   public enabledDaysChange: EventEmitter<EnabledDay[]> = new EventEmitter();

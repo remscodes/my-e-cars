@@ -1,31 +1,31 @@
 <app-panel>
 
-  <div class="fx fx-align-center-center">
+  <div class="flex justify-center">
     <span>CONNEXION</span>
   </div>
 
-  <form [formGroup]="form" class="fx fx-column fx-gap-8" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" class="flex flex-col gap-2" (ngSubmit)="onSubmit()">
 
-    <input matInput
-           id="user-text-field"
-           type="email"
-           formControlName="login"
-           placeholder="Email *">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput
+             id="user-text-field"
+             type="email"
+             formControlName="login">
+      <mat-error *ngIf="form.controls['login'].getError('required')">L'identifiant est requis.</mat-error>
+    </mat-form-field>
 
-    <input matInput
-           id="current-password"
-           type="password"
-           formControlName="password"
-           placeholder="Mot de passe *">
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput
+             id="current-password"
+             type="password"
+             formControlName="password">
+      <mat-error *ngIf="form.controls['password'].getError('required')">Le mot de passe est requis.</mat-error>
+    </mat-form-field>
 
-    <!--        <span *ngIf="form.get('login')?.touched && !form.get('login')?.valid"-->
-    <!--              style="color: red;">L'identifiant et le mot de passe sont requis</span>-->
-
-    <div class="fx fx-align-center-center">
-
-      <button mat-flat-button type="submit" [disabled]="form.invalid">
-        <span>SE CONNECTER</span>
-      </button>
+    <div class="flex justify-center">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">SE CONNECTER</button>
     </div>
   </form>
 </app-panel>

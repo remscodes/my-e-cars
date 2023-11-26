@@ -5,7 +5,7 @@ import { VehicleInfoService } from '../../renault/services/vehicle-info.service'
 import { AuthInfoService } from './auth-info.service';
 
 @Injectable({ providedIn: 'root' })
-export class RedirectionService {
+export class AutoRedirect {
 
   public constructor() {
     this.observe();
@@ -17,20 +17,21 @@ export class RedirectionService {
 
   private observe(): void {
     effect(() => {
-      if (environment.devkit?.logEffect) console.log('AutoRouting');
-
-      if (!this.authInfoService.isAuthenticated()) return;
+      if (!this.authInfoService.isAuth()) return;
 
       if (!this.authInfoService.selectedAccount()) {
+        if (environment.devkit?.logEffect) console.log('AutoRouting /init-select-account');
         this.router.navigate(['init-select-account']).then();
         return;
       }
 
       if (!this.vehicleInfoService.selectedVehicle()) {
+        if (environment.devkit?.logEffect) console.log('AutoRouting /init-select-car');
         this.router.navigate(['init-select-car']).then();
         return;
       }
 
+      if (environment.devkit?.logEffect) console.log('AutoRouting /');
       this.router.navigate(['']).then();
     });
   }
