@@ -3,6 +3,7 @@ import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
 import { BottomNavBarComponent } from './components/bottom-nav-bar/bottom-nav-bar.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { VehicleSelectorComponent } from './components/vehicle-selector/vehicle-selector.component';
+import { slideInAnimation } from './shared/animations/slide.animation';
 import { Optional } from './shared/models/shared.model';
 import { BetterRouter } from './shared/services/better-router.service';
 
@@ -11,6 +12,7 @@ import { BetterRouter } from './shared/services/better-router.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [slideInAnimation],
   standalone: true,
   imports: [
     RouterOutlet,

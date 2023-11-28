@@ -1,11 +1,15 @@
 import { NgForOf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ChargeDetails } from '@remscodes/renault-api';
+import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
+import { ChargeDetails, Charges } from '@remscodes/renault-api';
 import dayjs from 'dayjs';
+import { finalize } from 'rxjs';
+import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
 import { Optional } from '../../../../../../shared/models/shared.model';
 import { BetterRouter } from '../../../../../../shared/services/better-router.service';
 import { Loading } from '../../../../../../shared/services/loading.service';
@@ -30,6 +34,8 @@ export class ChargeHistoryComponent implements OnInit {
 
   private router: BetterRouter = inject(BetterRouter);
   private loading: Loading = inject(Loading);
+  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   public form: FormGroup = new FormGroup({
@@ -44,19 +50,20 @@ export class ChargeHistoryComponent implements OnInit {
   }
 
   private getCharges(): void {
+    const vin = this.vehicleInfoService.selectedVin();
+    if (!vin) return;
+
     const { startDate: start, endDate: end } = this.form.value;
 
     this.loading.start();
-    // this.vehicleService.readCharges({ start, end }).pipe(
-    //   finalize(() => this.loading.stop()),
-    //   takeUntilDestroyed(this.destroyRef),
-    // ).subscribe({
-    //   next: ({ body: chargesRes }: HttpResponse<Charges>) => {
-    //     if (!chargesRes) return;
-    //
-    //     this.charges = chargesRes.charges;
-    //   },
-    // });
+    this.kamereon.readCharges({ start, end }, vin).pipe(
+      finalize(() => this.loading.stop()),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (chargesRes: Charges) => {
+        this.charges = chargesRes.charges;
+      },
+    });
   }
 
   public onSubmit(): void {
@@ -66,4 +73,6 @@ export class ChargeHistoryComponent implements OnInit {
   public back(): void {
     this.router.back();
   }
+
+  public trackByDate = (_i: number, { chargeStartDate }: ChargeDetails) => chargeStartDate;
 }

@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { VehicleLink } from '@remscodes/renault-api';
 import { finalize } from 'rxjs';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
@@ -77,4 +78,6 @@ export class InitSelectCarComponent implements OnInit {
   public switchAccount(): void {
     this.router.navigate(['init-select-account']).then();
   }
+
+  public trackByVin = (_i: number, { vin }: VehicleLink) => vin;
 }

@@ -1,14 +1,13 @@
-<div class="fx fx-column widget">
+<div class="flex flex-col gap-2 widget">
 
-  <div class="fx fx-row fx-gap-4 fx-align-center-center">
+  <div class="flex justify-center items-center gap-1">
 
     <mat-icon>hvac</mat-icon>
-<!--    <rems-icon icon="hvac" [width]="30" [height]="30"></rems-icon>-->
 
     <span>Climatisation</span>
   </div>
 
   <div>
-    <button mat-flat-button (click)="toggleHvac()">Climatiser</button>
+    <button mat-stroked-button (click)="toggleHvac()">Climatiser</button>
   </div>
 </div>

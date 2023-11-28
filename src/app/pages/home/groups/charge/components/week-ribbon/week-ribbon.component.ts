@@ -32,4 +32,6 @@ export class WeekRibbonComponent {
   public toggle(day: EnabledDay): void {
     day.enabled = !day.enabled;
   }
+
+  public trackByDay = (_i: number, { day }: EnabledDay) => day;
 }

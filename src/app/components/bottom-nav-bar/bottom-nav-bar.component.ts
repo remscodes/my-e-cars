@@ -1,9 +1,9 @@
 import { NgForOf, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { fadeToTop } from '../../shared/animations/fade.animation';
-import { BetterRouter } from '../../shared/services/better-router.service';
 
 interface MenuItem {
   icon: string;
@@ -21,13 +21,13 @@ interface MenuItem {
   imports: [
     NgIf,
     NgForOf,
+    RouterLink,
     MatIconModule,
     MatRippleModule,
+    RouterLinkActive,
   ],
 })
 export class BottomNavBarComponent {
-
-  private router: BetterRouter = inject(BetterRouter);
 
   @Input()
   public display: boolean = true;
@@ -37,10 +37,6 @@ export class BottomNavBarComponent {
     { icon: 'my_location', label: 'Position', link: 'location' },
     { icon: 'account_circle', label: 'Profil', link: 'account' },
   ];
-
-  public navigate(link: string): void {
-    this.router.navigate([link]).then();
-  }
 
   public trackByLink = (_i: number, { link }: MenuItem) => link;
 }

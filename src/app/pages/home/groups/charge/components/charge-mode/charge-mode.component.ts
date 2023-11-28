@@ -1,10 +1,13 @@
 import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { ChargingSettings, DateType, Day } from '@remscodes/renault-api';
+import { finalize } from 'rxjs';
+import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
 import { fade } from '../../../../../../shared/animations/fade.animation';
 import { DAYS } from '../../../../../../shared/contants/day.constants';
 import { BetterRouter } from '../../../../../../shared/services/better-router.service';
@@ -50,8 +53,9 @@ export class ChargeModeComponent implements OnInit {
   private loading: Loading = inject(Loading);
   private router: BetterRouter = inject(BetterRouter);
   private dialog: MatDialog = inject(MatDialog);
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
   private destroyRef: DestroyRef = inject(DestroyRef);
-  private cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   public options: Option[] = [
     { label: 'Instantanée', mode: 'always', icon: 'cable' },
@@ -68,16 +72,20 @@ export class ChargeModeComponent implements OnInit {
   }
 
   private getChargeMode(): void {
+    const vin = this.vehicleInfoService.selectedVin();
+    if (!vin) return;
+
     this.loading.start();
-    // this.vehicleService.readChargingSettings().pipe(
-    //   finalize(() => this.loading.stop()),
-    //   takeUntilDestroyed(this.destroyRef),
-    // ).subscribe({
-    //   next: ({ body: chargeMode }: HttpResponse<ChargingSettings>) => {
-    //     this.selectedMode = chargeMode?.mode;
-    //     this.weekSchedules = this.toSchedule(chargeMode?.schedules ?? []);
-    //   },
-    // });
+    this.kamereon.readChargingSettings(vin).pipe(
+      finalize(() => this.loading.stop()),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (chargeMode: ChargingSettings) => {
+        this.selectMode(chargeMode.mode!);
+        console.log(this.selectedMode);
+        this.weekSchedules = this.toSchedule(chargeMode?.schedules ?? []);
+      },
+    });
   }
 
   public selectMode(mode: string): void {
@@ -101,7 +109,6 @@ export class ChargeModeComponent implements OnInit {
       .subscribe({
         next: (time: string) => {
           this.timeSchedule = time;
-          this.cdr.markForCheck();
         },
       });
   }
@@ -167,4 +174,7 @@ export class ChargeModeComponent implements OnInit {
       return acc;
     }, []);
   };
+
+  public trackByMode = (_i: number, { mode }: Option) => mode;
+  public trackByDays = (_i: number, { days }: BetterSchedule) => days.join(',');
 }

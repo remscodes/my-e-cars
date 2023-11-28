@@ -1,29 +1,29 @@
 <app-panel>
 
-  <div *ngIf="person(); else loading" class="flex flex-col gap-4">
+  <div class="flex flex-col gap-4">
 
     <div class="flex justify-center items-center">
       <span class="font-bold">Comptes disponibles</span>
     </div>
 
-    <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
+    <form *ngIf="accounts().length; else loading" [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
       <mat-radio-group class="flex flex-col gap-2" formControlName="accountId">
-        <mat-radio-button *ngFor="let account of accounts; trackBy: trackById" [value]="account.accountId">
+        <mat-radio-button *ngFor="let account of accounts(); trackBy: trackById" [value]="account.accountId">
           {{account.accountType}}
         </mat-radio-button>
       </mat-radio-group>
 
       <div class="flex justify-center items-center gap-4">
 
-        <button mat-icon-button type="button" (click)="logout()">RETOUR</button>
+        <button mat-stroked-button type="button" (click)="logout()">RETOUR</button>
 
-        <button mat-icon-button type="submit" [disabled]="form.invalid">CONFIRMER</button>
+        <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">CONFIRMER</button>
       </div>
     </form>
-  </div>
 
-  <ng-template #loading>
-    <app-spinner/>
-  </ng-template>
+    <ng-template #loading>
+      <app-spinner/>
+    </ng-template>
+  </div>
 </app-panel>

@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { BatteryStatus, ChargeMode, Charges, IMAGE_ORIENTATION_KEY, VehicleDetails, VehicleLink, Vehicles } from '@remscodes/renault-api';
+import { BatteryStatus, ChargeMode, Charges, HvacStatus, IMAGE_ORIENTATION_KEY, VehicleDetails, VehicleLink, Vehicles } from '@remscodes/renault-api';
 import { environment } from '../../../../environments/environment';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -8,6 +8,7 @@ interface VehicleStats {
   batteryStatus: Nullable<BatteryStatus>;
   chargeMode: Nullable<ChargeMode>;
   charges: Nullable<Charges>;
+  hvacStatus: Nullable<HvacStatus>;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -47,15 +48,17 @@ export class VehicleInfoService {
       ?.url;
   });
 
-  private lastStats: WritableSignal<VehicleStats> = signal({
+  public lastStats: WritableSignal<VehicleStats> = signal({
     batteryStatus: null,
     chargeMode: null,
     charges: null,
+    hvacStatus: null,
   });
 
   public batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.lastStats().batteryStatus);
   public chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.lastStats().chargeMode);
   public charges: Signal<Nullable<Charges>> = computed(() => this.lastStats().charges);
+  public hvacStatus: Signal<Nullable<HvacStatus>> = computed(() => this.lastStats().hvacStatus);
 
   public updateBatteryStatus(batteryStatus: BatteryStatus): void {
     this.lastStats.update((stats: VehicleStats) => ({
@@ -75,6 +78,13 @@ export class VehicleInfoService {
     this.lastStats.update((stats: VehicleStats) => ({
       ...stats,
       chargeMode,
+    }));
+  }
+
+  public updateHvacStatus(hvacStatus: HvacStatus): void {
+    this.lastStats.update((stats: VehicleStats) => ({
+      ...stats,
+      hvacStatus,
     }));
   }
 
