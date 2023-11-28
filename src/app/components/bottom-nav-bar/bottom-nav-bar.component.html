@@ -5,7 +5,8 @@
     <div *ngFor="let item of items; trackBy:trackByLink"
          matRipple
          class="flex flex-col gap-1 flex-1 justify-center items-center p-2 rounded-xl cursor-pointer"
-         (click)="navigate(item.link)">
+         [routerLink]="[item.link]"
+         routerLinkActive="text-accent">
 
       <mat-icon>{{item.icon}}</mat-icon>
 

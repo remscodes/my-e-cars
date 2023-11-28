@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, Signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
+import { HvacStatus } from '@remscodes/renault-api';
+import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
+import { Nullable } from '../../../../../../shared/models/shared.model';
 
 @Component({
   selector: 'app-hvac-widget',
@@ -16,24 +20,33 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HvacWidgetComponent implements OnInit {
 
+  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
   private destroyRef: DestroyRef = inject(DestroyRef);
-  private dialog: MatDialog = inject(MatDialog);
+
+  public hvacStatus: Signal<Nullable<HvacStatus>> = this.vehicleInfoService.hvacStatus;
 
   public ngOnInit(): void {
-    // this.getHvacStatus();
+    if (!this.hvacStatus) this.getHvacStatus();
   }
 
   private getHvacStatus(): void {
-    // this.vehicleService.readHvacStatus().pipe(
-    //   takeUntilDestroyed(this.destroyRef),
-    // ).subscribe({
-    //   next: () => {
-    //
-    //   },
-    // });
+    const vin = this.vehicleInfoService.selectedVin();
+    if (!vin) return;
+
+    this.kamereon.readHvacStatus(vin).pipe(
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (value: HvacStatus) => {
+        this.vehicleInfoService.updateHvacStatus(value);
+      },
+    });
   }
 
   public toggleHvac(): void {
-    // this.vehicleService.performHvacStart()
+    // const vin = this.vehicleInfoService.selectedVin();
+    // if (!vin) return;
+    //
+    // this.kamereon.performHvacStart({}, vin);
   }
 }

@@ -19,7 +19,7 @@ export class AutoRedirect {
     effect(() => {
       if (!this.authInfoService.isAuth()) return;
 
-      if (!this.authInfoService.selectedAccount()) {
+      if (!this.authInfoService.selectedAccountId()) {
         if (environment.devkit?.logEffect) console.log('AutoRouting /init-select-account');
         this.router.navigate(['init-select-account']).then();
         return;

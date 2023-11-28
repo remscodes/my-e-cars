@@ -11,7 +11,7 @@
       <mat-radio-group *ngIf="vehicles()!.vehicleLinks?.length; else empty"
                        class="flex flex-col gap-2"
                        formControlName="vin">
-        <mat-radio-button *ngFor="let vehicle of vehicles()!.vehicleLinks" [value]="vehicle.vin">
+        <mat-radio-button *ngFor="let vehicle of vehicles()!.vehicleLinks; trackBy:trackByVin" [value]="vehicle.vin">
           {{vehicle.vin}}
         </mat-radio-button>
       </mat-radio-group>
@@ -23,15 +23,13 @@
 
     <div class="flex justify-center items-center gap-4">
 
-      <button mat-flat-button type="button" (click)="switchAccount()">RETOUR</button>
+      <button mat-stroked-button type="button" (click)="switchAccount()">RETOUR</button>
 
-      <button mat-flat-button type="submit" [disabled]="form.invalid">CONFIRMER</button>
+      <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">CONFIRMER</button>
     </div>
   </form>
 
   <ng-template #loading>
-    <div class="flex justify-center items-center">
-      <app-spinner/>
-    </div>
+    <app-spinner class="flex justify-center items-center"/>
   </ng-template>
 </app-panel>

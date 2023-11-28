@@ -19,7 +19,7 @@
 
     <div class="flex justify-center gap-2 py-2">
 
-      <div *ngFor="let option of options"
+      <div *ngFor="let option of options; trackBy:trackByMode"
            class="flex flex-col flex-1 justify-center items-center mode-item"
            [ngClass]="{'mode-item--selected': selectedMode === option.mode}"
            (click)="selectMode(option.mode)">
@@ -57,7 +57,7 @@
 
           <div class="flex flex-col gap-4 overflow-auto">
 
-            <div *ngFor="let schedule of weekSchedules; let index=index;"
+            <div *ngFor="let schedule of weekSchedules; let index=index; trackBy:trackByDays"
                  class="flex flex-col gap-2 text-xs">
 
               <div class="flex justify-center">

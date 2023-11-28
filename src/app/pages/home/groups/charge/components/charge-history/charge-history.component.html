@@ -10,26 +10,26 @@
         </button>
       </div>
 
-      <div class="flex flex-1 justify-center">
+      <div class="flex flex-1 justify-center items-center">
         <span>Historique de charge</span>
       </div>
 
       <div class="w-6"></div>
     </div>
 
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="form" class="flex flex-col gap-4" (ngSubmit)="onSubmit()">
 
-      <input matInput type="date" value="2023-02-02">
+      <input matInput type="date" formControlName="startDate">
 
       <input matInput type="date" formControlName="endDate">
 
-      <button mat-flat-button type="submit" [disabled]="form.invalid">Rechercher</button>
+      <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">Rechercher</button>
     </form>
 
     <div style="border-top: 2px solid rgb(128,128,128);"></div>
 
     <div class="overflow-auto">
-      <app-charge *ngFor="let charge of charges" [charge]="charge"/>
+      <app-charge *ngFor="let charge of charges; trackBy:trackByDate" [charge]="charge"/>
     </div>
   </div>
 </div>
