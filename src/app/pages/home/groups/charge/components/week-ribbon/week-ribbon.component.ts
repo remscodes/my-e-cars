@@ -14,8 +14,8 @@ export interface EnabledDay {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgForOf,
     UpperCasePipe,
+    NgForOf,
   ],
 })
 export class WeekRibbonComponent {

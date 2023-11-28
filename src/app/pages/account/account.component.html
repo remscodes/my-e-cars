@@ -1,8 +1,8 @@
-<div class="fx fx-fill fx-column" style="padding: 20px;">
+<div class="flex flex-col h-full w-full p-5">
 
-  <div class="fx fx-flex fx-column fx-gap-16 widget" style="padding: 20px;">
+  <div class="flex flex-col gap-4 bg-white p-6 shadow rounded-2xl">
 
-    <div class="fx fx-align-center-center">
+    <div class="flex justify-center">
       <span>Nom</span>
     </div>
 
@@ -10,20 +10,22 @@
 
     <span>Mes préférences</span>
 
-    <button mat-flat-button>
-      <span>Thème</span>
-    </button>
+    <button mat-stroked-button
+            color="primary"
+            type="button">Thème</button>
 
-    <button mat-flat-button>
-      <span>Rafraîchissement des informations</span>
-    </button>
+    <button mat-stroked-button
+            color="primary"
+            type="button">Rafraîchissement des informations</button>
 
-    <button mat-flat-button (click)="switchAccount()">
-      <span>Changer de compte</span>
-    </button>
+    <button mat-stroked-button
+            color="accent"
+            type="button"
+            (click)="switchAccount()">Changer de compte</button>
 
-    <button mat-flat-button (click)="logout()">
-      <span>Se Déconnecter</span>
-    </button>
+    <button mat-stroked-button
+            color="warn"
+            type="button"
+            (click)="logout()">Se déconnecter</button>
   </div>
 </div>

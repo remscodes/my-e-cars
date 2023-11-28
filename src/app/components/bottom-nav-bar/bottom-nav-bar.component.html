@@ -1,16 +1,15 @@
-<div *ngIf="displayNavBar" class="p-1">
+<div *ngIf="display" class="p-2">
 
-  <div @fadeToTop class="flex navbar select-none">
+  <div @fadeToTop class="flex gap-2 bg-white p-2 rounded-2xl shadow">
 
-    <div *ngFor="let item of items" class="flex flex-1 justify-center items-center">
+    <div *ngFor="let item of items; trackBy:trackByLink"
+         matRipple
+         class="flex flex-col gap-1 flex-1 justify-center items-center p-2 rounded-xl cursor-pointer"
+         (click)="navigate(item.link)">
 
-      <div class="item" (click)="navigate(item.link)">
+      <mat-icon>{{item.icon}}</mat-icon>
 
-        <mat-icon>{{item.icon}}</mat-icon>
-        <!--        <rems-icon [icon]="item.icon" [width]="30" [height]="30"></rems-icon>-->
-
-        <span class="item__label">{{item.label}}</span>
-      </div>
+      <span class="text-[13px]">{{item.label}}</span>
     </div>
   </div>
 </div>

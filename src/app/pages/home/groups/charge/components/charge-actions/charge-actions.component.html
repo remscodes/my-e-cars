@@ -1,20 +1,18 @@
-<div class="fx fx-column fx-gap-8" style="font-size: 14px;">
+<div class="flex flex-col gap-2 text-sm">
 
-  <div class="fx fx-row action-wrapper" (click)="goToChargeMode()">
+  <div class="flex rounded-xl bg-gray-300 p-2 cursor-pointer" (click)="goToChargeMode()">
 
-    <span class="fx-flex">Mode de charge</span>
+    <span class="flex-1">Mode de charge</span>
 
-    <mat-icon>chevron-right</mat-icon>
-<!--    <rems-icon icon="chevron-right" [width]="24" [height]="24"></rems-icon>-->
+    <mat-icon>chevron_right</mat-icon>
   </div>
 
-  <div class="fx fx-row action-wrapper" (click)="goToHistory()">
+  <div class="flex rounded-xl bg-gray-300 p-2 cursor-pointer" (click)="goToHistory()">
 
-    <div class="fx-flex">
+    <div class="flex-1">
       <span>Historique</span>
     </div>
 
-    <mat-icon>chevron-right</mat-icon>
-<!--    <rems-icon icon="chevron-right" [width]="24" [height]="24"></rems-icon>-->
+    <mat-icon>chevron_right</mat-icon>
   </div>
 </div>

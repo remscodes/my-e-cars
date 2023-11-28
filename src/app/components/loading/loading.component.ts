@@ -1,10 +1,9 @@
 import { animate, style, transition, trigger } from "@angular/animations";
 import { NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnChanges, Signal, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { Loading } from '../../shared/services/loading.service';
-import { WINDOW } from '../../shared/tokens/window.token';
 
 @Component({
   selector: 'app-loading',
@@ -30,28 +29,13 @@ import { WINDOW } from '../../shared/tokens/window.token';
     SpinnerComponent,
   ],
 })
-export class LoadingComponent implements OnChanges {
+export class LoadingComponent {
 
-  private window: Window = inject(WINDOW);
   private loading: Loading = inject(Loading);
 
   public active: Signal<boolean> = this.loading.active.asReadonly();
 
-  public canClose: boolean = false;
-
-  public closeButtonTimeout: number = 2000;
-
-  public ngOnChanges({ enable }: SimpleChanges): void {
-    if (enable) {
-      this.canClose = false;
-      this.window.setTimeout(() => {
-        this.canClose = true;
-      }, this.closeButtonTimeout);
-    }
-  }
-
   public forceClose(): void {
     this.loading.stopForce();
-    this.canClose = false;
   }
 }

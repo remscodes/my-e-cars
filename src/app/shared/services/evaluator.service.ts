@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmationDialogComponent, DialogData } from '../../components/confirmation-dialog/confirmation-dialog.component';
 
-export interface ConfirmationResult {
+interface ConfirmationResult {
   accepted?: () => void;
   canceled?: () => void;
 }
@@ -13,7 +13,8 @@ export class Evaluator {
   private dialog: MatDialog = inject(MatDialog);
 
   public confirm(dialogConfig: MatDialogConfig<DialogData>, result?: ConfirmationResult): void {
-    this.dialog.open(ConfirmationDialogComponent, dialogConfig)
+    this.dialog
+      .open(ConfirmationDialogComponent, dialogConfig)
       .afterClosed()
       .subscribe({
         next: (hasConfirmed: boolean) => (hasConfirmed)
