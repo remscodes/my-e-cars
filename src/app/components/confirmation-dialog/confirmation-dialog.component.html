@@ -1,17 +1,22 @@
-<div class="flex flex-col gap-4 p-5">
+<div class="flex flex-col gap-5 p-5">
 
   <div class="flex justify-center">
-    <span>Title</span>
+    <h3>{{data.title ?? 'Confirmation'}}</h3>
   </div>
 
-  <div class="flex justify-center">
-    <span>Content</span>
+  <div *ngIf="data.message" class="flex justify-center">
+    <span>{{data.message}}</span>
   </div>
 
-  <div class="flex gap-4">
+  <div class="flex justify-end gap-4 pt-4">
 
-    <button mat-flat-button type="button" (click)="dialogRef.close(false)">Fermer</button>
+    <button mat-stroked-button
+            type="button"
+            (click)="dialogRef.close(false)">{{data.noLabel ?? 'Fermer'}}</button>
 
-    <button mat-flat-button type="button" (click)="dialogRef.close(true)">Confirmer</button>
+    <button mat-flat-button
+            type="button"
+            [color]="(data.type === 'warn') ? 'warn' : 'primary'"
+            (click)="dialogRef.close(true)">{{data.yesLabel ?? 'Confirmer'}}</button>
   </div>
 </div>

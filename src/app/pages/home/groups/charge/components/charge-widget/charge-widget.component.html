@@ -1,11 +1,10 @@
-<div class="fx fx-column fx-gap-8 widget">
+<div class="flex flex-col gap-2 widget">
 
-  <div class="fx fx-row">
+  <div class="flex">
 
-    <div class="fx fx-row fx-flex fx-align-center-center fx-gap-4">
+    <div class="flex justify-center items-center flex-1 gap-2">
 
-      <mat-icon>electric-car</mat-icon>
-      <!--      <rems-icon icon="electric-car" [width]="30" [height]="30"></rems-icon>-->
+      <mat-icon>electric_car</mat-icon>
 
       <span>Niveau de Charge</span>
     </div>
@@ -13,51 +12,48 @@
 
   <div *ngIf="batteryStatus(); else loading">
 
-    <div class="fx fx-column fx-gap-8">
+    <div class="flex flex-col gap-2">
 
-      <div class="fx fx-row fx-gap-16">
+      <div class="flex gap-4">
 
-        <div class="fx fx-align-center-center">
+        <div class="flex items-center">
 
-          <div class="fx fx-column fx-align-center-center fx-gap-8 widget__bloc"
+          <div class="flex flex-col justify-center gap-2 widget__bloc"
                [ngClass]="{'widget__bloc--charging': isCharging()}">
 
-            <div class="fx fx-align-center-center" style="font-size: 14px;">
+            <div class="flex justify-center text-sm">
               <span>Batterie</span>
             </div>
 
-            <div class="fx fx-align-center-center battery-container" [style.background]="batteryGradient()">
-              <span style="font-size: 12px; font-weight: 700;">{{batteryStatus()!.batteryLevel}} %</span>
+            <div class="flex justify-center battery-container" [style.background-image]="batteryGradient()">
+              <span class="text-xs font-bold">{{batteryStatus()!.batteryLevel}} %</span>
             </div>
 
-            <div *ngIf="isCharging()" class="fx fx-column fx-gap-4" style="font-size: 12px; font-weight: 500;">
+            <div *ngIf="isCharging()" class="flex flex-col gap-1 text-xs">
 
-              <span style="font-size: 10px;">~ {{batteryStatus()!.chargingRemainingTime! | toHour}}</span>
+              <span class="text-[10px]">~ {{batteryStatus()!.chargingRemainingTime! | toHour}}</span>
             </div>
           </div>
         </div>
 
-        <div class="fx fx-flex fx-column fx-gap-8 widget__bloc" style="font-size: 14px;">
+        <div class="flex flex-col gap-2 flex-1 text-sm widget__bloc">
 
-          <div class="fx fx-align-center-center">
+          <div class="flex justify-center">
             <span>Autonomie</span>
           </div>
 
-          <div class="fx fx-flex fx-align-center-center fx-gap-8" style="flex-wrap: wrap">
+          <div class="flex flex-wrap justify-center flex-1 gap-2">
 
-            <div matTooltip="Autonomie approximative" class="fx fx-row fx-gap-2"
-                 style="background-color: white; padding: 5px; border-radius: 20px;">
+            <div class="flex items-center gap-1 bg-white p-1 rounded-2xl" matTooltip="Autonomie approximative">
 
-              <mat-icon>directions-car</mat-icon>
-              <!--              <rems-icon icon="directions-car" [width]="20" [height]="20"></rems-icon>-->
+              <mat-icon>directions_car</mat-icon>
 
               <span>{{batteryStatus()!.batteryAutonomy}} km</span>
             </div>
 
-            <div class="fx fx-row fx-gap-2" style="background-color: white; padding: 5px; border-radius: 20px;">
+            <div class="flex items-center gap-1 bg-white p-1 rounded-2xl">
 
-              <mat-icon>electric-bolt</mat-icon>
-              <!--              <rems-icon icon="electric-bolt" [width]="20" [height]="20"></rems-icon>-->
+              <mat-icon>electric_bolt</mat-icon>
 
               <span>{{batteryStatus()!.batteryAvailableEnergy}} kW</span>
             </div>
@@ -65,16 +61,12 @@
         </div>
       </div>
 
-      <span class="fx fx-align-center-center"
-            style="font-size: 10px; color: dimgray;">Dernière activité : {{batteryStatus()!.timestamp | date:'dd/MM/YY HH:mm':'UTC+2'}}</span>
+      <span
+        class="flex justify-center text-gray-400 text-[10px]">Dernière activité : {{batteryStatus()!.timestamp | date:'dd/MM/YY HH:mm':'UTC+2'}}</span>
 
-      <div class="fx fx-align-center-center">
-        <button mat-icon-button (click)="toggle()">
-          <mat-icon [style.rotate]="(revealActions) ? '180deg' : '0'">keyboard-double-arrow-down</mat-icon>
-          <!--          <rems-icon icon="keyboard-double-arrow-down"-->
-          <!--                     [width]="24"-->
-          <!--                     [height]="24"-->
-          <!--                     [rotate]=""></rems-icon>-->
+      <div class="flex justify-center">
+        <button mat-icon-button (click)="toggle()" [style.rotate]="(revealActions) ? '180deg' : '0deg'">
+          <mat-icon>keyboard_double_arrow_down</mat-icon>
         </button>
       </div>
 
@@ -83,8 +75,6 @@
   </div>
 
   <ng-template #loading>
-    <div class="fx fx-align-center-center">
-      <app-spinner/>
-    </div>
+    <app-spinner class="flex justify-center"/>
   </ng-template>
 </div>

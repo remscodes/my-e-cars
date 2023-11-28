@@ -1,6 +1,6 @@
-<div class="fx fx-row fx-gap-8">
+<div class="flex gap-2">
   <div *ngFor="let day of enabledDays"
-       class="fx fx-align-center-center pin"
+       class="flex justify-center w-[30px] h-[30px] rounded-[50%]"
        [style.background-color]="(day.enabled) ? 'black' : 'rgb(240, 240, 240)'"
        (click)="!isReadonly && toggle(day)">
     <span [style.color]="(day.enabled) ? 'white' : 'unset'">{{day.day.at(0) | uppercase}}</span>

@@ -1,9 +1,13 @@
 import { DatePipe, NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, Signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { BatteryStatus, PlugStatus } from '@remscodes/renault-api';
+import { finalize } from 'rxjs';
+import { emitError } from 'thror';
 import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
 import { SpinnerComponent } from '../../../../../../shared/components/spinner/spinner.component';
 import { Nullable } from "../../../../../../shared/models/shared.model";
@@ -31,6 +35,7 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
 export class ChargeWidgetComponent implements OnInit {
 
   private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   public batteryStatus: Signal<Nullable<BatteryStatus>> = this.vehicleInfoService.batteryStatus;
@@ -51,17 +56,18 @@ export class ChargeWidgetComponent implements OnInit {
   }
 
   public getBatteryStatus(): void {
+    const vin = this.vehicleInfoService.selectedVin();
+    if (!vin) emitError('Kamereon', 'Cannot get battery status because none vin is selected.');
+
     this.isLoading = true;
-    // this.vehicleService.readBatteryStatus().pipe(
-    //   finalize(() => this.isLoading = false),
-    //   takeUntilDestroyed(this.destroyRef),
-    // ).subscribe({
-    //   next: ({ body: batteryStatus }: HttpResponse<BatteryStatus>) => {
-    //     if (!batteryStatus) return;
-    //
-    //     this.vehicleInfoService.updateBatteryStatus(batteryStatus);
-    //   },
-    // });
+    this.kamereon.readBatteryStatus(vin).pipe(
+      finalize(() => this.isLoading = false),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (status: BatteryStatus) => {
+        this.vehicleInfoService.updateBatteryStatus(status);
+      },
+    });
   };
 
   public toggle(): void {

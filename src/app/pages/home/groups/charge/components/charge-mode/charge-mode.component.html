@@ -1,96 +1,89 @@
-<div class="fx fx-fill" style="padding: 20px;">
+<div class="flex h-full w-full p-5">
 
-  <div class="fx fx-flex fx-column fx-gap-8 widget">
+  <div class="flex flex-col flex-1 gap-2 widget">
 
-    <div class="fx fx-row">
+    <div class="flex">
 
-      <div class="fx fx-align-center-center" style="cursor: pointer;" (click)="back()">
+      <div class="flex justify-center cursor-pointer" (click)="back()">
         <button mat-icon-button>
-          <mat-icon>arrow-back</mat-icon>
-          <!--          <rems-icon icon="arrow-back" [width]="24" [height]="24"></rems-icon>-->
+          <mat-icon>arrow_back</mat-icon>
         </button>
       </div>
 
-      <div class="fx fx-flex fx-align-center-center">
+      <div class="flex flex-1 justify-center">
         <span>Mode de charge</span>
       </div>
 
-      <div style="width: 24px;"></div>
+      <div class="w-6"></div>
     </div>
 
-    <div class="fx fx-row fx-align-center-center fx-gap-8" style="padding: 10px 0;">
+    <div class="flex justify-center gap-2 py-2">
 
-      <div *ngFor="let option of options" class="fx fx-column fx-flex fx-align-center-center mode-item" [ngClass]="{
-        'mode-item--selected': selectedMode === option.mode
-      }" (click)="selectMode(option.mode)">
+      <div *ngFor="let option of options"
+           class="flex flex-col flex-1 justify-center items-center mode-item"
+           [ngClass]="{'mode-item--selected': selectedMode === option.mode}"
+           (click)="selectMode(option.mode)">
 
         <mat-icon>{{option.icon}}</mat-icon>
-        <!--        <rems-icon [icon]="option.icon" [width]="30" [height]="30"></rems-icon>-->
 
-        <span style="font-size: 12px;">{{option.label}}</span>
+        <span class="text-xs">{{option.label}}</span>
       </div>
     </div>
 
-    <div [ngSwitch]="selectedMode" class="fx-flex" style="overflow: auto;">
+    <div [ngSwitch]="selectedMode" class="flex-1 overflow-auto">
 
-      <div *ngSwitchCase="'always'" @fade class="fx fx-align-center-center">
-        <span style="font-size: 12px;">Branchez et chargez immédiatement !</span>
+      <div *ngSwitchCase="'always'" @fade class="flex justify-center">
+        <span class="text-xs">Branchez et chargez immédiatement !</span>
       </div>
 
-      <div *ngSwitchCase="'always_charging'" @fade class="fx fx-column fx-gap-16">
+      <div *ngSwitchCase="'always_charging'" @fade class="flex justify-center gap-4">
 
-        <div class="fx fx-align-center-center">
-          <span style="font-size: 12px;">Lancez une charge quand vous voulez.</span>
+        <div class="flex justify-center">
+          <span class="text-xs">Lancez une charge quand vous voulez.</span>
         </div>
 
-        <button mat-flat-button (click)="openTimeScheduler()">
-          <span>Planifier</span>
-        </button>
+        <button mat-flat-button (click)="openTimeScheduler()">Planifier</button>
 
-        <div *ngIf="timeSchedule" class="fx fx-align-center-center">
+        <div *ngIf="timeSchedule" class="flex justify-center">
           <span>Début à : {{timeSchedule}}</span>
         </div>
       </div>
 
-      <div *ngSwitchCase="'schedule'" @fade style="overflow: auto;">
+      <div *ngSwitchCase="'schedule'" @fade class="overflow-auto">
 
-        <div class="fx fx-column fx-align-center-center fx-gap-4">
+        <div class="flex flex-col justify-center gap-1">
 
-          <span style="font-size: 12px;">Programmez votre charge hebdomadaire.</span>
+          <span class="text-xs">Programmez votre charge hebdomadaire.</span>
 
-          <div class="fx fx-column fx-align-start-stretch fx-gap-16" style="overflow: auto;">
+          <div class="flex flex-col gap-4 overflow-auto">
 
-            <div *ngFor="let sched of weekSchedules; let index = index;" class="fx fx-column fx-gap-8"
-                 style="font-size: 13px;">
+            <div *ngFor="let schedule of weekSchedules; let index=index;"
+                 class="flex flex-col gap-2 text-xs">
 
-              <div class="fx fx-align-center-center">
-                <app-week-ribbon [(enabledDays)]="sched.days" [readonly]="true"/>
+              <div class="flex justify-center">
+                <app-week-ribbon [(enabledDays)]="schedule.days" [readonly]="true"/>
               </div>
 
-              <div class="fx fx-row fx-gap-16">
+              <div class="flex gap-4">
 
-                <div class="fx fx-flex fx-column fx-align-start-stretch fx-gap-4">
-
-                  <span>De {{sched.startTime ?? '-'}} à {{sched.endTime ?? '-'}}</span>
+                <div class="flex flex-col gap-1">
+                  <span>De {{schedule.startTime ?? '-'}} à {{schedule.endTime ?? '-'}}</span>
                 </div>
 
                 <mat-icon (click)="openWeekScheduler(index)">edit</mat-icon>
-                <!--                <rems-icon [icon]="'edit'" [width]="20" [height]="20"></rems-icon>-->
 
-                <input type="checkbox" [checked]="sched.activated">
+                <input type="checkbox" [checked]="schedule.activated">
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div *ngSwitchDefault @fade class="fx fx-align-center-center">
-        <span style="font-size: 12px; text-align: center;">Veuillez sélectionner un mode de charge.</span>
+      <div *ngSwitchDefault @fade class="flex justify-center">
+        <span class="text-xs text-center">Veuillez sélectionner un mode de charge.</span>
       </div>
     </div>
 
-    <button mat-flat-button type="button">
-      <span>Sauvegarder</span>
-    </button>
+    <button mat-flat-button type="button">Sauvegarder</button>
   </div>
 </div>

@@ -1,11 +1,10 @@
 <div *ngIf="active()" @loadingAnimation class="loading-background">
 
-  <div class="loading-box">
+  <div class="flex flex-col justify-center p-5 rounded-lg bg-white">
     <app-spinner/>
   </div>
 
-  <div *ngIf="canClose" class="loading-close">
-    <mat-icon (click)="forceClose()">close</mat-icon>
-    <!--    <rems-icon icon="close" (click)="forceClose()"></rems-icon>-->
+  <div class="absolute top-5 right-5 cursor-pointer">
+    <mat-icon color="accent" (click)="forceClose()">close</mat-icon>
   </div>
 </div>
