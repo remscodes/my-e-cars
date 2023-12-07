@@ -39,8 +39,8 @@ dependencies:
     specifier: ^17.0.0
     version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
   '@remscodes/ngx-renault-api-client':
-    specifier: ^1.0.0
-    version: 1.0.0(@angular/common@17.0.2)(@angular/core@17.0.2)(@remscodes/renault-api@1.2.2)(dayjs@1.11.10)(rxjs@7.8.1)(thror@1.0.1)
+    specifier: ^1.1.0
+    version: 1.1.0(@angular/common@17.0.2)(@angular/core@17.0.2)(@remscodes/renault-api@1.2.2)(dayjs@1.11.10)(rxjs@7.8.1)(thror@1.0.1)
   '@remscodes/renault-api':
     specifier: ^1.2.2
     version: 1.2.2
@@ -3033,8 +3033,8 @@ packages:
     dev: true
     optional: true
 
-  /@remscodes/ngx-renault-api-client@1.0.0(@angular/common@17.0.2)(@angular/core@17.0.2)(@remscodes/renault-api@1.2.2)(dayjs@1.11.10)(rxjs@7.8.1)(thror@1.0.1):
-    resolution: {integrity: sha512-GR6Npx9vOX0dY80NNxijRHTtJT5mJhfu8oW+fA/Z32amavhbH27SW4b74UXuO5j+TXM5KHS05KvWjVqz81uwnA==}
+  /@remscodes/ngx-renault-api-client@1.1.0(@angular/common@17.0.2)(@angular/core@17.0.2)(@remscodes/renault-api@1.2.2)(dayjs@1.11.10)(rxjs@7.8.1)(thror@1.0.1):
+    resolution: {integrity: sha512-rJrLDObl0LwXPnpS+FQpBguncQQeqPvqajcYcg8dE8NKYGHgxuaOUvSUkodVoD02RFgnXyIb9TYCksjL4hmvQA==}
     engines: {node: '>=18.13.0'}
     peerDependencies:
       '@angular/common': ^17.0.0
