@@ -24,8 +24,8 @@ dependencies:
     specifier: ^17.0.0
     version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
   '@angular/google-maps':
-    specifier: ^17.0.2
-    version: 17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(rxjs@7.8.1)
+    specifier: ^17.0.3
+    version: 17.0.3(@angular/common@17.0.2)(@angular/core@17.0.2)(rxjs@7.8.1)
   '@angular/material':
     specifier: 17.0.0
     version: 17.0.0(@angular/animations@17.0.2)(@angular/cdk@17.0.0)(@angular/common@17.0.2)(@angular/core@17.0.2)(@angular/forms@17.0.2)(@angular/platform-browser@17.0.2)(rxjs@7.8.1)
@@ -430,8 +430,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@angular/google-maps@17.0.2(@angular/common@17.0.2)(@angular/core@17.0.2)(rxjs@7.8.1):
-    resolution: {integrity: sha512-Y2LcO3DtQXGaveBsdM19wNslEQZJ1sM5D1AhAjHmXdz7a1YhLxAE6FE4vGtMJwYl+tZRh679+Qtexq4dS042hw==}
+  /@angular/google-maps@17.0.3(@angular/common@17.0.2)(@angular/core@17.0.2)(rxjs@7.8.1):
+    resolution: {integrity: sha512-2aBuygtGZRoH0EiuZgh8EGdY/QC5B7+vQu7lb2ttGVIWZUyWxxKoA6D7dRD+YGHnM0vSvGF6qR5tcZmAmqI+GQ==}
     peerDependencies:
       '@angular/common': ^17.0.0 || ^18.0.0
       '@angular/core': ^17.0.0 || ^18.0.0
