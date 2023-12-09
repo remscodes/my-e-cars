@@ -1,4 +1,4 @@
-import { NgForOf, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Day } from '@remscodes/renault-api';
 
@@ -15,7 +15,6 @@ export interface EnabledDay {
   standalone: true,
   imports: [
     UpperCasePipe,
-    NgForOf,
   ],
 })
 export class WeekRibbonComponent {
@@ -32,6 +31,4 @@ export class WeekRibbonComponent {
   public toggle(day: EnabledDay): void {
     day.enabled = !day.enabled;
   }
-
-  public trackByDay = (_i: number, { day }: EnabledDay) => day;
 }

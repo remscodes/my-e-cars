@@ -6,20 +6,24 @@
       <span>VÉHICULES</span>
     </div>
 
-    <div *ngIf="vehicles() && !isLoading; else loading">
+    @if (vehicles() && !isLoading) {
+      <div>
+        @if (vehicles()!.vehicleLinks) {
+          <mat-radio-group class="flex flex-col gap-2" formControlName="vin">
 
-      <mat-radio-group *ngIf="vehicles()!.vehicleLinks?.length; else empty"
-                       class="flex flex-col gap-2"
-                       formControlName="vin">
-        <mat-radio-button *ngFor="let vehicle of vehicles()!.vehicleLinks; trackBy:trackByVin" [value]="vehicle.vin">
-          {{vehicle.vin}}
-        </mat-radio-button>
-      </mat-radio-group>
-
-      <ng-template #empty>
-        <span>Aucune voiture associée à ce compte</span>
-      </ng-template>
-    </div>
+            @for (vehicle of vehicles()!.vehicleLinks;track vehicle.vin) {
+              <mat-radio-button [value]="vehicle.vin">
+                {{ vehicle.vin }}
+              </mat-radio-button>
+            } @empty {
+              <span>Aucune voiture associée à ce compte</span>
+            }
+          </mat-radio-group>
+        }
+      </div>
+    } @else {
+      <app-spinner class="flex justify-center items-center"/>
+    }
 
     <div class="flex justify-center items-center gap-4">
 
@@ -28,8 +32,4 @@
       <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid">CONFIRMER</button>
     </div>
   </form>
-
-  <ng-template #loading>
-    <app-spinner class="flex justify-center items-center"/>
-  </ng-template>
 </app-panel>

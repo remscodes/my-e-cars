@@ -1,4 +1,3 @@
-import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,8 +14,6 @@ import { AuthInfoService } from '../../services/auth-info.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
     ReactiveFormsModule,
     MatButtonModule,
     MatRadioModule,
@@ -46,6 +43,4 @@ export class InitSelectAccountComponent {
   public logout(): void {
     this.bouncer.disconnect();
   }
-
-  public trackById = (_i: number, { accountId }: Account) => accountId;
 }

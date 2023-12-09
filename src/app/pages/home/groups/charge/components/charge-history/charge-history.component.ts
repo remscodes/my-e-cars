@@ -1,4 +1,3 @@
-import { NgForOf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +20,6 @@ import { ChargeComponent } from '../charge/charge.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgForOf,
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -73,6 +71,4 @@ export class ChargeHistoryComponent implements OnInit {
   public back(): void {
     this.router.back();
   }
-
-  public trackByDate = (_i: number, { chargeStartDate }: ChargeDetails) => chargeStartDate;
 }

@@ -1,11 +1,9 @@
-import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { VehicleLink } from '@remscodes/renault-api';
 import { finalize } from 'rxjs';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
@@ -20,14 +18,12 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
+    MatRadioModule,
     PanelComponent,
     SpinnerComponent,
-    MatRadioModule,
   ],
 })
 export class InitSelectCarComponent implements OnInit {
@@ -57,7 +53,7 @@ export class InitSelectCarComponent implements OnInit {
   }
 
   private getVehicles(): void {
-    // Truthy because of selectCarGuard()
+    // Truthy thanks to selectCarGuard()
     const accountId: string = this.authInfoService.selectedAccountId()!;
 
     this.isLoading = true;
@@ -78,6 +74,4 @@ export class InitSelectCarComponent implements OnInit {
   public switchAccount(): void {
     this.router.navigate(['init-select-account']).then();
   }
-
-  public trackByVin = (_i: number, { vin }: VehicleLink) => vin;
 }

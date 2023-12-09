@@ -1,8 +1,9 @@
 <div class="flex gap-2">
-  <div *ngFor="let day of enabledDays; trackBy:trackByDay"
-       class="flex justify-center w-[30px] h-[30px] rounded-[50%]"
-       [style.background-color]="(day.enabled) ? 'black' : 'rgb(240, 240, 240)'"
-       (click)="!isReadonly && toggle(day)">
-    <span [style.color]="(day.enabled) ? 'white' : 'unset'">{{day.day.at(0) | uppercase}}</span>
-  </div>
+  @for (day of enabledDays;track day.day) {
+    <div class="flex justify-center w-[30px] h-[30px] rounded-[50%]"
+         [style.background-color]="(day.enabled) ? 'black' : 'rgb(240, 240, 240)'"
+         (click)="!isReadonly && toggle(day)">
+      <span [style.color]="(day.enabled) ? 'white' : 'unset'">{{ day.day.at(0) | uppercase }}</span>
+    </div>
+  }
 </div>

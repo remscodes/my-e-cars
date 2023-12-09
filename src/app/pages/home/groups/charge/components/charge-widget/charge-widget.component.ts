@@ -1,4 +1,4 @@
-import { DatePipe, NgClass, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, OnInit, Signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,8 +21,6 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
-    NgClass,
     MatButtonModule,
     MatIconModule,
     MatTooltipModule,
@@ -39,9 +37,7 @@ export class ChargeWidgetComponent implements OnInit {
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   public batteryStatus: Signal<Nullable<BatteryStatus>> = this.vehicleInfoService.batteryStatus;
-
   public isCharging: Signal<boolean> = computed(() => this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED);
-
   public batteryGradient: Signal<string> = computed(() => {
     const color: string = (this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED) ? '#00f000' : 'lightblue';
     return `linear-gradient(to right, ${color} ${this.batteryStatus()?.batteryLevel ?? 0}%, white ${this.batteryStatus()?.batteryLevel ?? 0}%)`;

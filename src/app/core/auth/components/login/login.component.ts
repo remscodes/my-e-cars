@@ -1,9 +1,7 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { concatMap, finalize } from 'rxjs';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
@@ -18,7 +16,6 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,

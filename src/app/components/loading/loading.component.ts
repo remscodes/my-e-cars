@@ -1,5 +1,4 @@
 import { animate, style, transition, trigger } from "@angular/animations";
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
@@ -24,7 +23,6 @@ import { Loading } from '../../shared/services/loading.service';
   ],
   standalone: true,
   imports: [
-    NgIf,
     MatIconModule,
     SpinnerComponent,
   ],
