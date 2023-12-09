@@ -68,7 +68,7 @@ export class InitSelectCarComponent implements OnInit {
 
     const { vin } = this.form.value;
 
-    this.vehicleInfoService.selectedVin.set(vin);
+    this.vehicleInfoService.vin.set(vin);
   }
 
   public switchAccount(): void {

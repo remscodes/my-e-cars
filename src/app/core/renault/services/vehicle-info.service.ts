@@ -1,6 +1,6 @@
 import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { NgxRenaultSession } from '@remscodes/ngx-renault-api-client';
 import { BatteryStatus, ChargeMode, Charges, HvacStatus, IMAGE_ORIENTATION_KEY, VehicleDetails, VehicleLink, Vehicles } from '@remscodes/renault-api';
-import { environment } from '../../../../environments/environment';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
 
@@ -15,31 +15,27 @@ interface VehicleStats {
 export class VehicleInfoService {
 
   public constructor() {
-    this.observe();
+    this.observeVin();
   }
 
-  private storageService: StorageService = inject(StorageService);
+  private storage = inject(StorageService);
+  private session = inject(NgxRenaultSession);
 
   public vehicles: WritableSignal<Nullable<Vehicles>> = signal(null);
+  public vin: WritableSignal<Nullable<string>> = signal(this.storage.getVin());
 
-  public selectedVin: WritableSignal<Nullable<string>> = signal(this.storageService.getVin());
-
-  public selectedVehicle: Signal<Optional<VehicleLink>> = computed(() => {
-    return this.vehicles()
-      ?.vehicleLinks
-      ?.find((vehicle: VehicleLink) => vehicle.vin === this.selectedVin());
+  public vehicle: Signal<Optional<VehicleLink>> = computed(() => {
+    return this.vehicles()?.vehicleLinks?.find(({ vin }) => vin === this.vin());
   }, {
     equal: (a, b) => a?.vin === b?.vin,
   });
 
-  public selectedModel: Signal<Optional<VehicleDetails['model']>> = computed(() => {
-    return this.selectedVehicle()
-      ?.vehicleDetails
-      ?.model;
+  public model: Signal<Optional<VehicleDetails['model']>> = computed(() => {
+    return this.vehicle()?.vehicleDetails?.model;
   });
 
-  public selectedImgSrc: Signal<Optional<string>> = computed(() => {
-    return this.selectedVehicle()
+  public imgSrc: Signal<Optional<string>> = computed(() => {
+    return this.vehicle()
       ?.vehicleDetails
       ?.assets
       ?.find(({ viewpoint }) => (viewpoint === IMAGE_ORIENTATION_KEY.iso))
@@ -48,53 +44,52 @@ export class VehicleInfoService {
       ?.url;
   });
 
-  public lastStats: WritableSignal<VehicleStats> = signal({
+  public stats: WritableSignal<VehicleStats> = signal({
     batteryStatus: null,
     chargeMode: null,
     charges: null,
     hvacStatus: null,
   });
 
-  public batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.lastStats().batteryStatus);
-  public chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.lastStats().chargeMode);
-  public charges: Signal<Nullable<Charges>> = computed(() => this.lastStats().charges);
-  public hvacStatus: Signal<Nullable<HvacStatus>> = computed(() => this.lastStats().hvacStatus);
+  public batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.stats().batteryStatus);
+  public chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.stats().chargeMode);
+  public charges: Signal<Nullable<Charges>> = computed(() => this.stats().charges);
+  public hvacStatus: Signal<Nullable<HvacStatus>> = computed(() => this.stats().hvacStatus);
 
   public updateBatteryStatus(batteryStatus: BatteryStatus): void {
-    this.lastStats.update((stats: VehicleStats) => ({
-      ...stats,
-      batteryStatus,
-    }));
+    this.updateStats('batteryStatus', batteryStatus);
   }
 
   public updateCharges(charges: Charges): void {
-    this.lastStats.update((stats: VehicleStats) => ({
-      ...stats,
-      charges,
-    }));
+    this.updateStats('charges', charges);
   }
 
   public updateChargeMode(chargeMode: ChargeMode): void {
-    this.lastStats.update((stats: VehicleStats) => ({
-      ...stats,
-      chargeMode,
-    }));
+    this.updateStats('chargeMode', chargeMode);
   }
 
   public updateHvacStatus(hvacStatus: HvacStatus): void {
-    this.lastStats.update((stats: VehicleStats) => ({
+    this.updateStats('hvacStatus', hvacStatus);
+  }
+
+  private updateStats(statKey: keyof VehicleStats, value: any): void {
+    this.stats.update(stats => ({
       ...stats,
-      hvacStatus,
+      [statKey]: value,
     }));
   }
 
-  private observe(): void {
+  private observeVin(): void {
     effect(() => {
-      const vin: Nullable<string> = this.selectedVin();
-      if (!vin) return;
-
-      if (environment.devkit?.logEffect) console.info(`Selected Vin : ${vin}`);
-      this.storageService.setVin(vin);
+      const vin: Nullable<string> = this.vin();
+      if (vin) {
+        this.storage.setVin(vin);
+        this.session.vin = vin;
+      }
+      else {
+        this.storage.clearVin();
+        this.session.vin = undefined;
+      }
     });
   }
 }

@@ -8,7 +8,6 @@ import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { ChargeDetails, Charges } from '@remscodes/renault-api';
 import dayjs from 'dayjs';
 import { finalize } from 'rxjs';
-import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
 import { Optional } from '../../../../../../shared/models/shared.model';
 import { BetterRouter } from '../../../../../../shared/services/better-router.service';
 import { Loading } from '../../../../../../shared/services/loading.service';
@@ -33,7 +32,6 @@ export class ChargeHistoryComponent implements OnInit {
   private router: BetterRouter = inject(BetterRouter);
   private loading: Loading = inject(Loading);
   private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
-  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
   public form: FormGroup = new FormGroup({
@@ -48,13 +46,10 @@ export class ChargeHistoryComponent implements OnInit {
   }
 
   private getCharges(): void {
-    const vin = this.vehicleInfoService.selectedVin();
-    if (!vin) return;
-
     const { startDate: start, endDate: end } = this.form.value;
 
     this.loading.start();
-    this.kamereon.readCharges({ start, end }, vin).pipe(
+    this.kamereon.readCharges({ start, end }).pipe(
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
