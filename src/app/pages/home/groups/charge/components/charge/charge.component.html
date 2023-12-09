@@ -4,35 +4,37 @@
 
     <div class="flex gap-2 justify-center cursor-pointer" (click)="toggle()">
 
-      <span>{{charge.chargeStartBatteryLevel}}%</span>
+      <span>{{ charge.chargeStartBatteryLevel }}%</span>
 
       <div class="flex justify-center flex-1">
-        <span>{{charge.chargeStartDate | date:'dd/MM/YYYY à HH:mm'}}</span>
+        <span>{{ charge.chargeStartDate | date:'dd/MM/YYYY à HH:mm' }}</span>
       </div>
 
-      <span>{{charge.chargeEndStatus}}</span>
+      <span>{{ charge.chargeEndStatus }}</span>
 
       <div [style.rotate]="(expanded) ? '180deg' : '0'">
         <mat-icon>expand_more</mat-icon>
       </div>
     </div>
 
-    <div *ngIf="expanded" class="flex flex-col">
+    @if (expanded) {
+      <div class="flex flex-col">
 
-      <div class="flex gap-2">
-        <span>{{charge.chargeDuration! | toHour}}</span>
+        <div class="flex gap-2">
+          <span>{{ charge.chargeDuration! | toHour }}</span>
 
-        <span>{{charge.chargeEnergyRecovered}} kWh</span>
-      </div>
+          <span>{{ charge.chargeEnergyRecovered }} kWh</span>
+        </div>
 
-      <div class="flex items-center">
+        <div class="flex items-center">
 
-        <span>{{charge.chargeEndBatteryLevel}}%</span>
+          <span>{{ charge.chargeEndBatteryLevel }}%</span>
 
-        <div class="flex justify-center items-center flex-1">
-          <span>{{charge.chargeEndDate | date:'dd/MM/YYYY à HH:mm'}}</span>
+          <div class="flex justify-center items-center flex-1">
+            <span>{{ charge.chargeEndDate | date:'dd/MM/YYYY à HH:mm' }}</span>
+          </div>
         </div>
       </div>
-    </div>
+    }
   </div>
 </div>

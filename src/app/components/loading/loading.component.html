@@ -1,10 +1,12 @@
-<div *ngIf="active()" @loadingAnimation class="loading-background">
+@if (active()) {
+  <div @loadingAnimation class="loading-background">
 
-  <div class="flex flex-col justify-center p-5 rounded-lg bg-white">
-    <app-spinner/>
-  </div>
+    <div class="flex flex-col justify-center p-5 rounded-lg bg-white">
+      <app-spinner/>
+    </div>
 
-  <div class="absolute top-5 right-5 cursor-pointer">
-    <mat-icon color="accent" (click)="forceClose()">close</mat-icon>
+    <div class="absolute top-5 right-5 cursor-pointer">
+      <mat-icon color="accent" (click)="forceClose()">close</mat-icon>
+    </div>
   </div>
-</div>
+}

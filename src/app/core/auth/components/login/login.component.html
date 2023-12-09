@@ -12,7 +12,9 @@
              id="user-text-field"
              type="email"
              formControlName="login">
-      <mat-error *ngIf="form.controls['login'].getError('required')">L'identifiant est requis.</mat-error>
+      @if (form.controls['login'].getError('required')) {
+        <mat-error>L'identifiant est requis.</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field>
@@ -21,7 +23,9 @@
              id="current-password"
              type="password"
              formControlName="password">
-      <mat-error *ngIf="form.controls['password'].getError('required')">Le mot de passe est requis.</mat-error>
+      @if (form.controls['password'].getError('required')) {
+        <mat-error>Le mot de passe est requis.</mat-error>
+      }
     </mat-form-field>
 
     <div class="flex justify-center">

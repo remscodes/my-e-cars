@@ -19,69 +19,80 @@
 
     <div class="flex justify-center gap-2 py-2">
 
-      <div *ngFor="let option of options; trackBy:trackByMode"
-           class="flex flex-col flex-1 justify-center items-center mode-item"
-           [ngClass]="{'mode-item--selected': selectedMode === option.mode}"
-           (click)="selectMode(option.mode)">
+      @for (option of options;track $index) {
+        <div class="flex flex-col flex-1 justify-center items-center mode-item"
+             [class.mode-item--selected]="selectedMode === option.mode"
+             (click)="selectMode(option.mode)">
 
-        <mat-icon>{{option.icon}}</mat-icon>
+          <mat-icon>{{ option.icon }}</mat-icon>
 
-        <span class="text-xs">{{option.label}}</span>
-      </div>
+          <span class="text-xs">{{ option.label }}</span>
+        </div>
+      }
     </div>
 
-    <div [ngSwitch]="selectedMode" class="flex-1 overflow-auto">
+    <div class="flex-1 overflow-auto">
+      @switch (selectedMode) {
 
-      <div *ngSwitchCase="'always'" @fade class="flex justify-center">
-        <span class="text-xs">Branchez et chargez immédiatement !</span>
-      </div>
+        @case ('always') {
+          <div @fade class="flex justify-center">
+            <span class="text-xs">Branchez et chargez immédiatement !</span>
+          </div>
+        }
+        @case ('always_charging') {
+          <div @fade class="flex justify-center gap-4">
 
-      <div *ngSwitchCase="'always_charging'" @fade class="flex justify-center gap-4">
+            <div class="flex justify-center">
+              <span class="text-xs">Lancez une charge quand vous voulez.</span>
+            </div>
 
-        <div class="flex justify-center">
-          <span class="text-xs">Lancez une charge quand vous voulez.</span>
-        </div>
+            <button mat-flat-button (click)="openTimeScheduler()">Planifier</button>
 
-        <button mat-flat-button (click)="openTimeScheduler()">Planifier</button>
-
-        <div *ngIf="timeSchedule" class="flex justify-center">
-          <span>Début à : {{timeSchedule}}</span>
-        </div>
-      </div>
-
-      <div *ngSwitchCase="'schedule'" @fade class="overflow-auto">
-
-        <div class="flex flex-col justify-center gap-1">
-
-          <span class="text-xs">Programmez votre charge hebdomadaire.</span>
-
-          <div class="flex flex-col gap-4 overflow-auto">
-
-            <div *ngFor="let schedule of weekSchedules; let index=index; trackBy:trackByDays"
-                 class="flex flex-col gap-2 text-xs">
-
+            @if (timeSchedule) {
               <div class="flex justify-center">
-                <app-week-ribbon [(enabledDays)]="schedule.days" [readonly]="true"/>
+                <span>Début à : {{ timeSchedule }}</span>
               </div>
+            }
+          </div>
+        }
+        @case ('schedule') {
+          <div @fade class="overflow-auto">
 
-              <div class="flex gap-4">
+            <div class="flex flex-col justify-center gap-1">
 
-                <div class="flex flex-col gap-1">
-                  <span>De {{schedule.startTime ?? '-'}} à {{schedule.endTime ?? '-'}}</span>
-                </div>
+              <span class="text-xs">Programmez votre charge hebdomadaire.</span>
 
-                <mat-icon (click)="openWeekScheduler(index)">edit</mat-icon>
+              <div class="flex flex-col gap-4 overflow-auto">
 
-                <input type="checkbox" [checked]="schedule.activated">
+                @for (schedule of weekSchedules;track $index;let index=$index) {
+                  <div class="flex flex-col gap-2 text-xs">
+
+                    <div class="flex justify-center">
+                      <app-week-ribbon [(enabledDays)]="schedule.days" [readonly]="true"/>
+                    </div>
+
+                    <div class="flex gap-4">
+
+                      <div class="flex flex-col gap-1">
+                        <span>De {{ schedule.startTime ?? '-' }} à {{ schedule.endTime ?? '-' }}</span>
+                      </div>
+
+                      <mat-icon (click)="openWeekScheduler(index)">edit</mat-icon>
+
+                      <input type="checkbox" [checked]="schedule.activated">
+                    </div>
+                  </div>
+                }
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div *ngSwitchDefault @fade class="flex justify-center">
-        <span class="text-xs text-center">Veuillez sélectionner un mode de charge.</span>
-      </div>
+        }
+        @default {
+          <div @fade class="flex justify-center">
+            <span class="text-xs text-center">Veuillez sélectionner un mode de charge.</span>
+          </div>
+        }
+      }
     </div>
 
     <button mat-flat-button type="button">Sauvegarder</button>

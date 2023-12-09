@@ -1,4 +1,4 @@
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ChargeDetails } from '@remscodes/renault-api';
@@ -11,7 +11,6 @@ import { MinuteToHourPipe } from '../../../../../../shared/pipes/minute-to-hour.
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
     MatIconModule,
     MinuteToHourPipe,
     DatePipe,

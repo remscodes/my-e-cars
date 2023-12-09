@@ -2,14 +2,16 @@
 
   <div class="flex justify-center items-center gap-1 p-2 bg-primary h-16">
 
-    <div *ngIf="imageSrc()" class="relative">
-      <img rigid
-           [ngSrc]="imageSrc()!"
-           class="car-img"
-           fill=""
-           alt="">
-    </div>
+    @if (imageSrc()) {
+      <div class="relative">
+        <img rigid
+             [ngSrc]="imageSrc()!"
+             class="car-img"
+             fill=""
+             alt="">
+      </div>
+    }
 
-    <span class="uppercase text-white text-sm max-[300px]:hidden">{{tag()?.label}}</span>
+    <span class="uppercase text-white text-sm max-[300px]:hidden">{{ tag()?.label }}</span>
   </div>
 </div>

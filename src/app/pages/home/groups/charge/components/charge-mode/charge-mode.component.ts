@@ -1,4 +1,3 @@
-import { NgClass, NgForOf, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,12 +35,6 @@ export interface BetterSchedule {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgClass,
-    NgIf,
-    NgForOf,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
@@ -174,7 +167,4 @@ export class ChargeModeComponent implements OnInit {
       return acc;
     }, []);
   };
-
-  public trackByMode = (_i: number, { mode }: Option) => mode;
-  public trackByDays = (_i: number, { days }: BetterSchedule) => days.join(',');
 }

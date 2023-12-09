@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Optional } from '../../../../shared/models/shared.model';
@@ -10,9 +9,7 @@ import { WINDOW } from '../../../../shared/tokens/window.token';
   styleUrl: './freemium-map.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    NgIf,
-  ],
+  imports: [],
 })
 export class FreemiumMapComponent implements OnInit, OnChanges {
 

@@ -1,4 +1,3 @@
-import { NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,11 +18,9 @@ interface MenuItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
-    NgForOf,
-    RouterLink,
     MatIconModule,
     MatRippleModule,
+    RouterLink,
     RouterLinkActive,
   ],
 })
@@ -37,6 +34,4 @@ export class BottomNavBarComponent {
     { icon: 'my_location', label: 'Position', link: 'location' },
     { icon: 'account_circle', label: 'Profil', link: 'account' },
   ];
-
-  public trackByLink = (_i: number, { link }: MenuItem) => link;
 }
