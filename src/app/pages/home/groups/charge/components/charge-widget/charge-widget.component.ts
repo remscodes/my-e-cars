@@ -7,7 +7,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { BatteryStatus, PlugStatus } from '@remscodes/renault-api';
 import { finalize } from 'rxjs';
-import { emitError } from 'thror';
 import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
 import { SpinnerComponent } from '../../../../../../shared/components/spinner/spinner.component';
 import { Nullable } from "../../../../../../shared/models/shared.model";
@@ -52,11 +51,8 @@ export class ChargeWidgetComponent implements OnInit {
   }
 
   public getBatteryStatus(): void {
-    const vin = this.vehicleInfoService.selectedVin();
-    if (!vin) emitError('Kamereon', 'Cannot get battery status because none vin is selected.');
-
     this.isLoading = true;
-    this.kamereon.readBatteryStatus(vin).pipe(
+    this.kamereon.readBatteryStatus().pipe(
       finalize(() => this.isLoading = false),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({

@@ -31,10 +31,7 @@ export class HvacWidgetComponent implements OnInit {
   }
 
   private getHvacStatus(): void {
-    const vin = this.vehicleInfoService.selectedVin();
-    if (!vin) return;
-
-    this.kamereon.readHvacStatus(vin).pipe(
+    this.kamereon.readHvacStatus().pipe(
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (value: HvacStatus) => {

@@ -25,7 +25,7 @@ export class AutoRedirect {
         return;
       }
 
-      if (!this.vehicleInfoService.selectedVehicle()) {
+      if (!this.vehicleInfoService.vehicle()) {
         if (environment.devkit?.logEffect) console.log('AutoRouting /init-select-car');
         this.router.navigate(['init-select-car']).then();
         return;

@@ -20,6 +20,6 @@ export class VehicleSelectorComponent {
 
   private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
 
-  public tag: Signal<Optional<Tag>> = this.vehicleInfoService.selectedModel;
-  public imageSrc: Signal<Optional<string>> = this.vehicleInfoService.selectedImgSrc;
+  public tag: Signal<Optional<Tag>> = this.vehicleInfoService.model;
+  public imageSrc: Signal<Optional<string>> = this.vehicleInfoService.imgSrc;
 }

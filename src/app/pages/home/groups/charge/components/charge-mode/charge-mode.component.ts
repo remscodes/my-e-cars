@@ -6,7 +6,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { ChargingSettings, DateType, Day } from '@remscodes/renault-api';
 import { finalize } from 'rxjs';
-import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
 import { fade } from '../../../../../../shared/animations/fade.animation';
 import { DAYS } from '../../../../../../shared/contants/day.constants';
 import { BetterRouter } from '../../../../../../shared/services/better-router.service';
@@ -46,7 +45,6 @@ export class ChargeModeComponent implements OnInit {
   private loading: Loading = inject(Loading);
   private router: BetterRouter = inject(BetterRouter);
   private dialog: MatDialog = inject(MatDialog);
-  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
   private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
@@ -65,11 +63,8 @@ export class ChargeModeComponent implements OnInit {
   }
 
   private getChargeMode(): void {
-    const vin = this.vehicleInfoService.selectedVin();
-    if (!vin) return;
-
     this.loading.start();
-    this.kamereon.readChargingSettings(vin).pipe(
+    this.kamereon.readChargingSettings().pipe(
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({

@@ -20,8 +20,8 @@ export class Bouncer {
 
   public clearAccount(): void {
     this.authInfoService.selectedAccountId.set(null);
-    this.vehicleInfoService.selectedVin.set(null);
-    this.vehicleInfoService.lastStats.set({
+    this.vehicleInfoService.vin.set(null);
+    this.vehicleInfoService.stats.set({
       hvacStatus: null,
       charges: null,
       chargeMode: null,
