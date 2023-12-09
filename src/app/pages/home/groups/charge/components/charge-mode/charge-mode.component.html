@@ -64,7 +64,7 @@
 
               <div class="flex flex-col gap-4 overflow-auto">
 
-                @for (schedule of weekSchedules;track $index;let index=$index) {
+                @for (schedule of weekSchedules;track $index) {
                   <div class="flex flex-col gap-2 text-xs">
 
                     <div class="flex justify-center">
@@ -77,7 +77,7 @@
                         <span>De {{ schedule.startTime ?? '-' }} à {{ schedule.endTime ?? '-' }}</span>
                       </div>
 
-                      <mat-icon (click)="openWeekScheduler(index)">edit</mat-icon>
+                      <mat-icon (click)="openWeekScheduler($index)">edit</mat-icon>
 
                       <input type="checkbox" [checked]="schedule.activated">
                     </div>
