@@ -6,20 +6,18 @@
       <span>VÉHICULES</span>
     </div>
 
-    @if (vehicles() && !isLoading) {
+    @if (vehicles()?.vehicleLinks && !isLoading) {
       <div>
-        @if (vehicles()!.vehicleLinks) {
-          <mat-radio-group class="flex flex-col gap-2" formControlName="vin">
+        <mat-radio-group class="flex flex-col gap-2" formControlName="vin">
 
-            @for (vehicle of vehicles()!.vehicleLinks;track vehicle.vin) {
-              <mat-radio-button [value]="vehicle.vin">
-                {{ vehicle.vin }}
-              </mat-radio-button>
-            } @empty {
-              <span>Aucune voiture associée à ce compte</span>
-            }
-          </mat-radio-group>
-        }
+          @for (vehicle of vehicles()!.vehicleLinks;track vehicle.vin) {
+            <mat-radio-button [value]="vehicle.vin">
+              {{ vehicle.vin }}
+            </mat-radio-button>
+          } @empty {
+            <span>Aucune voiture associée à ce compte</span>
+          }
+        </mat-radio-group>
       </div>
     } @else {
       <app-spinner class="flex justify-center items-center"/>

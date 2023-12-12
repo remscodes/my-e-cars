@@ -7,8 +7,8 @@ module.exports = {
     extend: {
       colors: {
         primary: 'var(--primary-color)',
-        secondary: 'var(--secondary-color)',
         accent: 'var(--accent-color)',
+        warn: 'var(--warn-color)',
       }
     },
   },

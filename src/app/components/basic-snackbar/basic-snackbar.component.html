@@ -1,0 +1,12 @@
+<div class="flex gap-5"
+     [class.text-primary]="!data.type || data.type === 'basic'"
+     [class.text-warn]="data.type === 'warn'">
+
+  <div class="flex flex-1 items-center">
+    <span>{{ data.message }}</span>
+  </div>
+
+  <div class="flex justify-end items-center">
+    <button mat-button (click)="snackBarRef.dismiss()">Ok</button>
+  </div>
+</div>

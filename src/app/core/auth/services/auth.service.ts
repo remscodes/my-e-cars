@@ -4,22 +4,22 @@ import { AccountInfo, LoginInfo, Person, TokenInfo, Vehicles } from '@remscodes/
 import { concatMap, iif, Observable, of, tap } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
 import { VehicleInfoService } from '../../renault/services/vehicle-info.service';
-import { AuthInfoService } from './auth-info.service';
+import { AuthStoreService } from './auth-store.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private gigya: NgxGigyaClient = inject(NgxGigyaClient);
-  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
-  private storageService: StorageService = inject(StorageService);
-  private authInfoService: AuthInfoService = inject(AuthInfoService);
-  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private gigya = inject(NgxGigyaClient);
+  private kamereon = inject(NgxKamereonClient);
+  private storage = inject(StorageService);
+  private authStore = inject(AuthStoreService);
+  private vehicleInfo = inject(VehicleInfoService);
 
   public login(loginID: string, password: string): Observable<LoginInfo> {
     return this.gigya.login(loginID, password).pipe(
       tap({
         next: ({ sessionInfo: { cookieValue } = {} }: LoginInfo) => {
-          if (cookieValue) this.storageService.setGigyaToken(cookieValue);
+          if (cookieValue) this.storage.setGigyaToken(cookieValue);
         },
       }),
     );
@@ -29,7 +29,7 @@ export class AuthService {
     return this.gigya.getAccountInfo().pipe(
       tap({
         next: ({ data: { personId } = {} }: AccountInfo) => {
-          if (personId) this.authInfoService.personId.set(personId);
+          if (personId) this.authStore.personId.set(personId);
         },
       }),
     );
@@ -39,7 +39,7 @@ export class AuthService {
     return this.gigya.getJwt(9000).pipe(
       tap({
         next: ({ id_token }: TokenInfo) => {
-          if (id_token) this.storageService.setToken(id_token);
+          if (id_token) this.storage.setToken(id_token);
         },
       }),
     );
@@ -49,7 +49,7 @@ export class AuthService {
     return this.kamereon.getPerson(personId).pipe(
       tap({
         next: (person: Person) => {
-          if (person) this.authInfoService.person.set(person);
+          if (person) this.authStore.person.set(person);
         },
       }),
     );
@@ -59,7 +59,7 @@ export class AuthService {
     return this.kamereon.getAccountVehicles(accountId).pipe(
       tap({
         next: (vehicles: Vehicles) => {
-          if (vehicles) this.vehicleInfoService.vehicles.set(vehicles);
+          if (vehicles) this.vehicleInfo.vehicles.set(vehicles);
         },
       }),
     );
@@ -70,8 +70,8 @@ export class AuthService {
       .pipe(
         concatMap(({ data: { personId } = {} }: AccountInfo) => this.getPerson(personId!)),
         concatMap(() => iif(
-          () => !!this.storageService.getAccountId(),
-          this.getVehicles(this.storageService.getAccountId()!),
+          () => !!this.storage.getAccountId(),
+          this.getVehicles(this.storage.getAccountId()!),
           of(undefined),
         )),
       );

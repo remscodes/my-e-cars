@@ -6,6 +6,13 @@ import { BetterRouter } from '../shared/services/better-router.service';
 import { WINDOW } from '../shared/tokens/window.token';
 import { addHeadScript } from '../shared/utils/browser-utils';
 
+export const initDepsProvider: Provider = {
+  provide: APP_INITIALIZER,
+  multi: true,
+  deps: [BetterRouter, AutoRedirect],
+  useFactory: () => () => {},
+};
+
 export const addGoogleMapApiScriptProvider: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
@@ -18,13 +25,6 @@ export const addGoogleMapApiScriptProvider: Provider = {
       return addHeadScript(`https://maps.googleapis.com/maps/api/js?key=${apiKey}`);
     };
   },
-};
-
-export const initDepsProvider: Provider = {
-  provide: APP_INITIALIZER,
-  multi: true,
-  deps: [BetterRouter, AutoRedirect],
-  useFactory: () => () => {},
 };
 
 export const APP_INITIALIZER_PROVIDERS: Provider[] = [

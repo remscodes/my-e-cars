@@ -5,22 +5,22 @@ import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthInfoService {
+export class AuthStoreService {
 
   public constructor() {
     this.onEffect();
   }
 
-  private storageService: StorageService = inject(StorageService);
-  private session: NgxRenaultSession = inject(NgxRenaultSession);
+  private storage = inject(StorageService);
+  private session = inject(NgxRenaultSession);
 
   public personId: WritableSignal<Nullable<string>> = signal(null);
   public person: WritableSignal<Nullable<Person>> = signal(null);
 
-  public selectedAccountId: WritableSignal<Nullable<string>> = signal(this.storageService.getAccountId());
+  public accountId: WritableSignal<Nullable<string>> = signal(this.storage.getAccountId());
 
-  public selectedAccount: Signal<Optional<AccountInfo>> = computed(() => {
-    return this.person()?.accounts?.find(acc => acc.accountId === this.selectedAccountId());
+  public account: Signal<Optional<AccountInfo>> = computed(() => {
+    return this.person()?.accounts?.find(acc => acc.accountId === this.accountId());
   });
 
   public isAuth(): boolean {
@@ -29,14 +29,14 @@ export class AuthInfoService {
 
   private onEffect(): void {
     effect(() => {
-      const accountId: Nullable<string> = this.selectedAccountId();
+      const accountId: Nullable<string> = this.accountId();
 
       if (accountId) {
-        this.storageService.setAccountId(accountId);
+        this.storage.setAccountId(accountId);
         this.session.accountId = accountId;
       }
       else {
-        this.storageService.clearAccountId();
+        this.storage.clearAccountId();
         this.session.accountId = undefined;
       }
     });

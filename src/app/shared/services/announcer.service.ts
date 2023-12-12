@@ -1,4 +1,9 @@
-import { Injectable, signal, WritableSignal } from "@angular/core";
+import { DestroyRef, inject, Injectable, signal, WritableSignal } from "@angular/core";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { finalize, first } from 'rxjs';
+import { BasicSnackbarComponent } from '../../components/basic-snackbar/basic-snackbar.component';
+import { Optional } from '../models/shared.model';
 
 export interface AnnounceStatus {
   active: boolean;
@@ -7,6 +12,9 @@ export interface AnnounceStatus {
 
 @Injectable({ providedIn: 'root' })
 export class Announcer {
+
+  private snackBar = inject(MatSnackBar);
+  private destroyRef = inject(DestroyRef);
 
   public status: WritableSignal<AnnounceStatus> = signal({ active: false });
 
@@ -18,34 +26,32 @@ export class Announcer {
     this.createSnackBar(message, duration, 'warn');
   }
 
-  public get isErrorAnnounceActive(): boolean {
-    return (this.status().active)
-      && (this.status().type === 'warn');
+  private createSnackBar(message: string, duration: Optional<number>, type: string = 'basic'): void {
+    const snackBarRef: MatSnackBarRef<BasicSnackbarComponent> = this.snackBar.openFromComponent(BasicSnackbarComponent, {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration,
+      data: { message, type },
+    });
+    this.subToSnackBarStates(snackBarRef);
   }
 
-  private createSnackBar(message: string, duration: number | undefined, type: string = 'basic'): void {
-    console.log(message);
-    // const snackBarRef: MatSnackBarRef<BasicSnackbarComponent> = this.snackBar.openFromComponent(BasicSnackbarComponent, {
-    //   horizontalPosition: 'center',
-    //   verticalPosition: 'bottom',
-    //   duration,
-    //   data: { message, type }
-    // });
-    // this.subToSnackBarStates(snackBarRef);
-  }
+  private subToSnackBarStates(snackBarRef: MatSnackBarRef<BasicSnackbarComponent>): void {
+    snackBarRef.afterOpened().pipe(
+      first(),
+      finalize(() => this.status.set({
+        active: true,
+        type: snackBarRef.instance.data.type ?? 'basic',
+      })),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe();
 
-  // private subToSnackBarStates(snackBarRef: MatSnackBarRef<BasicSnackbarComponent>): void {
-  //   this.afterOpenedSub = snackBarRef.afterOpened().pipe(
-  //     finalize(() => this.emitAnnounceStatus({
-  //       active: true,
-  //       type: snackBarRef.instance.data.type ?? 'basic'
-  //     }))
-  //   ).subscribe();
-  //
-  //   this.afterDismissedSub = snackBarRef.afterDismissed().pipe(
-  //     finalize(() => this.emitAnnounceStatus({
-  //       active: false
-  //     }))
-  //   ).subscribe();
-  // }
+    snackBarRef.afterDismissed().pipe(
+      first(),
+      finalize(() => this.status.set({
+        active: false,
+      })),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe();
+  }
 }

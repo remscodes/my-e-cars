@@ -17,7 +17,7 @@ export function serverErrorInterceptor(): HttpInterceptorFn {
         error: (err: HttpErrorResponse) => {
           (environment.devkit?.logInterceptedError) && console.error(`Intercepted error on request : ${req.url}, message : ${JSON.stringify(err)}`);
 
-          if (err.status < 500 || announcer.isErrorAnnounceActive) return;
+          if (err.status < 500 || announcer.status().active) return;
 
           switch (err.status) {
             case 502:

@@ -6,7 +6,7 @@ import { Account } from '@remscodes/renault-api';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { Bouncer } from '../../../../shared/services/bouncer.service';
-import { AuthInfoService } from '../../services/auth-info.service';
+import { AuthStoreService } from '../../services/auth-store.service';
 
 @Component({
   templateUrl: './init-select-account.component.html',
@@ -23,13 +23,13 @@ import { AuthInfoService } from '../../services/auth-info.service';
 })
 export class InitSelectAccountComponent {
 
-  private authInfoService: AuthInfoService = inject(AuthInfoService);
-  private bouncer: Bouncer = inject(Bouncer);
+  private authInfo = inject(AuthStoreService);
+  private bouncer = inject(Bouncer);
 
-  public accounts: Signal<Account[]> = computed(() => this.authInfoService.person()?.accounts ?? []);
+  public accounts: Signal<Account[]> = computed(() => this.authInfo.person()?.accounts ?? []);
 
-  public form: FormGroup = new FormGroup({
-    accountId: new FormControl(this.authInfoService.selectedAccountId() ?? '', Validators.required),
+  public form = new FormGroup({
+    accountId: new FormControl(this.authInfo.accountId(), Validators.required),
   });
 
   public onSubmit(): void {
@@ -37,7 +37,7 @@ export class InitSelectAccountComponent {
 
     const { accountId } = this.form.value;
 
-    this.authInfoService.selectedAccountId.set(accountId);
+    this.authInfo.accountId.set(accountId!);
   }
 
   public logout(): void {

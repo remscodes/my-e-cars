@@ -4,7 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { PreloadAllModules, withPreloading } from '@angular/router';
 import { provideRenaultClient } from '@remscodes/ngx-renault-api-client';
 import { APP_ROUTES } from './app.routes';
-import { provideCommonRootRouter } from './common/router-features';
+import { provideRootRouter } from './common/router-features';
 import { AUTH_PROVIDERS } from './core/auth/auth.providers';
 import { ERROR_PROVIDERS } from './core/error/error.providers';
 import { MATERIAL_PROVIDERS } from './core/material/material.provider';
@@ -16,9 +16,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideRenaultClient(),
     provideHttpClient(withFetch()),
-    provideCommonRootRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
-    RENAULT_PROVIDERS,
+    provideRootRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
     APP_INITIALIZER_PROVIDERS,
+    RENAULT_PROVIDERS,
     AUTH_PROVIDERS,
     ERROR_PROVIDERS,
     MATERIAL_PROVIDERS,
