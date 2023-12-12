@@ -20,14 +20,14 @@ export class AutoRedirect {
       if (!this.authStore.isAuth()) return;
 
       if (!this.authStore.accountId()) {
-        if (environment.devkit?.logEffect) console.log('AutoRouting /init-select-account');
-        this.router.navigate(['init-select-account']).then();
+        if (environment.devkit?.logEffect) console.log('AutoRouting /select-account');
+        this.router.navigate(['select-account']).then();
         return;
       }
 
       if (!this.vehicleInfo.vehicle()) {
-        if (environment.devkit?.logEffect) console.log('AutoRouting /init-select-car');
-        this.router.navigate(['init-select-car']).then();
+        if (environment.devkit?.logEffect) console.log('AutoRouting /select-car');
+        this.router.navigate(['select-car']).then();
         return;
       }
 

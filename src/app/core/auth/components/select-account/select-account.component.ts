@@ -9,8 +9,8 @@ import { Bouncer } from '../../../../shared/services/bouncer.service';
 import { AuthStoreService } from '../../services/auth-store.service';
 
 @Component({
-  templateUrl: './init-select-account.component.html',
-  styleUrl: './init-select-account.component.css',
+  templateUrl: './select-account.component.html',
+  styleUrl: './select-account.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -21,7 +21,7 @@ import { AuthStoreService } from '../../services/auth-store.service';
     SpinnerComponent,
   ],
 })
-export class InitSelectAccountComponent {
+export class SelectAccountComponent {
 
   private authInfo = inject(AuthStoreService);
   private bouncer = inject(Bouncer);

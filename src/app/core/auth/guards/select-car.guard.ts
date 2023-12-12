@@ -12,7 +12,7 @@ export function selectCarGuard(): CanActivateFn {
 
     if (!authInfo.accountId()) {
       announcer.notify('Vous devez choisir un compte avant de sélectionner votre voiture.');
-      router.navigate(['init-select-account']).then();
+      router.navigate(['select-account']).then();
       return false;
     }
 

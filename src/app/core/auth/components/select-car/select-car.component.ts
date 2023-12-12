@@ -15,8 +15,8 @@ import { AuthStoreService } from '../../services/auth-store.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  templateUrl: './init-select-car.component.html',
-  styleUrl: './init-select-car.component.css',
+  templateUrl: './select-car.component.html',
+  styleUrl: './select-car.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -28,7 +28,7 @@ import { AuthService } from '../../services/auth.service';
     SpinnerComponent,
   ],
 })
-export class InitSelectCarComponent implements OnInit {
+export class SelectCarComponent implements OnInit {
 
   private vehicleInfo = inject(VehicleInfoService);
   private auth = inject(AuthService);
@@ -74,6 +74,6 @@ export class InitSelectCarComponent implements OnInit {
   }
 
   public switchAccount(): void {
-    this.router.navigate(['init-select-account']).then();
+    this.router.navigate(['select-account']).then();
   }
 }

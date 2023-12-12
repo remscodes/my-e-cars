@@ -29,14 +29,14 @@ export class LoginComponent {
   private loading: Loading = inject(Loading);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
-  public form: FormGroup = basicForm(['login', 'password']);
+  public form = basicForm(['login', 'password']);
 
   public onSubmit(): void {
     if (this.form.invalid) return;
 
     const { login, password } = this.form.value;
 
-    this.connect(login, password);
+    this.connect(login!, password!);
   }
 
   private connect(login: string, password: string): void {
@@ -47,7 +47,7 @@ export class LoginComponent {
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: () => this.router.navigate(['init-select-account']).then(),
+      next: () => this.router.navigate(['select-account']).then(),
     });
   }
 }
