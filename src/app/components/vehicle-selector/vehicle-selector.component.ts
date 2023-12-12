@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { Tag } from '@remscodes/renault-api';
-import { VehicleInfoService } from '../../core/renault/services/vehicle-info.service';
+import { VehicleInfo } from '../../core/renault/services/vehicle-info.service';
 import { RigidImageDirective } from '../../shared/directives/rigid-image.directive';
 import { Optional } from '../../shared/models/shared.model';
 
@@ -18,8 +18,8 @@ import { Optional } from '../../shared/models/shared.model';
 })
 export class VehicleSelectorComponent {
 
-  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
+  private vehicleInfo = inject(VehicleInfo);
 
-  public tag: Signal<Optional<Tag>> = this.vehicleInfoService.model;
-  public imageSrc: Signal<Optional<string>> = this.vehicleInfoService.imgSrc;
+  public tag: Signal<Optional<Tag>> = this.vehicleInfo.model;
+  public imageSrc: Signal<Optional<string>> = this.vehicleInfo.imgSrc;
 }

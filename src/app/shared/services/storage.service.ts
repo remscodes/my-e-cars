@@ -5,9 +5,9 @@ import { SESSION_STORAGE } from '../tokens/session-storage.token';
 @Injectable({ providedIn: 'root' })
 export class StorageService {
 
-  private sessionStorage: Storage = inject(SESSION_STORAGE);
-  private localStorage: Storage = inject(LOCAL_STORAGE);
-  private ngZone: NgZone = inject(NgZone);
+  private sessionStorage = inject(SESSION_STORAGE);
+  private localStorage = inject(LOCAL_STORAGE);
+  private ngZone = inject(NgZone);
 
   private keyPrefix: string = 'my-reno:';
 

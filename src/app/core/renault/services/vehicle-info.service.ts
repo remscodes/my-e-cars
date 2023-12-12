@@ -3,16 +3,10 @@ import { NgxRenaultSession } from '@remscodes/ngx-renault-api-client';
 import { BatteryStatus, ChargeMode, Charges, HvacStatus, IMAGE_ORIENTATION_KEY, VehicleDetails, VehicleLink, Vehicles } from '@remscodes/renault-api';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
-
-interface VehicleStats {
-  batteryStatus: Nullable<BatteryStatus>;
-  chargeMode: Nullable<ChargeMode>;
-  charges: Nullable<Charges>;
-  hvacStatus: Nullable<HvacStatus>;
-}
+import { VehicleStats } from '../models/vehicle-stats.model';
 
 @Injectable({ providedIn: 'root' })
-export class VehicleInfoService {
+export class VehicleInfo {
 
   public constructor() {
     this.observeVin();

@@ -13,8 +13,8 @@ import { WINDOW } from '../../../../shared/tokens/window.token';
 })
 export class FreemiumMapComponent implements OnInit, OnChanges {
 
-  private mWindow: Window = inject(WINDOW);
-  private sanitizer: DomSanitizer = inject(DomSanitizer);
+  private window = inject(WINDOW);
+  private sanitizer = inject(DomSanitizer);
 
   @Input({ required: true })
   public topic!: string;
@@ -30,7 +30,7 @@ export class FreemiumMapComponent implements OnInit, OnChanges {
   public src: Optional<SafeUrl>;
 
   public ngOnInit(): void {
-    this.url.searchParams.set('key', this.mWindow.GOOGLE_MAPS_API_KEY!);
+    this.url.searchParams.set('key', this.window.GOOGLE_MAPS_API_KEY!);
     this.url.searchParams.set('q', this.topic);
     this.url.searchParams.set('center', `${this.center?.lat},${this.center?.lng}`);
 

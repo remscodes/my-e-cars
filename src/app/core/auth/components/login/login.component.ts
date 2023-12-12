@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { concatMap, finalize } from 'rxjs';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { BetterRouter } from '../../../../shared/services/better-router.service';
 import { Loading } from '../../../../shared/services/loading.service';
-import { basicForm } from '../../../../shared/utils/form-utils';
-import { AuthService } from '../../services/auth.service';
+import { Auth } from '../../services/auth.service';
 
 @Component({
   templateUrl: './login.component.html',
@@ -24,12 +23,16 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
 
-  private authService: AuthService = inject(AuthService);
-  private router: BetterRouter = inject(BetterRouter);
-  private loading: Loading = inject(Loading);
-  private destroyRef: DestroyRef = inject(DestroyRef);
+  private auth = inject(Auth);
+  private router = inject(BetterRouter);
+  private loading = inject(Loading);
+  private formBuilder = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
 
-  public form = basicForm(['login', 'password']);
+  public form = this.formBuilder.group({
+    login: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
   public onSubmit(): void {
     if (this.form.invalid) return;
@@ -41,9 +44,9 @@ export class LoginComponent {
 
   private connect(login: string, password: string): void {
     this.loading.start();
-    this.authService.login(login, password).pipe(
-      concatMap(() => this.authService.getJWT()),
-      concatMap(() => this.authService.getAuthInfos()),
+    this.auth.login(login, password).pipe(
+      concatMap(() => this.auth.getJWT()),
+      concatMap(() => this.auth.getAuthInfos()),
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({

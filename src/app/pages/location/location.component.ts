@@ -14,8 +14,8 @@ import { FreemiumMapComponent } from './components/freemium-map/freemium-map.com
 })
 export class LocationComponent implements OnInit {
 
-  private destroyRef: DestroyRef = inject(DestroyRef);
-  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
+  private kamereon = inject(NgxKamereonClient);
+  private destroyRef = inject(DestroyRef);
 
   public center: google.maps.LatLngLiteral = { lat: 0, lng: 0 };
   public markerPosition: Partial<google.maps.LatLngLiteral> = {};

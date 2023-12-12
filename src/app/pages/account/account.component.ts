@@ -15,9 +15,9 @@ import { Evaluator } from '../../shared/services/evaluator.service';
 })
 export class AccountComponent {
 
-  private bouncer: Bouncer = inject(Bouncer);
-  private router: BetterRouter = inject(BetterRouter);
-  private evaluator: Evaluator = inject(Evaluator);
+  private bouncer = inject(Bouncer);
+  private router = inject(BetterRouter);
+  private evaluator = inject(Evaluator);
 
   public switchAccount(): void {
     this.bouncer.clearAccount();
@@ -30,7 +30,7 @@ export class AccountComponent {
         title: 'Déconnexion',
         message: `Voulez-vous réellement vous déconnecter ?`,
         noLabel: 'Annuler',
-        type: 'warn'
+        type: 'warn',
       },
     }, {
       accepted: () => {

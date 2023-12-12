@@ -42,11 +42,11 @@ export interface BetterSchedule {
 })
 export class ChargeModeComponent implements OnInit {
 
-  private loading: Loading = inject(Loading);
-  private router: BetterRouter = inject(BetterRouter);
-  private dialog: MatDialog = inject(MatDialog);
-  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
-  private destroyRef: DestroyRef = inject(DestroyRef);
+  private loading = inject(Loading);
+  private router = inject(BetterRouter);
+  private dialog = inject(MatDialog);
+  private kamereon = inject(NgxKamereonClient);
+  private destroyRef = inject(DestroyRef);
 
   public options: Option[] = [
     { label: 'Instantanée', mode: 'always', icon: 'cable' },

@@ -5,7 +5,7 @@ import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthStoreService {
+export class AuthStore {
 
   public constructor() {
     this.onEffect();

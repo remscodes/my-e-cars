@@ -1,8 +1,8 @@
 import { effect, inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { BetterRouter } from '../../../shared/services/better-router.service';
-import { VehicleInfoService } from '../../renault/services/vehicle-info.service';
-import { AuthStoreService } from './auth-store.service';
+import { VehicleInfo } from '../../renault/services/vehicle-info.service';
+import { AuthStore } from './auth-store.service';
 
 @Injectable({ providedIn: 'root' })
 export class AutoRedirect {
@@ -11,8 +11,8 @@ export class AutoRedirect {
     this.observe();
   }
 
-  private authStore = inject(AuthStoreService);
-  private vehicleInfo = inject(VehicleInfoService);
+  private authStore = inject(AuthStore);
+  private vehicleInfo = inject(VehicleInfo);
   private router = inject(BetterRouter);
 
   private observe(): void {

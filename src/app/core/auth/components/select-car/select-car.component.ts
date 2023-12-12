@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -10,9 +10,9 @@ import { PanelComponent } from '../../../../shared/components/panel/panel.compon
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { Nullable } from '../../../../shared/models/shared.model';
 import { BetterRouter } from '../../../../shared/services/better-router.service';
-import { VehicleInfoService } from '../../../renault/services/vehicle-info.service';
-import { AuthStoreService } from '../../services/auth-store.service';
-import { AuthService } from '../../services/auth.service';
+import { VehicleInfo } from '../../../renault/services/vehicle-info.service';
+import { AuthStore } from '../../services/auth-store.service';
+import { Auth } from '../../services/auth.service';
 
 @Component({
   templateUrl: './select-car.component.html',
@@ -30,16 +30,17 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SelectCarComponent implements OnInit {
 
-  private vehicleInfo = inject(VehicleInfoService);
-  private auth = inject(AuthService);
-  private authStore = inject(AuthStoreService);
+  private auth = inject(Auth);
+  private authStore = inject(AuthStore);
+  private vehicleInfo = inject(VehicleInfo);
   private router = inject(BetterRouter);
+  private formBuilder = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
 
   public vehicles: WritableSignal<Nullable<Vehicles>> = this.vehicleInfo.vehicles;
 
-  public form = new FormGroup({
-    vin: new FormControl('', Validators.required),
+  public form = this.formBuilder.group({
+    vin: ['', Validators.required],
   });
 
   public isLoading: boolean = false;
@@ -48,10 +49,6 @@ export class SelectCarComponent implements OnInit {
     if (this.isVehiclesSyncWithAccount()) return;
 
     this.getVehicles();
-  }
-
-  private isVehiclesSyncWithAccount(): boolean {
-    return (this.vehicles()?.accountId === this.authStore.accountId());
   }
 
   private getVehicles(): void {
@@ -63,6 +60,11 @@ export class SelectCarComponent implements OnInit {
       finalize(() => this.isLoading = false),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe();
+  }
+
+
+  private isVehiclesSyncWithAccount(): boolean {
+    return (this.vehicles()?.accountId === this.authStore.accountId());
   }
 
   public onSubmit(): void {

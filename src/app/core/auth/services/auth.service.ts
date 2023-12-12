@@ -3,17 +3,17 @@ import { NgxGigyaClient, NgxKamereonClient } from '@remscodes/ngx-renault-api-cl
 import { AccountInfo, LoginInfo, Person, TokenInfo, Vehicles } from '@remscodes/renault-api';
 import { concatMap, iif, Observable, of, tap } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
-import { VehicleInfoService } from '../../renault/services/vehicle-info.service';
-import { AuthStoreService } from './auth-store.service';
+import { VehicleInfo } from '../../renault/services/vehicle-info.service';
+import { AuthStore } from './auth-store.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class Auth {
 
   private gigya = inject(NgxGigyaClient);
   private kamereon = inject(NgxKamereonClient);
   private storage = inject(StorageService);
-  private authStore = inject(AuthStoreService);
-  private vehicleInfo = inject(VehicleInfoService);
+  private authStore = inject(AuthStore);
+  private vehicleInfo = inject(VehicleInfo);
 
   public login(loginID: string, password: string): Observable<LoginInfo> {
     return this.gigya.login(loginID, password).pipe(
@@ -66,14 +66,12 @@ export class AuthService {
   }
 
   public getAuthInfos(): Observable<any> {
-    return this.getAccountInfo()
-      .pipe(
-        concatMap(({ data: { personId } = {} }: AccountInfo) => this.getPerson(personId!)),
-        concatMap(() => iif(
-          () => !!this.storage.getAccountId(),
-          this.getVehicles(this.storage.getAccountId()!),
-          of(undefined),
-        )),
-      );
+    return this.getAccountInfo().pipe(
+      concatMap(({ data: { personId } = {} }: AccountInfo) => this.getPerson(personId!)),
+      concatMap(() => iif(
+        () => !!this.storage.getAccountId(),
+        this.getVehicles(this.storage.getAccountId()!),
+        of(undefined),
+      )));
   }
 }
