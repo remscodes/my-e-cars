@@ -6,7 +6,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { VehicleStats } from '../models/vehicle-stats.model';
 
 @Injectable({ providedIn: 'root' })
-export class VehicleInfo {
+export class VehicleStore {
 
   public constructor() {
     this.observeVin();

@@ -1,7 +1,7 @@
 import { effect, inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { BetterRouter } from '../../../shared/services/better-router.service';
-import { VehicleInfo } from '../../renault/services/vehicle-info.service';
+import { VehicleStore } from '../../renault/services/vehicle-store.service';
 import { AuthStore } from './auth-store.service';
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +12,7 @@ export class AutoRedirect {
   }
 
   private authStore = inject(AuthStore);
-  private vehicleInfo = inject(VehicleInfo);
+  private vehicleStore = inject(VehicleStore);
   private router = inject(BetterRouter);
 
   private observe(): void {
@@ -25,7 +25,7 @@ export class AutoRedirect {
         return;
       }
 
-      if (!this.vehicleInfo.vehicle()) {
+      if (!this.vehicleStore.vehicle()) {
         if (environment.devkit?.logEffect) console.log('AutoRouting /select-car');
         this.router.navigate(['select-car']).then();
         return;

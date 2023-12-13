@@ -15,6 +15,6 @@ import { DialogData } from '../../shared/models/dialog-data.model';
 })
 export class ConfirmationDialogComponent {
 
-  public data: DialogData = inject(MAT_DIALOG_DATA);
-  public dialogRef: MatDialogRef<this> = inject(MatDialogRef);
+  public data = inject<DialogData>(MAT_DIALOG_DATA);
+  public dialogRef = inject<MatDialogRef<ConfirmationDialogComponent>>(MatDialogRef);
 }

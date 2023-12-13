@@ -14,14 +14,14 @@ interface RegisteredSub {
 @Injectable({ providedIn: 'root' })
 export class Loading {
 
-  private subsMap: Map<string, SubLike> = new Map();
-
   public active: WritableSignal<boolean> = signal(false);
 
+  private subsMap: Map<string, SubLike> = new Map();
   private count: number = 0;
 
   public start(input?: RegisteredSub): void {
     if (input) this.subsMap.set(input.id, input.sub);
+
     if (++ this.count === 1) this.active.set(true);
   }
 
@@ -31,10 +31,12 @@ export class Loading {
       if (!sub) return;
 
       if (!sub.closed) sub.unsubscribe();
+
       this.subsMap.delete(id);
     }
 
     if (this.count) this.count --;
+
     if (!this.count) this.active.set(false);
   }
 

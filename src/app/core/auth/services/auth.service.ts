@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { NgxGigyaClient, NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { AccountInfo, LoginInfo, Person, TokenInfo, Vehicles } from '@remscodes/renault-api';
-import { concatMap, iif, Observable, of, tap } from 'rxjs';
+import { concatMap, Observable, tap } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
-import { VehicleInfo } from '../../renault/services/vehicle-info.service';
+import { VehicleStore } from '../../renault/services/vehicle-store.service';
 import { AuthStore } from './auth-store.service';
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +13,7 @@ export class Auth {
   private kamereon = inject(NgxKamereonClient);
   private storage = inject(StorageService);
   private authStore = inject(AuthStore);
-  private vehicleInfo = inject(VehicleInfo);
+  private vehicleStore = inject(VehicleStore);
 
   public login(loginID: string, password: string): Observable<LoginInfo> {
     return this.gigya.login(loginID, password).pipe(
@@ -35,8 +35,8 @@ export class Auth {
     );
   }
 
-  public getJWT(): Observable<TokenInfo> {
-    return this.gigya.getJwt(9000).pipe(
+  public getJWT(exp: number = 9000): Observable<TokenInfo> {
+    return this.gigya.getJwt(exp).pipe(
       tap({
         next: ({ id_token }: TokenInfo) => {
           if (id_token) this.storage.setToken(id_token);
@@ -45,7 +45,7 @@ export class Auth {
     );
   }
 
-  public getPerson(personId: string): Observable<Person> {
+  public getPerson(personId?: string): Observable<Person> {
     return this.kamereon.getPerson(personId).pipe(
       tap({
         next: (person: Person) => {
@@ -55,11 +55,11 @@ export class Auth {
     );
   }
 
-  public getVehicles(accountId: string): Observable<Vehicles> {
+  public getVehicles(accountId?: string): Observable<Vehicles> {
     return this.kamereon.getAccountVehicles(accountId).pipe(
       tap({
         next: (vehicles: Vehicles) => {
-          if (vehicles) this.vehicleInfo.vehicles.set(vehicles);
+          if (vehicles) this.vehicleStore.vehicles.set(vehicles);
         },
       }),
     );
@@ -67,11 +67,7 @@ export class Auth {
 
   public getAuthInfos(): Observable<any> {
     return this.getAccountInfo().pipe(
-      concatMap(({ data: { personId } = {} }: AccountInfo) => this.getPerson(personId!)),
-      concatMap(() => iif(
-        () => !!this.storage.getAccountId(),
-        this.getVehicles(this.storage.getAccountId()!),
-        of(undefined),
-      )));
+      concatMap(() => this.getPerson()),
+    );
   }
 }

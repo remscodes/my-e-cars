@@ -23,14 +23,14 @@ import { AuthStore } from '../../services/auth-store.service';
 })
 export class SelectAccountComponent {
 
-  private authInfo = inject(AuthStore);
+  private authStore = inject(AuthStore);
   private bouncer = inject(Bouncer);
   private formBuilder = inject(FormBuilder);
 
-  public accounts: Signal<Account[]> = computed(() => this.authInfo.person()?.accounts ?? []);
+  public accounts: Signal<Account[]> = computed(() => this.authStore.person()?.accounts ?? []);
 
   public form = this.formBuilder.group({
-    accountId: [this.authInfo.accountId(), Validators.required],
+    accountId: [this.authStore.accountId(), Validators.required],
   });
 
   public onSubmit(): void {
@@ -38,7 +38,7 @@ export class SelectAccountComponent {
 
     const { accountId } = this.form.value;
 
-    this.authInfo.accountId.set(accountId!);
+    this.authStore.accountId.set(accountId!);
   }
 
   public logout(): void {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -19,7 +19,6 @@ import { ChargeComponent } from '../charge/charge.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    FormsModule,
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
@@ -54,8 +53,8 @@ export class ChargeHistoryComponent implements OnInit {
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
-      next: (chargesRes: Charges) => {
-        this.charges = chargesRes.charges;
+      next: ({ charges }: Charges) => {
+        this.charges = charges;
       },
     });
   }

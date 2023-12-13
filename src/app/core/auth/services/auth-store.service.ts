@@ -8,7 +8,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 export class AuthStore {
 
   public constructor() {
-    this.onEffect();
+    this.observe();
   }
 
   private storage = inject(StorageService);
@@ -23,11 +23,9 @@ export class AuthStore {
     return this.person()?.accounts?.find(acc => acc.accountId === this.accountId());
   });
 
-  public isAuth(): boolean {
-    return !!this.person();
-  }
+  public isAuth: Signal<boolean> = computed(() => !!this.person());
 
-  private onEffect(): void {
+  private observe(): void {
     effect(() => {
       const accountId: Nullable<string> = this.accountId();
 
