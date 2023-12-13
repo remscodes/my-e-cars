@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { HvacStatus } from '@remscodes/renault-api';
-import { VehicleInfo } from '../../../../../../core/renault/services/vehicle-info.service';
+import { VehicleStore } from '../../../../../../core/renault/services/vehicle-store.service';
 import { Nullable } from '../../../../../../shared/models/shared.model';
 
 @Component({
@@ -20,11 +20,11 @@ import { Nullable } from '../../../../../../shared/models/shared.model';
 })
 export class HvacWidgetComponent implements OnInit {
 
-  private vehicleInfo = inject(VehicleInfo);
+  private vehicleStore = inject(VehicleStore);
   private kamereon = inject(NgxKamereonClient);
   private destroyRef = inject(DestroyRef);
 
-  public hvacStatus: Signal<Nullable<HvacStatus>> = this.vehicleInfo.hvacStatus;
+  public hvacStatus: Signal<Nullable<HvacStatus>> = this.vehicleStore.hvacStatus;
 
   public ngOnInit(): void {
     if (!this.hvacStatus) this.getHvacStatus();
@@ -35,15 +35,11 @@ export class HvacWidgetComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (value: HvacStatus) => {
-        this.vehicleInfo.updateHvacStatus(value);
+        this.vehicleStore.updateHvacStatus(value);
       },
     });
   }
 
   public toggleHvac(): void {
-    // const vin = this.vehicleInfo.selectedVin();
-    // if (!vin) return;
-    //
-    // this.kamereon.performHvacStart({}, vin);
   }
 }

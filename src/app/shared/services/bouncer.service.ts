@@ -1,26 +1,26 @@
 import { inject, Injectable } from '@angular/core';
 import { AuthStore } from '../../core/auth/services/auth-store.service';
-import { VehicleInfo } from '../../core/renault/services/vehicle-info.service';
+import { VehicleStore } from '../../core/renault/services/vehicle-store.service';
 import { StorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class Bouncer {
 
   private storage = inject(StorageService);
-  private authInfo = inject(AuthStore);
-  private vehicleInfo = inject(VehicleInfo);
+  private authStore = inject(AuthStore);
+  private vehicleStore = inject(VehicleStore);
 
   public clearSession(): void {
     this.clearAccount();
-    this.authInfo.personId.set(null);
-    this.authInfo.person.set(null);
+    this.authStore.personId.set(null);
+    this.authStore.person.set(null);
     this.storage.clearAllFromSession();
   }
 
   public clearAccount(): void {
-    this.authInfo.accountId.set(null);
-    this.vehicleInfo.vin.set(null);
-    this.vehicleInfo.resetStats();
+    this.authStore.accountId.set(null);
+    this.vehicleStore.vin.set(null);
+    this.vehicleStore.resetStats();
   }
 
   public disconnect(): void {

@@ -6,11 +6,11 @@ import { AuthStore } from '../services/auth-store.service';
 
 export function selectCarGuard(): CanActivateFn {
   return () => {
-    const authInfo = inject(AuthStore);
+    const authStore = inject(AuthStore);
     const router = inject(BetterRouter);
     const announcer = inject(Announcer);
 
-    if (!authInfo.accountId()) {
+    if (!authStore.accountId()) {
       announcer.notify('Vous devez choisir un compte avant de sélectionner votre voiture.');
       router.navigate(['select-account']).then();
       return false;

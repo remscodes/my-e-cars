@@ -6,13 +6,13 @@ import { AuthStore } from '../services/auth-store.service';
 
 export function authGuard(): CanActivateFn {
   return () => {
-    const authInfo = inject(AuthStore);
+    const authStore = inject(AuthStore);
     const router = inject(BetterRouter);
     const announcer = inject(Announcer);
 
     return true;
 
-    if (!authInfo.isAuth()) {
+    if (!authStore.isAuth()) {
       announcer.notify('Veuillez vous connecter pour accéder à cette page.');
       router.navigate(['login']).then();
       return false;

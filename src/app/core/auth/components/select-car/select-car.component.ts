@@ -10,7 +10,7 @@ import { PanelComponent } from '../../../../shared/components/panel/panel.compon
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { Nullable } from '../../../../shared/models/shared.model';
 import { BetterRouter } from '../../../../shared/services/better-router.service';
-import { VehicleInfo } from '../../../renault/services/vehicle-info.service';
+import { VehicleStore } from '../../../renault/services/vehicle-store.service';
 import { AuthStore } from '../../services/auth-store.service';
 import { Auth } from '../../services/auth.service';
 
@@ -32,12 +32,12 @@ export class SelectCarComponent implements OnInit {
 
   private auth = inject(Auth);
   private authStore = inject(AuthStore);
-  private vehicleInfo = inject(VehicleInfo);
+  private vehicleStore = inject(VehicleStore);
   private router = inject(BetterRouter);
   private formBuilder = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
 
-  public vehicles: WritableSignal<Nullable<Vehicles>> = this.vehicleInfo.vehicles;
+  public vehicles: WritableSignal<Nullable<Vehicles>> = this.vehicleStore.vehicles;
 
   public form = this.formBuilder.group({
     vin: ['', Validators.required],
@@ -52,11 +52,8 @@ export class SelectCarComponent implements OnInit {
   }
 
   private getVehicles(): void {
-    // Truthy thanks to selectCarGuard()
-    const accountId: string = this.authStore.accountId()!;
-
     this.isLoading = true;
-    this.auth.getVehicles(accountId).pipe(
+    this.auth.getVehicles().pipe(
       finalize(() => this.isLoading = false),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe();
@@ -72,7 +69,7 @@ export class SelectCarComponent implements OnInit {
 
     const { vin } = this.form.value;
 
-    this.vehicleInfo.vin.set(vin!);
+    this.vehicleStore.vin.set(vin!);
   }
 
   public switchAccount(): void {

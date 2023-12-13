@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { BatteryStatus, PlugStatus } from '@remscodes/renault-api';
 import { finalize } from 'rxjs';
-import { VehicleInfo } from '../../../../../../core/renault/services/vehicle-info.service';
+import { VehicleStore } from '../../../../../../core/renault/services/vehicle-store.service';
 import { SpinnerComponent } from '../../../../../../shared/components/spinner/spinner.component';
 import { Nullable } from "../../../../../../shared/models/shared.model";
 import { MinuteToHourPipe } from '../../../../../../shared/pipes/minute-to-hour.pipe';
@@ -31,11 +31,11 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
 })
 export class ChargeWidgetComponent implements OnInit {
 
-  private vehicleInfo = inject(VehicleInfo);
+  private vehicleStore = inject(VehicleStore);
   private kamereon = inject(NgxKamereonClient);
   private destroyRef = inject(DestroyRef);
 
-  public batteryStatus: Signal<Nullable<BatteryStatus>> = this.vehicleInfo.batteryStatus;
+  public batteryStatus: Signal<Nullable<BatteryStatus>> = this.vehicleStore.batteryStatus;
   public isCharging: Signal<boolean> = computed(() => this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED);
   public batteryGradient: Signal<string> = computed(() => {
     const color: string = (this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED) ? '#00f000' : 'lightblue';
@@ -56,7 +56,7 @@ export class ChargeWidgetComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (status: BatteryStatus) => {
-        this.vehicleInfo.updateBatteryStatus(status);
+        this.vehicleStore.updateBatteryStatus(status);
       },
     });
   };
