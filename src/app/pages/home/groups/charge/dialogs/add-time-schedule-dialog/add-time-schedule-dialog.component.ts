@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -24,17 +24,20 @@ export interface AddScheduleDialogComponentData {
 })
 export class AddTimeScheduleDialogComponent {
 
-  private data: AddScheduleDialogComponentData = inject(MAT_DIALOG_DATA);
-  private dialogRef: MatDialogRef<AddTimeScheduleDialogComponent> = inject(MatDialogRef);
+  private data = inject<AddScheduleDialogComponentData>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<AddTimeScheduleDialogComponent>>(MatDialogRef);
+  private formBuilder = inject(FormBuilder);
 
-  public form: FormGroup = new FormGroup({
-    time: new FormControl(dayjs(this.data.time).format('HH:mm'), Validators.required),
+  public form = this.formBuilder.group({
+    time: [dayjs(this.data.time).format('HH:mm'), Validators.required],
   });
 
   public onSubmit(): void {
     if (!this.form.valid) return;
 
-    this.dialogRef.close(this.form.value.time);
+    const { time } = this.form.value;
+
+    this.dialogRef.close(time);
   }
 
   public close(): void {

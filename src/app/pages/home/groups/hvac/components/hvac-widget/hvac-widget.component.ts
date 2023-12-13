@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { HvacStatus } from '@remscodes/renault-api';
-import { VehicleInfoService } from '../../../../../../core/renault/services/vehicle-info.service';
+import { VehicleInfo } from '../../../../../../core/renault/services/vehicle-info.service';
 import { Nullable } from '../../../../../../shared/models/shared.model';
 
 @Component({
@@ -20,11 +20,11 @@ import { Nullable } from '../../../../../../shared/models/shared.model';
 })
 export class HvacWidgetComponent implements OnInit {
 
-  private vehicleInfoService: VehicleInfoService = inject(VehicleInfoService);
-  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
-  private destroyRef: DestroyRef = inject(DestroyRef);
+  private vehicleInfo = inject(VehicleInfo);
+  private kamereon = inject(NgxKamereonClient);
+  private destroyRef = inject(DestroyRef);
 
-  public hvacStatus: Signal<Nullable<HvacStatus>> = this.vehicleInfoService.hvacStatus;
+  public hvacStatus: Signal<Nullable<HvacStatus>> = this.vehicleInfo.hvacStatus;
 
   public ngOnInit(): void {
     if (!this.hvacStatus) this.getHvacStatus();
@@ -35,13 +35,13 @@ export class HvacWidgetComponent implements OnInit {
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({
       next: (value: HvacStatus) => {
-        this.vehicleInfoService.updateHvacStatus(value);
+        this.vehicleInfo.updateHvacStatus(value);
       },
     });
   }
 
   public toggleHvac(): void {
-    // const vin = this.vehicleInfoService.selectedVin();
+    // const vin = this.vehicleInfo.selectedVin();
     // if (!vin) return;
     //
     // this.kamereon.performHvacStart({}, vin);

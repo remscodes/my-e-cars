@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { InitSelectAccountComponent } from './components/init-select-account/init-select-account.component';
-import { InitSelectCarComponent } from './components/init-select-car/init-select-car.component';
+import { SelectAccountComponent } from './components/select-account/select-account.component';
+import { SelectCarComponent } from './components/select-car/select-car.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { selectCarGuard } from './guards/select-car.guard';
@@ -14,19 +14,19 @@ export const AUTH_ROUTES: Routes = [
     component: LoginComponent
   },
   {
-    path: 'init-select-account',
+    path: 'select-account',
     data: {
       hideNavBar: true
     },
     canActivate: [authGuard()],
-    component: InitSelectAccountComponent
+    component: SelectAccountComponent
   },
   {
-    path: 'init-select-car',
+    path: 'select-car',
     data: {
       hideNavBar: true
     },
     canActivate: [authGuard(), selectCarGuard()],
-    component: InitSelectCarComponent
+    component: SelectCarComponent
   }
 ];

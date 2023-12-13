@@ -3,16 +3,10 @@ import { NgxRenaultSession } from '@remscodes/ngx-renault-api-client';
 import { BatteryStatus, ChargeMode, Charges, HvacStatus, IMAGE_ORIENTATION_KEY, VehicleDetails, VehicleLink, Vehicles } from '@remscodes/renault-api';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
-
-interface VehicleStats {
-  batteryStatus: Nullable<BatteryStatus>;
-  chargeMode: Nullable<ChargeMode>;
-  charges: Nullable<Charges>;
-  hvacStatus: Nullable<HvacStatus>;
-}
+import { VehicleStats } from '../models/vehicle-stats.model';
 
 @Injectable({ providedIn: 'root' })
-export class VehicleInfoService {
+export class VehicleInfo {
 
   public constructor() {
     this.observeVin();
@@ -26,22 +20,16 @@ export class VehicleInfoService {
 
   public vehicle: Signal<Optional<VehicleLink>> = computed(() => {
     return this.vehicles()?.vehicleLinks?.find(({ vin }) => vin === this.vin());
-  }, {
-    equal: (a, b) => a?.vin === b?.vin,
-  });
+  }, { equal: (a, b) => a?.vin === b?.vin });
 
   public model: Signal<Optional<VehicleDetails['model']>> = computed(() => {
     return this.vehicle()?.vehicleDetails?.model;
   });
 
   public imgSrc: Signal<Optional<string>> = computed(() => {
-    return this.vehicle()
-      ?.vehicleDetails
-      ?.assets
-      ?.find(({ viewpoint }) => (viewpoint === IMAGE_ORIENTATION_KEY.iso))
-      ?.renditions
-      ?.find(({ resolutionType }) => resolutionType?.endsWith('SMALL'))
-      ?.url;
+    return this.vehicle()?.vehicleDetails?.assets
+      ?.find(({ viewpoint }) => (viewpoint === IMAGE_ORIENTATION_KEY.iso))?.renditions
+      ?.find(({ resolutionType }) => resolutionType?.endsWith('SMALL'))?.url;
   });
 
   public stats: WritableSignal<VehicleStats> = signal({
@@ -56,20 +44,20 @@ export class VehicleInfoService {
   public charges: Signal<Nullable<Charges>> = computed(() => this.stats().charges);
   public hvacStatus: Signal<Nullable<HvacStatus>> = computed(() => this.stats().hvacStatus);
 
-  public updateBatteryStatus(batteryStatus: BatteryStatus): void {
-    this.updateStats('batteryStatus', batteryStatus);
+  public updateBatteryStatus(value: BatteryStatus): void {
+    this.updateStats('batteryStatus', value);
   }
 
-  public updateCharges(charges: Charges): void {
-    this.updateStats('charges', charges);
+  public updateCharges(value: Charges): void {
+    this.updateStats('charges', value);
   }
 
-  public updateChargeMode(chargeMode: ChargeMode): void {
-    this.updateStats('chargeMode', chargeMode);
+  public updateChargeMode(value: ChargeMode): void {
+    this.updateStats('chargeMode', value);
   }
 
-  public updateHvacStatus(hvacStatus: HvacStatus): void {
-    this.updateStats('hvacStatus', hvacStatus);
+  public updateHvacStatus(value: HvacStatus): void {
+    this.updateStats('hvacStatus', value);
   }
 
   private updateStats(statKey: keyof VehicleStats, value: any): void {
@@ -77,6 +65,15 @@ export class VehicleInfoService {
       ...stats,
       [statKey]: value,
     }));
+  }
+
+  public resetStats(): void {
+    this.stats.set({
+      batteryStatus: null,
+      chargeMode: null,
+      charges: null,
+      hvacStatus: null,
+    });
   }
 
   private observeVin(): void {

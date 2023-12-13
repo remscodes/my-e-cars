@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { BetterRouter } from '../../../../../../shared/services/better-router.service';
 
 @Component({
@@ -15,12 +15,8 @@ import { BetterRouter } from '../../../../../../shared/services/better-router.se
 })
 export class ChargeActionsComponent {
 
-  private router: BetterRouter = inject(BetterRouter);
-  private route: ActivatedRoute = inject(ActivatedRoute);
-
-  private extras: NavigationExtras = {
-    relativeTo: this.route,
-  };
+  private router = inject(BetterRouter);
+  private route = inject(ActivatedRoute);
 
   public goToChargeMode(): void {
     this.navigate('charge-mode');
@@ -31,6 +27,6 @@ export class ChargeActionsComponent {
   }
 
   private navigate(route: string): void {
-    this.router.navigate([route], this.extras).then();
+    this.router.navigate([route], { relativeTo: this.route }).then();
   }
 }

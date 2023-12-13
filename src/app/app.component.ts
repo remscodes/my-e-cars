@@ -23,12 +23,12 @@ import { BetterRouter } from './shared/services/better-router.service';
 })
 export class AppComponent {
 
-  private router: BetterRouter = inject(BetterRouter);
-  private contexts: ChildrenOutletContexts = inject(ChildrenOutletContexts);
+  private router = inject(BetterRouter);
+  private outlet = inject(ChildrenOutletContexts);
 
   public hideNavBar: Signal<boolean> = computed(() => this.router.navigationInfo().routeData['hideNavBar']);
 
   public getRouteAnimationData(): Optional<string> {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+    return this.outlet.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 }

@@ -8,10 +8,10 @@ import { StorageService } from '../../../shared/services/storage.service';
 
 export function authExpiredInterceptor(): HttpInterceptorFn {
   return (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-    const storageService: StorageService = inject(StorageService);
-    const router: BetterRouter = inject(BetterRouter);
-    const announcer: Announcer = inject(Announcer);
-    const bouncer: Bouncer = inject(Bouncer);
+    const storage = inject(StorageService);
+    const router = inject(BetterRouter);
+    const announcer = inject(Announcer);
+    const bouncer = inject(Bouncer);
 
     return next(req).pipe(
       tap({
@@ -20,7 +20,7 @@ export function authExpiredInterceptor(): HttpInterceptorFn {
 
           announcer.notify('Votre session a expiré.', 4000);
           bouncer.clearSession();
-          storageService.setPreviousUrl(router.routerState.snapshot.url);
+          storage.setPreviousUrl(router.routerState.snapshot.url);
           router.navigate(['login']).then();
         },
       }),

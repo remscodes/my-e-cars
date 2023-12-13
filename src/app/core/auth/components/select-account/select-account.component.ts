@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { Account } from '@remscodes/renault-api';
 import { PanelComponent } from '../../../../shared/components/panel/panel.component';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { Bouncer } from '../../../../shared/services/bouncer.service';
-import { AuthInfoService } from '../../services/auth-info.service';
+import { AuthStore } from '../../services/auth-store.service';
 
 @Component({
-  templateUrl: './init-select-account.component.html',
-  styleUrl: './init-select-account.component.css',
+  templateUrl: './select-account.component.html',
+  styleUrl: './select-account.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
@@ -21,15 +21,16 @@ import { AuthInfoService } from '../../services/auth-info.service';
     SpinnerComponent,
   ],
 })
-export class InitSelectAccountComponent {
+export class SelectAccountComponent {
 
-  private authInfoService: AuthInfoService = inject(AuthInfoService);
-  private bouncer: Bouncer = inject(Bouncer);
+  private authInfo = inject(AuthStore);
+  private bouncer = inject(Bouncer);
+  private formBuilder = inject(FormBuilder);
 
-  public accounts: Signal<Account[]> = computed(() => this.authInfoService.person()?.accounts ?? []);
+  public accounts: Signal<Account[]> = computed(() => this.authInfo.person()?.accounts ?? []);
 
-  public form: FormGroup = new FormGroup({
-    accountId: new FormControl(this.authInfoService.selectedAccountId() ?? '', Validators.required),
+  public form = this.formBuilder.group({
+    accountId: [this.authInfo.accountId(), Validators.required],
   });
 
   public onSubmit(): void {
@@ -37,7 +38,7 @@ export class InitSelectAccountComponent {
 
     const { accountId } = this.form.value;
 
-    this.authInfoService.selectedAccountId.set(accountId);
+    this.authInfo.accountId.set(accountId!);
   }
 
   public logout(): void {

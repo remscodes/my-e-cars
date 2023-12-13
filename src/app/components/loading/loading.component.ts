@@ -29,7 +29,7 @@ import { Loading } from '../../shared/services/loading.service';
 })
 export class LoadingComponent {
 
-  private loading: Loading = inject(Loading);
+  private loading = inject(Loading);
 
   public active: Signal<boolean> = this.loading.active.asReadonly();
 

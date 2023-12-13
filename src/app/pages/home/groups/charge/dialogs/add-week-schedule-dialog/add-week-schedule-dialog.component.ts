@@ -19,8 +19,8 @@ export interface AddWeekScheduleDialogComponentData {
 })
 export class AddWeekScheduleDialogComponent {
 
-  private data: AddWeekScheduleDialogComponentData = inject(MAT_DIALOG_DATA);
-  private dialogRef: MatDialogRef<AddWeekScheduleDialogComponent> = inject(MatDialogRef);
+  private data = inject<AddWeekScheduleDialogComponentData>(MAT_DIALOG_DATA);
+  private dialogRef = inject<MatDialogRef<AddWeekScheduleDialogComponent>>(MatDialogRef);
 
   public planningNumber: number = this.data.index;
   public schedule: BetterSchedule = this.data.schedule;

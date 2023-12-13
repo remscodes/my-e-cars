@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -29,14 +29,15 @@ import { ChargeComponent } from '../charge/charge.component';
 })
 export class ChargeHistoryComponent implements OnInit {
 
-  private router: BetterRouter = inject(BetterRouter);
-  private loading: Loading = inject(Loading);
-  private kamereon: NgxKamereonClient = inject(NgxKamereonClient);
-  private destroyRef: DestroyRef = inject(DestroyRef);
+  private router = inject(BetterRouter);
+  private loading = inject(Loading);
+  private kamereon = inject(NgxKamereonClient);
+  private formBuilder = inject(FormBuilder);
+  private destroyRef = inject(DestroyRef);
 
-  public form: FormGroup = new FormGroup({
-    startDate: new FormControl(dayjs().subtract(1, 'week').toDate()),
-    endDate: new FormControl('06-23-2023'),
+  public form = this.formBuilder.group({
+    startDate: [dayjs().subtract(1, 'week').toDate()],
+    endDate: ['06-23-2023'],
   });
 
   public charges: Optional<ChargeDetails[]>;
@@ -49,7 +50,7 @@ export class ChargeHistoryComponent implements OnInit {
     const { startDate: start, endDate: end } = this.form.value;
 
     this.loading.start();
-    this.kamereon.readCharges({ start, end }).pipe(
+    this.kamereon.readCharges({ start: start!, end: end! }).pipe(
       finalize(() => this.loading.stop()),
       takeUntilDestroyed(this.destroyRef),
     ).subscribe({

@@ -17,12 +17,12 @@ export class BetterRouter {
     this.subToRouterEvents();
   }
 
-  private window: Window = inject(WINDOW);
-  private router: Router = inject(Router);
-  private loading: Loading = inject(Loading);
-  private ngZone: NgZone = inject(NgZone);
-  private storageService: StorageService = inject(StorageService);
-  private route: ActivatedRoute = inject(ActivatedRoute);
+  private window = inject(WINDOW);
+  private router = inject(Router);
+  private loading = inject(Loading);
+  private ngZone = inject(NgZone);
+  private storage = inject(StorageService);
+  private route = inject(ActivatedRoute);
 
   public navigationInfo: WritableSignal<NavigationInfo> = signal({
     routeData: {},
@@ -64,7 +64,7 @@ export class BetterRouter {
   }
 
   private getData(): Data {
-    let child = this.route.firstChild;
+    let child = this.route.root.firstChild;
     while (child) {
       if (child.firstChild) child = child.firstChild;
       else return child.snapshot.data;
@@ -97,7 +97,7 @@ export class BetterRouter {
   }
 
   public async navigateToPreviousUrlIfExist(fallbackUrl?: string): Promise<boolean> {
-    const url: string | null = this.storageService.getPreviousUrl();
+    const url: string | null = this.storage.getPreviousUrl();
     if (!url) {
       (fallbackUrl) && await this.navigateByUrl(fallbackUrl);
       return false;
@@ -105,7 +105,7 @@ export class BetterRouter {
 
     await this.navigateByUrl(url);
 
-    this.storageService.clearPreviousUrl();
+    this.storage.clearPreviousUrl();
 
     return true;
   }

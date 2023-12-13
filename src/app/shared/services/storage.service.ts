@@ -5,9 +5,9 @@ import { SESSION_STORAGE } from '../tokens/session-storage.token';
 @Injectable({ providedIn: 'root' })
 export class StorageService {
 
-  private sessionStorage: Storage = inject(SESSION_STORAGE);
-  private localStorage: Storage = inject(LOCAL_STORAGE);
-  private ngZone: NgZone = inject(NgZone);
+  private sessionStorage = inject(SESSION_STORAGE);
+  private localStorage = inject(LOCAL_STORAGE);
+  private ngZone = inject(NgZone);
 
   private keyPrefix: string = 'my-reno:';
 
@@ -17,7 +17,6 @@ export class StorageService {
   private vinKey: string = 'vin';
 
   private gigyaTokenKey: string = 'gigya_token';
-  private appKeyKey: string = 'app_key';
 
   /* ------- */
 
@@ -111,20 +110,6 @@ export class StorageService {
 
   /* ------- */
 
-  public setAppKey(appKey: string): void {
-    this.setLocalItem(this.appKeyKey, appKey);
-  }
-
-  public getAppKey(): string | null {
-    return this.getLocalItem(this.appKeyKey);
-  }
-
-  public clearAppKey(): void {
-    this.clearLocalItem(this.appKeyKey);
-  }
-
-  /* ------- */
-
   public setAccountId(accountId: string): void {
     this.setSessionItem(this.accountIdKey, accountId);
   }
@@ -157,11 +142,11 @@ export class StorageService {
     this.clearPreviousUrl();
     this.clearToken();
     this.clearAccountId();
+    this.clearVin();
   }
 
   public clearAllFromLocal(): void {
     this.clearGigyaToken();
-    this.clearAppKey();
   }
 
   public clearAll(): void {

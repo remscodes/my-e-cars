@@ -12,6 +12,7 @@ export const INIT_RENAULT_SESSION: Provider = {
       checkAndSet(session, storage.getGigyaToken(), 'gigyaToken');
       checkAndSet(session, storage.getToken(), 'token');
       checkAndSet(session, storage.getAccountId(), 'accountId');
+      checkAndSet(session, storage.getVin(), 'vin');
     };
   },
 };

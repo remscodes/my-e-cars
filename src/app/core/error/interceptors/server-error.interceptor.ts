@@ -8,16 +8,16 @@ import { StorageService } from '../../../shared/services/storage.service';
 
 export function serverErrorInterceptor(): HttpInterceptorFn {
   return (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-    const storageService: StorageService = inject(StorageService);
-    const announcer: Announcer = inject(Announcer);
-    const router: BetterRouter = inject(BetterRouter);
+    const storage = inject(StorageService);
+    const announcer = inject(Announcer);
+    const router = inject(BetterRouter);
 
     return next(req).pipe(
       tap({
         error: (err: HttpErrorResponse) => {
           (environment.devkit?.logInterceptedError) && console.error(`Intercepted error on request : ${req.url}, message : ${JSON.stringify(err)}`);
 
-          if (err.status < 500 || announcer.isErrorAnnounceActive) return;
+          if (err.status < 500 || announcer.status().active) return;
 
           switch (err.status) {
             case 502:
@@ -26,7 +26,7 @@ export function serverErrorInterceptor(): HttpInterceptorFn {
 
             case 503 :
               announcer.warn('Serveur indisponible (503).');
-              storageService.setPreviousUrl(router.routerState.snapshot.url);
+              storage.setPreviousUrl(router.routerState.snapshot.url);
               router.navigate(['503']).then();
               break;
 
