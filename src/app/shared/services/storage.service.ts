@@ -1,6 +1,19 @@
 import { inject, Injectable, NgZone } from '@angular/core';
+import { Nullable } from '../models/shared.model';
 import { LOCAL_STORAGE } from '../tokens/local-storage.token';
 import { SESSION_STORAGE } from '../tokens/session-storage.token';
+import { capitalize } from '../utils/string-utils';
+
+const LOCAL_STORAGE_KEYS = [
+  'gigyaToken',
+] as const;
+
+const SESSION_STORAGE_KEYS = [
+  'token',
+  'previousUrl',
+  'accountId',
+  'vin',
+] as const;
 
 @Injectable({ providedIn: 'root' })
 export class StorageService {
@@ -9,22 +22,9 @@ export class StorageService {
   private localStorage = inject(LOCAL_STORAGE);
   private ngZone = inject(NgZone);
 
-  private keyPrefix: string = 'my-reno:';
-
-  private previousUrlKey: string = 'previous_url';
-  private tokenKey: string = 'token';
-  private accountIdKey: string = 'account_id';
-  private vinKey: string = 'vin';
-
-  private gigyaTokenKey: string = 'gigya_token';
-
-  /* ------- */
-
   private formatKey(key: string): string {
-    return `${this.keyPrefix}${key}`;
+    return `my-e-cars:${key}`;
   }
-
-  /* ------- */
 
   private setInStorage(storage: Storage, key: string, value: any): void {
     this.ngZone.run(() => storage.setItem(this.formatKey(key), `${value}`));
@@ -38,8 +38,6 @@ export class StorageService {
     this.ngZone.run(() => storage.removeItem(this.formatKey(key)));
   }
 
-  /* ------- */
-
   private setSessionItem(key: string, value: string): void {
     this.setInStorage(this.sessionStorage, key, value);
   }
@@ -51,8 +49,6 @@ export class StorageService {
   private clearSessionItem(key: string): void {
     this.removeFromStorage(this.sessionStorage, key);
   }
-
-  /* ------- */
 
   private setLocalItem(key: string, value: string): void {
     this.setInStorage(this.localStorage, key, value);
@@ -66,92 +62,52 @@ export class StorageService {
     this.removeFromStorage(this.localStorage, key);
   }
 
-  /* ------- */
-
-  public setPreviousUrl(url: string): void {
-    this.setSessionItem(this.previousUrlKey, url);
-  }
-
-  public getPreviousUrl(): string | null {
-    return this.getSessionItem(this.previousUrlKey);
-  }
-
-  public clearPreviousUrl(): void {
-    this.clearSessionItem(this.previousUrlKey);
-  }
-
-  /* ------- */
-
-  public setGigyaToken(token: string): void {
-    this.setLocalItem(this.gigyaTokenKey, token);
-  }
-
-  public getGigyaToken(): string | null {
-    return this.getLocalItem(this.gigyaTokenKey);
-  }
-
-  public clearGigyaToken(): void {
-    this.clearLocalItem(this.gigyaTokenKey);
-  }
-
-  /* ------- */
-
-  public setToken(token: string): void {
-    this.setSessionItem(this.tokenKey, token);
-  }
-
-  public getToken(): string | null {
-    return this.getSessionItem(this.tokenKey);
-  }
-
-  public clearToken(): void {
-    this.clearSessionItem(this.tokenKey);
-  }
-
-  /* ------- */
-
-  public setAccountId(accountId: string): void {
-    this.setSessionItem(this.accountIdKey, accountId);
-  }
-
-  public getAccountId(): string | null {
-    return this.getSessionItem(this.accountIdKey);
-  }
-
-  public clearAccountId(): void {
-    this.clearSessionItem(this.accountIdKey);
-  }
-
-  /* ------- */
-
-  public setVin(vin: string): void {
-    this.setSessionItem(this.vinKey, vin);
-  }
-
-  public getVin(): string | null {
-    return this.getSessionItem(this.vinKey);
-  }
-
-  public clearVin(): void {
-    this.clearSessionItem(this.vinKey);
-  }
-
-  /* ------- */
-
   public clearAllFromSession(): void {
-    this.clearPreviousUrl();
-    this.clearToken();
-    this.clearAccountId();
-    this.clearVin();
-  }
-
-  public clearAllFromLocal(): void {
-    this.clearGigyaToken();
-  }
-
-  public clearAll(): void {
-    this.clearAllFromSession();
-    this.clearAllFromLocal();
+    SESSION_STORAGE_KEYS.forEach(key => this[`clear${capitalize(key)}`]());
   }
 }
 
+export interface StorageService
+  extends StorageMethods<typeof LOCAL_STORAGE_KEYS[number]>,
+    StorageMethods<typeof SESSION_STORAGE_KEYS[number]> {}
+
+type StorageMethods<T> =
+  & Setters<T>
+  & Getters<T>
+  & Clears<T>
+
+type Setters<T> = {
+  [K in T as `set${Capitalize<K & string>}`]: (value: string) => void;
+}
+
+type Getters<T> = {
+  [K in T as `get${Capitalize<K & string>}`]: () => Nullable<string>;
+}
+
+type Clears<T> = {
+  [K in T as `clear${Capitalize<K & string>}`]: () => void;
+}
+
+LOCAL_STORAGE_KEYS.forEach(key => {
+  StorageService.prototype[`set${capitalize(key)}`] = function (value: string) {
+    this['setLocalItem'](key, value);
+  };
+  StorageService.prototype[`get${capitalize(key)}`] = function () {
+    return this['getLocalItem'](key);
+  };
+  StorageService.prototype[`clear${capitalize(key)}`] = function () {
+    this['clearLocalItem'](key);
+  };
+});
+
+SESSION_STORAGE_KEYS.forEach(key => {
+  StorageService.prototype[`set${capitalize(key)}`] = function (value: string) {
+    this['setSessionItem'](key, value);
+  };
+  StorageService.prototype[`get${capitalize(key)}`] = function () {
+    return this['getSessionItem'](key);
+  };
+  StorageService.prototype[`clear${capitalize(key)}`] = function () {
+    this['clearSessionItem'](key);
+  };
+});
