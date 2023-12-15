@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input as RouteData } from '@angular/core';
 
 @Component({
   templateUrl: './error.component.html',
@@ -7,4 +7,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
   imports: [],
 })
-export class ErrorComponent {}
+export class ErrorComponent {
+
+  @RouteData()
+  public statusCode!: number;
+
+  @RouteData()
+  public message!: string;
+}
