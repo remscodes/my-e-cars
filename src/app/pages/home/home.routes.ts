@@ -6,23 +6,24 @@ import { ChargeModeComponent } from './groups/charge/components/charge-mode/char
 export const HOME_ROUTES: Routes = [
   {
     path: '',
-    component: HomeComponent,
     data: {
       animation: 'HomePage',
     },
+    component: HomeComponent,
   },
   {
     path: 'charge-mode',
-    component: ChargeModeComponent,
     data: {
       animation: 'ChargeModePage',
     },
+    component: ChargeModeComponent,
+
   },
   {
     path: 'charge-history',
-    component: ChargeHistoryComponent,
     data: {
       animation: 'ChargeHistoryPage',
     },
+    component: ChargeHistoryComponent,
   },
 ];
