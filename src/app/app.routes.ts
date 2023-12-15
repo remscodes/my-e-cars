@@ -38,6 +38,10 @@ export const APP_ROUTES: Routes = [
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'prefix',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: '404',
   },
 ];
