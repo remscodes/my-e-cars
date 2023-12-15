@@ -15,12 +15,16 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
     provideRenaultClient(),
-    provideHttpClient(withFetch()),
-    provideRootRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
+    provideHttpClient(
+      withFetch(),
+    ),
     APP_INITIALIZER_PROVIDERS,
     RENAULT_PROVIDERS,
     AUTH_PROVIDERS,
     ERROR_PROVIDERS,
     MATERIAL_PROVIDERS,
+    provideRootRouter(APP_ROUTES,
+      withPreloading(PreloadAllModules),
+    ),
   ],
 };

@@ -5,7 +5,7 @@ import { VehicleStore } from '../../renault/services/vehicle-store.service';
 import { AuthStore } from './auth-store.service';
 
 @Injectable({ providedIn: 'root' })
-export class AutoRedirect {
+export class AuthRedirect {
 
   public constructor() {
     this.observe();
@@ -25,7 +25,7 @@ export class AutoRedirect {
         return;
       }
 
-      if (!this.vehicleStore.vehicle()) {
+      if (this.vehicleStore.vehicles() && !this.vehicleStore.vehicle()) {
         if (environment.devkit?.logEffect) console.log('AutoRouting /select-car');
         this.router.navigate(['select-car']).then();
         return;

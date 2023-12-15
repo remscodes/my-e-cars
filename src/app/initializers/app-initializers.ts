@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, Provider } from '@angular/core';
 import { emitError } from 'thror';
-import { AutoRedirect } from '../core/auth/services/auto-redirect.service';
+import { AuthRedirect } from '../core/auth/services/auth-redirect.service';
 import { Optional } from '../shared/models/shared.model';
 import { BetterRouter } from '../shared/services/better-router.service';
 import { WINDOW } from '../shared/tokens/window.token';
@@ -9,7 +9,7 @@ import { addHeadScript } from '../shared/utils/browser-utils';
 export const initDepsProvider: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
-  deps: [BetterRouter, AutoRedirect],
+  deps: [BetterRouter, AuthRedirect],
   useFactory: () => () => {},
 };
 
