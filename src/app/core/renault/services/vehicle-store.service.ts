@@ -9,7 +9,7 @@ import { VehicleStats } from '../models/vehicle-stats.model';
 export class VehicleStore {
 
   public constructor() {
-    this.observeVin();
+    this.$storeVin();
   }
 
   private storage = inject(StorageService);
@@ -61,13 +61,10 @@ export class VehicleStore {
   }
 
   private updateStats(statKey: keyof VehicleStats, value: any): void {
-    this.stats.update(stats => ({
-      ...stats,
-      [statKey]: value,
-    }));
+    this.stats.update(stats => ({ ...stats, [statKey]: value }));
   }
 
-  public resetStats(): void {
+  public clearStats(): void {
     this.stats.set({
       batteryStatus: null,
       chargeMode: null,
@@ -76,7 +73,7 @@ export class VehicleStore {
     });
   }
 
-  private observeVin(): void {
+  private $storeVin(): void {
     effect(() => {
       const vin: Nullable<string> = this.vin();
       if (vin) {

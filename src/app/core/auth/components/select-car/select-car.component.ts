@@ -59,7 +59,6 @@ export class SelectCarComponent implements OnInit {
     ).subscribe();
   }
 
-
   private isVehiclesSyncWithAccount(): boolean {
     return (this.vehicles()?.accountId === this.authStore.accountId());
   }

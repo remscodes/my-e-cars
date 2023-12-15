@@ -48,9 +48,7 @@ export class Auth {
   public getPerson(personId?: string): Observable<Person> {
     return this.kamereon.getPerson(personId).pipe(
       tap({
-        next: (person: Person) => {
-          if (person) this.authStore.person.set(person);
-        },
+        next: (person: Person) => this.authStore.person.set(person),
       }),
     );
   }
@@ -58,9 +56,7 @@ export class Auth {
   public getVehicles(accountId?: string): Observable<Vehicles> {
     return this.kamereon.getAccountVehicles(accountId).pipe(
       tap({
-        next: (vehicles: Vehicles) => {
-          if (vehicles) this.vehicleStore.vehicles.set(vehicles);
-        },
+        next: (vehicles: Vehicles) => this.vehicleStore.vehicles.set(vehicles),
       }),
     );
   }
