@@ -8,4 +8,4 @@ export interface DialogData {
 
 export type DialogType =
   | 'basic'
-  | 'warn';
+  | 'warn'
