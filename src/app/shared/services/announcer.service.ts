@@ -2,6 +2,7 @@ import { DestroyRef, inject, Injectable, signal, WritableSignal } from "@angular
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { finalize, first } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { BasicSnackbarComponent } from '../../components/basic-snackbar/basic-snackbar.component';
 import { Optional } from '../models/shared.model';
 
@@ -27,6 +28,7 @@ export class Announcer {
   }
 
   private createSnackBar(message: string, duration: Optional<number>, type: string = 'basic'): void {
+    if (environment.devkit.logAnnounce) console.info(message);
     const snackBarRef: MatSnackBarRef<BasicSnackbarComponent> = this.snackBar.openFromComponent(BasicSnackbarComponent, {
       horizontalPosition: 'center',
       verticalPosition: 'top',

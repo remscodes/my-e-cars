@@ -18,7 +18,6 @@ export class AuthStore {
   public person: WritableSignal<Nullable<Person>> = signal(null);
 
   public accountId: WritableSignal<Nullable<string>> = signal(this.storage.getAccountId());
-
   public account: Signal<Optional<AccountInfo>> = computed(() => {
     return this.person()?.accounts?.find(acc => acc.accountId === this.accountId());
   });

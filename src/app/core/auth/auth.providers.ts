@@ -7,7 +7,11 @@ import { INIT_USER_CONTEXT_PROVIDER } from './initializers/auth.initializer';
 import { authExpiredInterceptor } from './interceptors/auth-expired.interceptor';
 
 export const AUTH_PROVIDERS: (Provider | EnvironmentProviders)[] = [
-  provideRootRouter(AUTH_ROUTES, withPreloading(PreloadAllModules)),
-  provideHttpClient(withInterceptors([authExpiredInterceptor()])),
+  provideHttpClient(withInterceptors([
+    authExpiredInterceptor(),
+  ])),
   INIT_USER_CONTEXT_PROVIDER,
+  provideRootRouter(AUTH_ROUTES,
+    withPreloading(PreloadAllModules),
+  ),
 ];

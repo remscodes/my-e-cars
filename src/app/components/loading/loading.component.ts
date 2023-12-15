@@ -1,5 +1,5 @@
 import { animate, style, transition, trigger } from "@angular/animations";
-import { ChangeDetectionStrategy, Component, inject, Signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, WritableSignal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { Loading } from '../../shared/services/loading.service';

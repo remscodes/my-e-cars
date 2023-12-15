@@ -10,8 +10,6 @@ export function authGuard(): CanActivateFn {
     const router = inject(BetterRouter);
     const announcer = inject(Announcer);
 
-    return true;
-
     if (!authStore.isAuth()) {
       announcer.notify('Veuillez vous connecter pour accéder à cette page.');
       router.navigate(['login']).then();

@@ -3,5 +3,6 @@ export const environment = {
   devkit: {
     logEffect: true,
     logInterceptedError: true,
+    logAnnounce: true,
   },
 } as const;
