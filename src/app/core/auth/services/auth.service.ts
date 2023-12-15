@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { NgxGigyaClient, NgxKamereonClient } from '@remscodes/ngx-renault-api-client';
 import { AccountInfo, LoginInfo, Person, TokenInfo, Vehicles } from '@remscodes/renault-api';
-import { concatMap, iif, Observable, of, tap } from 'rxjs';
+import { concatMap, Observable, of, tap } from 'rxjs';
 import { StorageService } from '../../../shared/services/storage.service';
 import { VehicleStore } from '../../renault/services/vehicle-store.service';
 import { AuthStore } from './auth-store.service';
@@ -68,9 +68,9 @@ export class Auth {
   public getAuthInfos(): Observable<any> {
     return this.getAccountInfo().pipe(
       concatMap(() => this.getPerson()),
-      concatMap(() => iif(() => !!this.authStore.accountId(),
-        this.getVehicles(this.authStore.accountId()!),
-        of(undefined))),
+      concatMap(() => (!!this.authStore.accountId())
+        ? this.getVehicles(this.authStore.accountId()!)
+        : of(undefined)),
     );
   }
 }
