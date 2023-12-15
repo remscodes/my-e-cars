@@ -4,7 +4,15 @@ import { Nullable } from '../../../shared/models/shared.model';
 import { BetterRouter } from '../../../shared/services/better-router.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { WINDOW } from '../../../shared/tokens/window.token';
+import { AuthRedirect } from '../services/auth-redirect.service';
 import { Auth } from '../services/auth.service';
+
+export const INIT_DEPS_PROVIDERS: Provider = {
+  provide: APP_INITIALIZER,
+  multi: true,
+  deps: [AuthRedirect],
+  useFactory: () => () => {},
+};
 
 export const INIT_USER_CONTEXT_PROVIDER: Provider = {
   provide: APP_INITIALIZER,
@@ -33,3 +41,8 @@ export const INIT_USER_CONTEXT_PROVIDER: Provider = {
     };
   },
 };
+
+export const AUTH_INITIALIZER_PROVIDERS: Provider[] = [
+  INIT_DEPS_PROVIDERS,
+  INIT_USER_CONTEXT_PROVIDER,
+];

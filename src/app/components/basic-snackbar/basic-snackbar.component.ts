@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from "@angular/material/snack-bar";
-import { SnackBarData } from '../../shared/models/snack-bar-data.model';
+import { SnackBarData } from '../../models/snack-bar-data.model';
 
 @Component({
   templateUrl: './basic-snackbar.component.html',

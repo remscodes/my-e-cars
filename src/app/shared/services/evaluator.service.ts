@@ -2,7 +2,7 @@ import { DestroyRef, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { DialogData } from '../models/dialog-data.model';
+import { DialogData } from '../../models/dialog-data.model';
 
 interface ConfirmationResult {
   accepted?: () => void;

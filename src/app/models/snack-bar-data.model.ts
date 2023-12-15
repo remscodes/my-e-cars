@@ -5,4 +5,4 @@ export interface SnackBarData {
 
 export type SnackBarType =
   | 'basic'
-  | 'warn';
+  | 'warn'

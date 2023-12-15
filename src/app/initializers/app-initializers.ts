@@ -1,19 +1,18 @@
 import { APP_INITIALIZER, Provider } from '@angular/core';
 import { emitError } from 'thror';
-import { AuthRedirect } from '../core/auth/services/auth-redirect.service';
 import { Optional } from '../shared/models/shared.model';
 import { BetterRouter } from '../shared/services/better-router.service';
 import { WINDOW } from '../shared/tokens/window.token';
 import { addHeadScript } from '../shared/utils/browser-utils';
 
-export const initDepsProvider: Provider = {
+export const INIT_DEPS_PROVIDER: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
-  deps: [BetterRouter, AuthRedirect],
+  deps: [BetterRouter],
   useFactory: () => () => {},
 };
 
-export const addGoogleMapApiScriptProvider: Provider = {
+export const ADD_GOOGLE_MAP_API_SCRIPT_PROVIDER: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
   deps: [WINDOW],
@@ -28,6 +27,6 @@ export const addGoogleMapApiScriptProvider: Provider = {
 };
 
 export const APP_INITIALIZER_PROVIDERS: Provider[] = [
-  initDepsProvider,
-  addGoogleMapApiScriptProvider,
+  INIT_DEPS_PROVIDER,
+  ADD_GOOGLE_MAP_API_SCRIPT_PROVIDER,
 ];

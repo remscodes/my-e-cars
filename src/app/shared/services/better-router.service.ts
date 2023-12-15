@@ -2,6 +2,7 @@ import { inject, Injectable, NgZone, signal, WritableSignal } from "@angular/cor
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Data, Event, NavigationBehaviorOptions, NavigationCancel, NavigationEnd, NavigationError, NavigationExtras, ResolveEnd, ResolveStart, RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterState } from "@angular/router";
 import { Observable } from "rxjs";
+import { Nullable } from '../models/shared.model';
 import { WINDOW } from '../tokens/window.token';
 import { Loading } from "./loading.service";
 import { StorageService } from './storage.service';
@@ -64,7 +65,7 @@ export class BetterRouter {
   }
 
   private getData(): Data {
-    let child = this.route.root.firstChild;
+    let child: Nullable<ActivatedRoute> = this.route.root.firstChild;
     while (child) {
       if (child.firstChild) child = child.firstChild;
       else return child.snapshot.data;
@@ -96,18 +97,15 @@ export class BetterRouter {
     return this.ngZone.run(() => this.router.navigateByUrl(url, extras));
   }
 
-  public async navigateToPreviousUrlIfExist(fallbackUrl?: string): Promise<boolean> {
-    const url: string | null = this.storage.getPreviousUrl();
-    if (!url) {
-      (fallbackUrl) && await this.navigateByUrl(fallbackUrl);
-      return false;
-    }
+  public async navigateToPreviousUrlIfExist(opts?: { fallback?: string }): Promise<boolean> {
+    const url: Nullable<string> = this.storage.getPreviousUrl();
+    if (!url) return (opts?.fallback) ? this.navigateByUrl(opts.fallback) : false;
 
-    await this.navigateByUrl(url);
+    const navRes: boolean = await this.navigateByUrl(url);
+    if (!navRes) return navRes;
 
     this.storage.clearPreviousUrl();
-
-    return true;
+    return navRes;
   }
 
   public back(delta: number = - 1): void {
