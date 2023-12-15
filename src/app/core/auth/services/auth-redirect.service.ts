@@ -8,14 +8,14 @@ import { AuthStore } from './auth-store.service';
 export class AuthRedirect {
 
   public constructor() {
-    this.observe();
+    this.$navigate();
   }
 
   private authStore = inject(AuthStore);
   private vehicleStore = inject(VehicleStore);
   private router = inject(BetterRouter);
 
-  private observe(): void {
+  private $navigate(): void {
     effect(() => {
       if (!this.authStore.isAuth()) return;
 
@@ -25,7 +25,9 @@ export class AuthRedirect {
         return;
       }
 
-      if (this.vehicleStore.vehicles() && !this.vehicleStore.vehicle()) {
+      if (!this.vehicleStore.vehicles()) return;
+
+      if (!this.vehicleStore.vehicle()) {
         if (environment.devkit?.logEffect) console.log('AutoRouting /select-car');
         this.router.navigate(['select-car']).then();
         return;
@@ -33,6 +35,6 @@ export class AuthRedirect {
 
       if (environment.devkit?.logEffect) console.log('AutoRouting /');
       this.router.navigate(['']).then();
-    });
+    }, { allowSignalWrites: true });
   }
 }

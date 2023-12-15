@@ -20,7 +20,7 @@ export class Bouncer {
   public clearAccount(): void {
     this.authStore.accountId.set(null);
     this.vehicleStore.vin.set(null);
-    this.vehicleStore.resetStats();
+    this.vehicleStore.clearStats();
   }
 
   public disconnect(): void {

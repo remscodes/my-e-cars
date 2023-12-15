@@ -8,7 +8,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 export class AuthStore {
 
   public constructor() {
-    this.observe();
+    this.$storeAccountId();
   }
 
   private storage = inject(StorageService);
@@ -24,7 +24,7 @@ export class AuthStore {
 
   public isAuth: Signal<boolean> = computed(() => !!this.person());
 
-  private observe(): void {
+  private $storeAccountId(): void {
     effect(() => {
       const accountId: Nullable<string> = this.accountId();
 
