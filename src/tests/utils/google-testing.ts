@@ -10,7 +10,7 @@ export const DEFAULT_OPTIONS: google.maps.MapOptions = {
 };
 
 /** Creates a jasmine.SpyObj for a google.maps.Map. */
-export function createMapSpy(options: google.maps.MapOptions): jasmine.SpyObj<google.maps.Map> {
+export function createMapSpy(_options: google.maps.MapOptions): jasmine.SpyObj<google.maps.Map> {
   const mapSpy = jasmine.createSpyObj('google.maps.Map', [
     'setOptions',
     'setCenter',
@@ -68,7 +68,7 @@ export const DEFAULT_MARKER_OPTIONS = {
 
 /** Creates a jasmine.SpyObj for a google.maps.Marker */
 export function createMarkerSpy(
-  options: google.maps.MarkerOptions,
+  _options: google.maps.MarkerOptions,
 ): jasmine.SpyObj<google.maps.Marker> {
   const markerSpy = jasmine.createSpyObj('google.maps.Marker', [
     'setOptions',
