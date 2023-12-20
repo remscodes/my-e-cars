@@ -29,6 +29,9 @@
       "./src/typing"
     ]
   },
+  "exclude": [
+    "src/**/*.spec.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
