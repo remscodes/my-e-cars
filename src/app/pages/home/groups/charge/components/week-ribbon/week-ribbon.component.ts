@@ -10,7 +10,7 @@ export interface EnabledDay {
 @Component({
   selector: 'app-week-ribbon',
   templateUrl: './week-ribbon.component.html',
-  styleUrl: './week-ribbon.component.scss',
+  styleUrl: './week-ribbon.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

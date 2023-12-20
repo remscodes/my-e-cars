@@ -7,13 +7,11 @@ export const INIT_RENAULT_SESSION: Provider = {
   provide: APP_INITIALIZER,
   multi: true,
   deps: [NgxRenaultSession, StorageService],
-  useFactory: (session: NgxRenaultSession, storage: StorageService) => {
-    return () => {
-      checkAndSet(session, storage.getGigyaToken(), 'gigyaToken');
-      checkAndSet(session, storage.getToken(), 'token');
-      checkAndSet(session, storage.getAccountId(), 'accountId');
-      checkAndSet(session, storage.getVin(), 'vin');
-    };
+  useFactory: (session: NgxRenaultSession, storage: StorageService) => () => {
+    checkAndSet(session, storage.getGigyaToken(), 'gigyaToken');
+    checkAndSet(session, storage.getToken(), 'token');
+    checkAndSet(session, storage.getAccountId(), 'accountId');
+    checkAndSet(session, storage.getVin(), 'vin');
   },
 };
 

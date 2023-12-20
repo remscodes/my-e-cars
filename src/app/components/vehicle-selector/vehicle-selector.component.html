@@ -2,10 +2,10 @@
 
   <div class="flex justify-center items-center gap-1 p-2 bg-primary h-16">
 
-    @if (imageSrc()) {
+    @if (imageSrc(); as imageSrc) {
       <div class="relative">
         <img rigid
-             [ngSrc]="imageSrc()!"
+             [ngSrc]="imageSrc"
              class="car-img"
              fill=""
              alt="">
