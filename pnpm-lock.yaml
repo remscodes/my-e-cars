@@ -71,8 +71,8 @@ devDependencies:
     specifier: ^17.0.0
     version: 17.0.2(@angular/compiler@17.0.2)(typescript@5.2.2)
   '@types/google.maps':
-    specifier: ^3.55.1
-    version: 3.55.1
+    specifier: ^3.55.2
+    version: 3.55.2
   '@types/jasmine':
     specifier: ~5.1.4
     version: 5.1.4
@@ -444,7 +444,7 @@ packages:
     dependencies:
       '@angular/common': 17.0.2(@angular/core@17.0.2)(rxjs@7.8.1)
       '@angular/core': 17.0.2(rxjs@7.8.1)(zone.js@0.14.3)
-      '@types/google.maps': 3.55.1
+      '@types/google.maps': 3.55.2
       rxjs: 7.8.1
       tslib: 2.6.2
     dev: false
@@ -3192,8 +3192,8 @@ packages:
       '@types/serve-static': 1.15.5
     dev: true
 
-  /@types/google.maps@3.55.1:
-    resolution: {integrity: sha512-4JQjfA+vyAIDgjZIEO+pa12wgZXa1JyGg5eggZ4GullIUF+vVTlvgQrhAdVuNKCGVMdsWopMxLBctRmdl5bMJg==}
+  /@types/google.maps@3.55.2:
+    resolution: {integrity: sha512-JcTwzkxskR8DN/nnX96Pie3gGN3WHiPpuxzuQ9z3516o1bB243d8w8DHUJ8BohuzoT1o3HUFta2ns/mkZC8KRw==}
 
   /@types/http-errors@2.0.4:
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
