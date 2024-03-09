@@ -14,8 +14,8 @@
     "types": "tsc --noEmit",
     "test": "pnpm run init && ng test --code-coverage --browsers=ChromeHeadless",
     "test:ci": "pnpm run test --watch=false --progress=false",
-    "init": "pnpm run inject-version & pnpm run create-env-file",
-    "create-env-file": "node ./scripts/create-env-js.cjs"
+    "init": "pnpm run create-env-file",
+    "create-env-file": "node scripts/create-env-js.cjs"
   },
   "repository": {
     "type": "git",
