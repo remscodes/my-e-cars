@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
 import { SelectAccountComponent } from './components/select-account/select-account.component';
 import { SelectCarComponent } from './components/select-car/select-car.component';
-import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { selectCarGuard } from './guards/select-car.guard';
 

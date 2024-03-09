@@ -14,9 +14,6 @@ import { Loading } from '../../../../../../shared/services/loading.service';
 import { ChargeComponent } from '../charge/charge.component';
 
 @Component({
-  templateUrl: './charge-history.component.html',
-  styleUrl: './charge-history.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -25,6 +22,9 @@ import { ChargeComponent } from '../charge/charge.component';
     MatIconModule,
     ChargeComponent,
   ],
+  templateUrl: './charge-history.component.html',
+  styleUrl: './charge-history.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChargeHistoryComponent implements OnInit {
 

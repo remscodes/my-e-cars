@@ -12,10 +12,6 @@ interface MenuItem {
 
 @Component({
   selector: 'app-bottom-nav-bar',
-  templateUrl: './bottom-nav-bar.component.html',
-  styleUrl: './bottom-nav-bar.component.css',
-  animations: [fadeToTop],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatIconModule,
@@ -23,6 +19,10 @@ interface MenuItem {
     RouterLink,
     RouterLinkActive,
   ],
+  templateUrl: './bottom-nav-bar.component.html',
+  styleUrl: './bottom-nav-bar.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeToTop],
 })
 export class BottomNavBarComponent {
 

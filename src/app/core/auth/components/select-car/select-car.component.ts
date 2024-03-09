@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, Signal, WritableSignal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,9 +15,6 @@ import { AuthStore } from '../../services/auth-store.service';
 import { Auth } from '../../services/auth.service';
 
 @Component({
-  templateUrl: './select-car.component.html',
-  styleUrl: './select-car.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -27,6 +24,9 @@ import { Auth } from '../../services/auth.service';
     PanelComponent,
     SpinnerComponent,
   ],
+  templateUrl: './select-car.component.html',
+  styleUrl: './select-car.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectCarComponent implements OnInit {
 
@@ -37,7 +37,7 @@ export class SelectCarComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private destroyRef = inject(DestroyRef);
 
-  public vehicles: WritableSignal<Nullable<Vehicles>> = this.vehicleStore.vehicles;
+  public vehicles: Signal<Nullable<Vehicles>> = this.vehicleStore.vehicles.asReadonly();
 
   public form = this.formBuilder.group({
     vin: ['', Validators.required],

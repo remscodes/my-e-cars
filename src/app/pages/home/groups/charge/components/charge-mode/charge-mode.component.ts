@@ -28,10 +28,6 @@ export interface BetterSchedule {
 }
 
 @Component({
-  templateUrl: './charge-mode.component.html',
-  styleUrl: './charge-mode.component.css',
-  animations: [fade],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatIconModule,
@@ -39,6 +35,10 @@ export interface BetterSchedule {
     MatDialogModule,
     WeekRibbonComponent,
   ],
+  templateUrl: './charge-mode.component.html',
+  styleUrl: './charge-mode.component.css',
+  animations: [fade],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChargeModeComponent implements OnInit {
 

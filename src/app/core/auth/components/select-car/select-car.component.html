@@ -10,7 +10,7 @@
       <div>
         <mat-radio-group class="flex flex-col gap-2" formControlName="vin">
 
-          @for (vehicle of vehicles()!.vehicleLinks;track vehicle.vin) {
+          @for (vehicle of vehicles()!.vehicleLinks; track vehicle.vin) {
             <mat-radio-button [value]="vehicle.vin">
               {{ vehicle.vin }}
             </mat-radio-button>

@@ -5,12 +5,12 @@ import { VehicleLocation } from '@remscodes/renault-api';
 import { FreemiumMapComponent } from './components/freemium-map/freemium-map.component';
 
 @Component({
-  templateUrl: './location.component.html',
-  styleUrl: './location.component.css',
   standalone: true,
   imports: [
     FreemiumMapComponent,
   ],
+  templateUrl: './location.component.html',
+  styleUrl: './location.component.css',
 })
 export class LocationComponent implements OnInit {
 

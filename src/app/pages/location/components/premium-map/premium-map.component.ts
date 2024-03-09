@@ -3,13 +3,13 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-premium-map',
-  templateUrl: './premium-map.component.html',
-  styleUrl: './premium-map.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     GoogleMapsModule,
   ],
+  templateUrl: './premium-map.component.html',
+  styleUrl: './premium-map.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PremiumMapComponent implements OnInit {
 

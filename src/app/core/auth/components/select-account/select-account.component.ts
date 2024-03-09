@@ -9,9 +9,6 @@ import { Bouncer } from '../../../../shared/services/bouncer.service';
 import { AuthStore } from '../../services/auth-store.service';
 
 @Component({
-  templateUrl: './select-account.component.html',
-  styleUrl: './select-account.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -20,6 +17,9 @@ import { AuthStore } from '../../services/auth-store.service';
     PanelComponent,
     SpinnerComponent,
   ],
+  templateUrl: './select-account.component.html',
+  styleUrl: './select-account.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectAccountComponent {
 
@@ -27,7 +27,7 @@ export class SelectAccountComponent {
   private bouncer = inject(Bouncer);
   private formBuilder = inject(FormBuilder);
 
-  public accounts: Signal<Account[]> = computed(() => this.authStore.person()?.accounts ?? []);
+  public accounts = computed<Account[]>(() => this.authStore.person()?.accounts ?? []);
 
   public form = this.formBuilder.group({
     accountId: [this.authStore.accountId(), Validators.required],

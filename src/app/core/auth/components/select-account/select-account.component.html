@@ -12,7 +12,7 @@
             (ngSubmit)="onSubmit()">
 
         <mat-radio-group class="flex flex-col gap-2" formControlName="accountId">
-          @for (account of accounts();track account.accountId) {
+          @for (account of accounts(); track account.accountId) {
             <mat-radio-button [value]="account.accountId">
               {{ account.accountType }}
             </mat-radio-button>

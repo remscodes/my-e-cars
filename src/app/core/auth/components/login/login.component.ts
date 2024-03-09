@@ -10,9 +10,6 @@ import { Loading } from '../../../../shared/services/loading.service';
 import { Auth } from '../../services/auth.service';
 
 @Component({
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -20,6 +17,9 @@ import { Auth } from '../../services/auth.service';
     MatInputModule,
     PanelComponent,
   ],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
 

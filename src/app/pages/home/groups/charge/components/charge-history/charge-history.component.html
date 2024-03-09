@@ -29,7 +29,7 @@
     <div style="border-top: 2px solid rgb(128,128,128);"></div>
 
     <div class="overflow-auto">
-      @for (charge of charges;track charge.chargeStartDate) {
+      @for (charge of charges; track charge.chargeStartDate) {
         <app-charge [charge]="charge"/>
       }
     </div>

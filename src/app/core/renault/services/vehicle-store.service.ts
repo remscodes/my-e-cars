@@ -15,18 +15,18 @@ export class VehicleStore {
   private storage = inject(StorageService);
   private session = inject(NgxRenaultSession);
 
-  public vehicles: WritableSignal<Nullable<Vehicles>> = signal(null);
-  public vin: WritableSignal<Nullable<string>> = signal(this.storage.getVin());
+  public vehicles = signal<Nullable<Vehicles>>(null);
+  public vin = signal<Nullable<string>>(this.storage.getVin());
 
-  public vehicle: Signal<Optional<VehicleLink>> = computed(() => {
+  public vehicle = computed<Optional<VehicleLink>>(() => {
     return this.vehicles()?.vehicleLinks?.find(({ vin }) => vin === this.vin());
   }, { equal: (a, b) => a?.vin === b?.vin });
 
-  public model: Signal<Optional<VehicleDetails['model']>> = computed(() => {
+  public model = computed<Optional<VehicleDetails['model']>>(() => {
     return this.vehicle()?.vehicleDetails?.model;
   });
 
-  public imgSrc: Signal<Optional<string>> = computed(() => {
+  public imgSrc = computed<Optional<string>>(() => {
     return this.vehicle()?.vehicleDetails?.assets
       ?.find(({ viewpoint }) => (viewpoint === IMAGE_ORIENTATION_KEY.iso))?.renditions
       ?.find(({ resolutionType }) => resolutionType?.endsWith('SMALL'))?.url;
@@ -39,10 +39,10 @@ export class VehicleStore {
     hvacStatus: null,
   });
 
-  public batteryStatus: Signal<Nullable<BatteryStatus>> = computed(() => this.stats().batteryStatus);
-  public chargeMode: Signal<Nullable<ChargeMode>> = computed(() => this.stats().chargeMode);
-  public charges: Signal<Nullable<Charges>> = computed(() => this.stats().charges);
-  public hvacStatus: Signal<Nullable<HvacStatus>> = computed(() => this.stats().hvacStatus);
+  public batteryStatus = computed<Nullable<BatteryStatus>>(() => this.stats().batteryStatus);
+  public chargeMode = computed<Nullable<ChargeMode>>(() => this.stats().chargeMode);
+  public charges = computed<Nullable<Charges>>(() => this.stats().charges);
+  public hvacStatus = computed<Nullable<HvacStatus>>(() => this.stats().hvacStatus);
 
   public updateBatteryStatus(value: BatteryStatus): void {
     this.updateStats('batteryStatus', value);

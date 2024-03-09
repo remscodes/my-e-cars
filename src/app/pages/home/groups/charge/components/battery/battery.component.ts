@@ -3,11 +3,11 @@ import { BatteryStatus, PlugStatus } from '@remscodes/renault-api';
 
 @Component({
   selector: 'app-battery',
+  standalone: true,
+  imports: [],
   templateUrl: './battery.component.html',
   styleUrl: './battery.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [],
 })
 export class BatteryComponent implements OnChanges {
 
