@@ -9,13 +9,13 @@ export interface EnabledDay {
 
 @Component({
   selector: 'app-week-ribbon',
-  templateUrl: './week-ribbon.component.html',
-  styleUrl: './week-ribbon.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     UpperCasePipe,
   ],
+  templateUrl: './week-ribbon.component.html',
+  styleUrl: './week-ribbon.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WeekRibbonComponent {
 
@@ -26,7 +26,7 @@ export class WeekRibbonComponent {
   public isReadonly: boolean = false;
 
   @Output()
-  public enabledDaysChange: EventEmitter<EnabledDay[]> = new EventEmitter();
+  public enabledDaysChange = new EventEmitter<EnabledDay[]>();
 
   public toggle(day: EnabledDay): void {
     day.enabled = !day.enabled;

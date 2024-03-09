@@ -11,9 +11,6 @@ export interface AddScheduleDialogComponentData {
 }
 
 @Component({
-  templateUrl: './add-time-schedule-dialog.component.html',
-  styleUrl: './add-time-schedule-dialog.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -21,6 +18,9 @@ export interface AddScheduleDialogComponentData {
     MatInputModule,
     MatButtonModule,
   ],
+  templateUrl: './add-time-schedule-dialog.component.html',
+  styleUrl: './add-time-schedule-dialog.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddTimeScheduleDialogComponent {
 

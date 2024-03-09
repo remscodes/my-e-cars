@@ -1,5 +1,5 @@
 <div class="flex gap-2">
-  @for (day of enabledDays;track day.day) {
+  @for (day of enabledDays; track day.day) {
     <div class="flex justify-center w-[30px] h-[30px] rounded-[50%]"
          [style.background-color]="(day.enabled) ? 'black' : 'rgb(240, 240, 240)'"
          (click)="!isReadonly && toggle(day)">

@@ -9,13 +9,13 @@ export interface AddWeekScheduleDialogComponentData {
 }
 
 @Component({
-  templateUrl: './add-week-schedule-dialog.component.html',
-  styleUrl: './add-week-schedule-dialog.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     WeekRibbonComponent,
   ],
+  templateUrl: './add-week-schedule-dialog.component.html',
+  styleUrl: './add-week-schedule-dialog.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddWeekScheduleDialogComponent {
 

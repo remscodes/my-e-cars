@@ -9,14 +9,14 @@ import { Nullable } from '../../../../../../shared/models/shared.model';
 
 @Component({
   selector: 'app-hvac-widget',
-  templateUrl: './hvac-widget.component.html',
-  styleUrl: './hvac-widget.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,
   ],
+  templateUrl: './hvac-widget.component.html',
+  styleUrl: './hvac-widget.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HvacWidgetComponent implements OnInit {
 

@@ -15,9 +15,6 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
 
 @Component({
   selector: 'app-charge-widget',
-  templateUrl: './charge-widget.component.html',
-  styleUrl: './charge-widget.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatButtonModule,
@@ -28,6 +25,9 @@ import { ChargeActionsComponent } from '../charge-actions/charge-actions.compone
     ChargeActionsComponent,
     SpinnerComponent,
   ],
+  templateUrl: './charge-widget.component.html',
+  styleUrl: './charge-widget.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChargeWidgetComponent implements OnInit {
 
@@ -36,8 +36,9 @@ export class ChargeWidgetComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   public batteryStatus: Signal<Nullable<BatteryStatus>> = this.vehicleStore.batteryStatus;
-  public isCharging: Signal<boolean> = computed(() => this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED);
-  public batteryGradient: Signal<string> = computed(() => {
+
+  public isCharging = computed<boolean>(() => this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED);
+  public batteryGradient = computed<string>(() => {
     const color: string = (this.batteryStatus()?.plugStatus === PlugStatus.PLUGGED) ? '#00f000' : 'lightblue';
     return `linear-gradient(to right, ${color} ${this.batteryStatus()?.batteryLevel ?? 0}%, white ${this.batteryStatus()?.batteryLevel ?? 0}%)`;
   });

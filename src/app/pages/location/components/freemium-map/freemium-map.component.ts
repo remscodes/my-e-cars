@@ -5,11 +5,11 @@ import { WINDOW } from '../../../../shared/tokens/window.token';
 
 @Component({
   selector: 'app-freemium-map',
+  standalone: true,
+  imports: [],
   templateUrl: './freemium-map.component.html',
   styleUrl: './freemium-map.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [],
 })
 export class FreemiumMapComponent implements OnInit, OnChanges {
 
@@ -25,7 +25,7 @@ export class FreemiumMapComponent implements OnInit, OnChanges {
   @Input()
   public zoom?: number = 18;
 
-  public url: URL = new URL('https://www.google.com/maps/embed/v1/place');
+  public url = new URL('https://www.google.com/maps/embed/v1/place');
 
   public src: Optional<SafeUrl>;
 
