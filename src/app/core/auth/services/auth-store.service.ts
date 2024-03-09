@@ -1,6 +1,6 @@
-import { computed, effect, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { NgxRenaultSession } from '@remscodes/ngx-renault-api-client';
-import { AccountInfo, Person } from '@remscodes/renault-api';
+import { Account, Person } from '@remscodes/renault-api';
 import { Nullable, Optional } from '../../../shared/models/shared.model';
 import { StorageService } from '../../../shared/services/storage.service';
 
@@ -14,28 +14,27 @@ export class AuthStore {
   private storage = inject(StorageService);
   private session = inject(NgxRenaultSession);
 
-  public personId: WritableSignal<Nullable<string>> = signal(null);
-  public person: WritableSignal<Nullable<Person>> = signal(null);
+  public personId = signal<Nullable<string>>(null);
+  public person = signal<Nullable<Person>>(null);
 
-  public accountId: WritableSignal<Nullable<string>> = signal(this.storage.getAccountId());
-  public account: Signal<Optional<AccountInfo>> = computed(() => {
+  public accountId = signal<Nullable<string>>(this.storage.getAccountId());
+  public account = computed<Optional<Account>>(() => {
     return this.person()?.accounts?.find(acc => acc.accountId === this.accountId());
   });
 
-  public isAuth: Signal<boolean> = computed(() => !!this.person());
+  public isAuth = computed<boolean>(() => !!this.person());
 
   private $storeAccountId(): void {
     effect(() => {
       const accountId: Nullable<string> = this.accountId();
-
-      if (accountId) {
-        this.storage.setAccountId(accountId);
-        this.session.accountId = accountId;
-      }
-      else {
+      if (!accountId) {
         this.storage.clearAccountId();
         this.session.accountId = undefined;
+        return;
       }
+
+      this.storage.setAccountId(accountId);
+      this.session.accountId = accountId;
     });
   }
 }

@@ -14,9 +14,9 @@ interface RegisteredSub {
 @Injectable({ providedIn: 'root' })
 export class Loading {
 
-  public active: WritableSignal<boolean> = signal(false);
+  public active = signal(false);
 
-  private subsMap: Map<string, SubLike> = new Map();
+  private subsMap = new Map<string, SubLike>();
   private count: number = 0;
 
   public start(input?: RegisteredSub): void {
@@ -35,9 +35,8 @@ export class Loading {
       this.subsMap.delete(id);
     }
 
-    if (this.count) this.count --;
-
-    if (!this.count) this.active.set(false);
+    if (this.count > 0) this.count --;
+    if (this.count === 0) this.active.set(false);
   }
 
   public stopForce(): void {

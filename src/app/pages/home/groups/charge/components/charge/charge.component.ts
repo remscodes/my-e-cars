@@ -6,15 +6,15 @@ import { MinuteToHourPipe } from '../../../../../../shared/pipes/minute-to-hour.
 
 @Component({
   selector: 'app-charge',
-  templateUrl: './charge.component.html',
-  styleUrl: './charge.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatIconModule,
     MinuteToHourPipe,
     DatePipe,
   ],
+  templateUrl: './charge.component.html',
+  styleUrl: './charge.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChargeComponent {
 

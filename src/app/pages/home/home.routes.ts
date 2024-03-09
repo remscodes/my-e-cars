@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home.component';
 import { ChargeHistoryComponent } from './groups/charge/components/charge-history/charge-history.component';
 import { ChargeModeComponent } from './groups/charge/components/charge-mode/charge-mode.component';
+import { HomeComponent } from './home.component';
 
 export const HOME_ROUTES: Routes = [
   {

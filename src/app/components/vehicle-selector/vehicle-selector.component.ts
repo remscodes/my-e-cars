@@ -7,14 +7,14 @@ import { Optional } from '../../shared/models/shared.model';
 
 @Component({
   selector: 'app-vehicle-selector',
-  templateUrl: './vehicle-selector.component.html',
-  styleUrl: './vehicle-selector.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     NgOptimizedImage,
     RigidImageDirective,
   ],
+  templateUrl: './vehicle-selector.component.html',
+  styleUrl: './vehicle-selector.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VehicleSelectorComponent {
 

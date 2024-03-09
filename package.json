@@ -8,14 +8,13 @@
     "url": "https://github.com/remscodes"
   },
   "scripts": {
-    "start": "npm run init && ng serve",
+    "start": "pnpm run init && ng serve",
     "start:host": "ng serve --host 0.0.0.0 --port 3000 --disable-host-check",
-    "build": "npm run init && ng build",
+    "build": "pnpm run init && ng build",
     "types": "tsc --noEmit",
-    "test": "npm run init && ng test --code-coverage --browsers=ChromeHeadless",
-    "test:ci": "npm run test --watch=false --progress=false",
-    "init": "npm run inject-version & npm run create-env-file",
-    "inject-version": "node ./scripts/inject-version.cjs",
+    "test": "pnpm run init && ng test --code-coverage --browsers=ChromeHeadless",
+    "test:ci": "pnpm run test --watch=false --progress=false",
+    "init": "pnpm run inject-version & pnpm run create-env-file",
     "create-env-file": "node ./scripts/create-env-js.cjs"
   },
   "repository": {

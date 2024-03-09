@@ -32,7 +32,7 @@ function toDirection(side: 'left' | 'right'): AnimationMetadata[] {
     query(':enter', [
       style({ left: (side === 'right') ? '100%' : '-100%' })
     ]),
-    query(':leave', animateChild()),
+    query(':enter, :leave', animateChild()),
     group([
       query(':enter', [
         animate('300ms ease', style({ left: '0%' }))

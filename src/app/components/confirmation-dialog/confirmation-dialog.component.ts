@@ -4,14 +4,14 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { DialogData } from '../../models/dialog-data.model';
 
 @Component({
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrl: './confirmation-dialog.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatDialogModule,
     MatButtonModule,
   ],
+  templateUrl: './confirmation-dialog.component.html',
+  styleUrl: './confirmation-dialog.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationDialogComponent {
 

@@ -5,13 +5,13 @@ import { BetterRouter } from '../../../../../../shared/services/better-router.se
 
 @Component({
   selector: 'app-charge-actions',
-  templateUrl: './charge-actions.component.html',
-  styleUrl: './charge-actions.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatIconModule,
   ],
+  templateUrl: './charge-actions.component.html',
+  styleUrl: './charge-actions.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChargeActionsComponent {
 

@@ -5,13 +5,13 @@ import { Bouncer } from '../../shared/services/bouncer.service';
 import { Evaluator } from '../../shared/services/evaluator.service';
 
 @Component({
-  templateUrl: './account.component.html',
-  styleUrl: './account.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     MatButtonModule,
   ],
+  templateUrl: './account.component.html',
+  styleUrl: './account.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountComponent {
 
